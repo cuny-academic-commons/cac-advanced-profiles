@@ -9,5 +9,16 @@
  */
 ?>
 
-<?php bp_get_template_part( 'cacap/header' ) ?>
+<?php /* @todo Call a real header template? Which? */ ?>
+<?php wp_head() ?>
+
+<?php if ( bp_is_user_profile_edit() ) : ?>
+	<?php bp_get_template_part( 'cacap/header-edit' ) ?>
+	<?php bp_get_template_part( 'cacap/body-edit' ) ?>
+<?php else : ?>
+	<?php bp_get_template_part( 'cacap/header' ) ?>
+	<?php bp_get_template_part( 'cacap/body' ) ?>
+<?php endif; ?>
+
+
 <?php get_footer( 'cacap' ) ?>

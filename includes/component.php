@@ -16,8 +16,8 @@ class CAC_Advanced_Profiles extends BP_Component {
 		$this->includes_dir = trailingslashit( CACAP_PLUGIN_DIR ) . trailingslashit( 'includes' );
 
 		$this->setup_container();
+		$this->includes();
 		$this->setup_view();
-	//	$this->includes();
 	//	$this->setup_hooks();
 	}
 
@@ -38,7 +38,7 @@ class CAC_Advanced_Profiles extends BP_Component {
 	}
 
 	function includes() {
-
+		require( $this->includes_dir . 'functions.php' );
 	}
 
 	function setup_hooks() {
