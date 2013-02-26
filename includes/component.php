@@ -5,9 +5,15 @@ class CAC_Advanced_Profiles extends BP_Component {
 	 * Constructor
 	 */
 	function __construct() {
+		// For now, we require xprofile
+		if ( ! bp_is_active( 'xprofile' ) ) {
+			_doing_it_wrong( __METHOD__, __( 'CAC Advanced Profiles requires BP xprofile component' ), '0.1' );
+			return;
+		}
+
 		parent::start(
 			'cacap',
-			__( 'CAC Advanced Profiles', 'bp-docs' ),
+			__( 'CAC Advanced Profiles', 'cacap' ),
 			CACAP_PLUGIN_DIR
 		);
 
