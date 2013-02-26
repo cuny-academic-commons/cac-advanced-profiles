@@ -50,6 +50,10 @@ class CAC_Advanced_Profiles extends BP_Component {
 	function setup_hooks() {
 
 	}
+
+	public function get_user( $user_id ) {
+		return $this->container->get_user( $user_id );
+	}
 }
 
 function cacap_load_component() {
