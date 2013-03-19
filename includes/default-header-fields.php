@@ -7,6 +7,7 @@ if ( ! class_exists( 'CACAP_Header_Field' ) ) {
 function cacap_header_fields() {
 	return array(
 		'name' => new CACAP_Name_Header_Field,
+		'short_description' => new CACAP_ShortDescription_Header_Field,
 	);
 }
 
@@ -14,13 +15,21 @@ function cacap_header_fields() {
  * Defines the header field classes
  */
 class CACAP_Name_Header_Field extends CACAP_Header_Field {
-	public function __construct( $user_id = 0 ) {
-		$args = array( 'field_id' => xprofile_get_field_id_from_name( 'Name' ) );
+	public function __construct() {
+		$args = array(
+			'field_name' => 'Name',
+			'field_type' => 'text',
+		);
+		parent::init( $args );
+	}
+}
 
-		if ( $user_id ) {
-			$args['user_id'] = intval( $user_id );
-		}
-
+class CACAP_ShortDescription_Header_Field extends CACAP_Header_Field {
+	public function __construct() {
+		$args = array(
+			'field_name' => 'Short Description',
+			'field_type' => 'textarea',
+		);
 		parent::init( $args );
 	}
 }
