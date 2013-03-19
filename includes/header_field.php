@@ -5,6 +5,7 @@ class CACAP_Header_Field {
 	protected $field_id = 0;
 	protected $field_type = 'text';
 	protected $field_name;
+	protected $field_input_id;
 	protected $value;
 
 	/**
@@ -60,6 +61,13 @@ class CACAP_Header_Field {
 
 	public function get_field_id() {
 		return $this->field_id;
+	}
+
+	public function get_field_input_id() {
+		if ( is_null( $this->field_input_id ) ) {
+			$this->field_input_id = 'cacap-edit-' . $this->field_id;
+		}
+		return $this->field_input_id;
 	}
 
 	public function get_field_name() {

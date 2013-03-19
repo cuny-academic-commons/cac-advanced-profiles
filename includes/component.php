@@ -38,6 +38,7 @@ class CAC_Advanced_Profiles extends BP_Component {
 
 	function includes() {
 		require( $this->includes_dir . 'functions.php' );
+		require( $this->includes_dir . 'user.php' );
 		require( $this->includes_dir . 'default-header-fields.php' );
 		require( $this->includes_dir . 'profile_data_schema.php' );
 	}

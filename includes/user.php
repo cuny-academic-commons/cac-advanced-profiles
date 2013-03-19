@@ -16,6 +16,24 @@ class CACAP_User {
 		return $this->user_id;
 	}
 
+	public function save_fields( $submitted = array() ) {
+		$success = true;
+		$header_fields = cacap_header_fields();
+
+		foreach ( $submitted as $field_key => $field_value ) {
+			$field = $header_fields[ $field_key ];
+
+			$field->set_value( $field_value );
+			$saved = $field->save();
+
+			if ( ! $saved && $success ) {
+				$success = false;
+			}
+		}
+
+		return $success;
+	}
+
 	public function get_widgets() {
 		if ( is_null( $this->widgets ) ) {
 			$this->widgets = array();
