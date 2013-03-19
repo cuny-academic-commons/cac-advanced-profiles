@@ -18,3 +18,4 @@ function cacap_user_widgets() {
 	return $user->get_widgets();
 }
 
+

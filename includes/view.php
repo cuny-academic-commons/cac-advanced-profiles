@@ -1,6 +1,7 @@
 <?php
 
 class CACAP_View {
+
 	public function __construct() {
 		add_filter( 'bp_located_template', array( $this, 'filter_top_level_template' ) );
 		add_filter( 'bp_get_template_stack', array( $this, 'filter_template_stack' ) );

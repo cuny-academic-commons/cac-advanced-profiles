@@ -8,11 +8,11 @@ class CACAP_Widget_Instance {
 	public function __construct( $id ) {
 		$this->id = intval( $id );
 
-		if ( ! class_exists( 'CACAP_Widget_Instance_Schema' ) ) {
-			require( $this->includes_dir . 'widget_instance_schema.php' );
+		if ( ! class_exists( 'CACAP_Profile_Data_Schema' ) ) {
+			require( $this->includes_dir . 'profile_data_schema.php' );
 		}
 
-		$this->schema = new CACAP_Widget_Instance_Schema();
+		$this->schema = new CACAP_Profile_Data_Schema();
 
 		$this->get_data();
 	}
