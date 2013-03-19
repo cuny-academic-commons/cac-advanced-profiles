@@ -21,25 +21,18 @@ class CAC_Advanced_Profiles extends BP_Component {
 
 		$this->includes_dir = trailingslashit( CACAP_PLUGIN_DIR ) . trailingslashit( 'includes' );
 
-		$this->setup_container();
 		$this->includes();
 		$this->setup_view();
 	//	$this->setup_hooks();
 	}
 
-	function setup_container() {
-		if ( empty( $this->container ) ) {
-			if ( ! class_exists( 'CACAP_Container' ) ) {
-				require( $this->includes_dir . 'container.php' );
-			}
-
-			$this->container = new CACAP_Container;
-		}
-	}
-
 	function setup_view() {
 		if ( empty( $this->view ) ) {
-			$this->view = $this->container->get_view();
+			if ( ! class_exists( 'CACAP_View' ) ) {
+				require( $this->includes_dir . 'view.php' );
+			}
+
+			$this->view = new CACAP_View();
 		}
 	}
 
@@ -52,7 +45,11 @@ class CAC_Advanced_Profiles extends BP_Component {
 	}
 
 	public function get_user( $user_id ) {
-		return $this->container->get_user( $user_id );
+		if ( ! class_exists( 'CACAP_User' ) ) {
+			require( $this->includes_dir . 'user.php' );
+		}
+
+		return new CACAP_User( $user_id );
 	}
 }
 
