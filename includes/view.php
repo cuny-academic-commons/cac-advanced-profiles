@@ -8,6 +8,7 @@ class CACAP_View {
 		add_filter( 'bp_get_template_stack', array( $this, 'filter_template_stack' ) );
 	}
 
+	// @todo Move to a controller
 	public function catch_profile_edit() {
 		if ( bp_is_user_profile_edit() && ! empty( $_POST['cacap-edit-submit'] ) ) {
 			// @todo nonce
@@ -54,7 +55,7 @@ class CACAP_View {
 	 */
 	public function filter_template_stack( $stack ) {
 		if ( ! bp_displayed_user_id() ) {
-			return $template;
+			return $stack;
 		}
 
 		$stack[] = CACAP_PLUGIN_DIR . 'templates';
