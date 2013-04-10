@@ -18,4 +18,39 @@ function cacap_user_widgets() {
 	return $user->get_widgets();
 }
 
+function cacap_widget_types() {
+	// hardcoding for now
+	$types = array(
+		'text' => 'CACAP_Widget_Text',
+		'academic-interests' => 'CACAP_Widget_AcademicInterests',
+	);
 
+	$widgets = array();
+	foreach ( $types as $type => $class ) {
+		$widgets[ $type ] = new $class;
+	}
+
+	return $widgets;
+}
+
+function cacap_html_gen() {
+	static $wpsdl;
+
+	if ( empty( $wpsdl ) ) {
+		require_once trailingslashit( CACAP_PLUGIN_DIR ) . 'lib/wp-sdl/wp-sdl.php';
+		$wpsdl = WP_SDL::support( '1.0' );
+	}
+
+	return $wpsdl->html();
+}
+
+function cacap_profile_data_schema() {
+	static $schema;
+
+	if ( empty( $schema ) ) {
+		require_once trailingslashit( CACAP_PLUGIN_DIR ) . 'includes/profile_data_schema.php';
+		$schema = new CACAP_Profile_Data_Schema();
+	}
+
+	return $schema;
+}

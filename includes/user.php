@@ -38,10 +38,6 @@ class CACAP_User {
 		if ( is_null( $this->widgets ) ) {
 			$this->widgets = array();
 
-			if ( ! class_exists( 'CACAP_Widget_Instance' ) ) {
-				require( cacap_includes_dir() . 'widget_instance.php' );
-			}
-
 			$widget_instance_ids = $this->get_widget_instance_ids();
 
 			foreach ( $widget_instance_ids as $widget_instance_id ) {
@@ -58,5 +54,23 @@ class CACAP_User {
 			$widget_instance_ids = array();
 		}
 		return $widget_instance_ids;
+	}
+
+	public function create_widget_instance( $args = array() ) {
+		$r = wp_parse_args( $args, array(
+			'type' => '',
+			'title' => '',
+			'content' => '',
+		) );
+
+		$r['user_id'] = $this->user_id;
+		// @todo error/empty checking
+
+		$widget_instance = new CACAP_Widget_Instance();
+		if ( $widget_instance->create( $r ) ) {
+			// get the widget instance id and store
+		} else {
+			// cry me a river
+		}
 	}
 }

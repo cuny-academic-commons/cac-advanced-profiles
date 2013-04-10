@@ -3,22 +3,36 @@
 class CACAP_Widget_Instance {
 	protected $id;
 	protected $data;
-	protected $widget;
 
-	public function __construct( $id ) {
-		$this->id = intval( $id );
-
-		if ( ! class_exists( 'CACAP_Profile_Data_Schema' ) ) {
-			require( $this->includes_dir . 'profile_data_schema.php' );
+	public function __construct( $id = null ) {
+		if ( ! is_null( $id ) ) {
+			$this->id = intval( $id );
+			$this->get_data();
 		}
-
-		$this->schema = new CACAP_Profile_Data_Schema();
-
-		$this->get_data();
 	}
 
 	public function get_data() {
-		$this->data = $this->schema->get_data_by_id( $this->id );
+		$this->data = cacap_profile_data_schema()->get_data_by_id( $this->id );
 		return $this->data;
+	}
+
+	public function create( $args = array() ) {
+		$r = wp_parse_args( $args, array(
+			'type' => '',
+			'title' => '',
+			'content' => '',
+		) );
+
+		$types = cacap_widget_types();
+		if ( isset( $types[ $r['type'] ] ) ) {
+			$widget_type = $types[ $r['type'] ];
+		} else {
+			// do something bad
+			return;
+		}
+
+		$widget_instance_id = $widget_type->save_instance_for_user( $r );
+
+		return $widget_instance_id;
 	}
 }

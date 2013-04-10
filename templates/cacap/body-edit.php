@@ -1,8 +1,6 @@
 <?php
 
-require_once trailingslashit( CACAP_PLUGIN_DIR ) . 'lib/wp-sdl/wp-sdl.php';
-$wpsdl = WP_SDL::support( '1.0' );
-$h = $wpsdl->html();
+$h = cacap_html_gen();
 
 ?>
 
@@ -25,14 +23,42 @@ $h = $wpsdl->html();
 		</li>
 	<?php endforeach; ?>
 	</ul>
-</div>
-
-<div id="cacap-body">
-	<?php foreach ( cacap_user_widgets() as $widget ) : ?>
-		<?php var_dump( $widget ) ?>
-	<?php endforeach; ?>
-</div>
-
 <?php $h->input( 'submit', 'cacap-edit-submit', __( 'Submit', 'cacap' ) ) ?>
+</div>
 
 </form>
+
+<div id="cacap-body">
+	<div id="cacap-user-widgets">
+		<?php foreach ( cacap_user_widgets() as $widget ) : ?>
+			<?php var_dump( $widget ) ?>
+		<?php endforeach; ?>
+	</div>
+
+	<div id="cacap-user-widget-new">
+		<h2><?php _e( 'Create New Widget', 'cacap' ) ?></h2>
+		<?php if ( empty( $_GET['cacap-new-widget-type'] ) ) : ?>
+			<form action="" method="get">
+				<?php include( 'widget-new-selector.php' ) ?>
+			</form>
+			<?php $h->input( 'submit', '', __( 'Create', 'cacap' ) ) ?>
+		<?php else : ?>
+			<form action="" method="post">
+				<?php
+				$widget_types = cacap_widget_types();
+				// @todo better checks
+				if ( isset( $widget_types[ $_GET['cacap-new-widget-type'] ] ) ) {
+					echo $widget_types[ $_GET['cacap-new-widget-type'] ]->create_widget_markup();
+				}
+				wp_nonce_field( 'cacap_new_widget' );
+				?>
+
+				<input type="hidden" name="cacap-widget-type" value="<?php echo esc_attr( $_GET['cacap-new-widget-type'] ) ?>" />
+
+				<?php $h->input( 'submit', 'cacap-widget-create-submit', __( 'Create', 'cacap' ) ) ?>
+			</form>
+		<?php endif ?>
+	</div>
+</div>
+
+

@@ -4,6 +4,7 @@ class CACAP_View {
 
 	public function __construct() {
 		add_action( 'bp_actions', array( $this, 'catch_profile_edit' ), 5 );
+		add_action( 'bp_actions', array( $this, 'catch_widget_create' ), 5 );
 		add_filter( 'bp_located_template', array( $this, 'filter_top_level_template' ) );
 		add_filter( 'bp_get_template_stack', array( $this, 'filter_template_stack' ) );
 	}
@@ -22,6 +23,39 @@ class CACAP_View {
 			$user = new CACAP_User( bp_displayed_user_id() );
 			$result = $user->save_fields( $submitted );
 			var_dump( $result ); die();
+		}
+	}
+
+	// @todo Move to a controller
+	public function catch_widget_create() {
+		if ( bp_is_user_profile_edit() && ! empty( $_POST['cacap-widget-create-submit'] ) ) {
+			// CSRF protection
+			check_admin_referer( 'cacap_new_widget' );
+
+			// Cap check
+			if ( ! bp_is_my_profile() && ! current_user_can( 'bp_moderate' ) ) {
+				return;
+			}
+
+			if ( isset( $_POST['cacap-widget-type'] ) ) {
+				$widget_type = $_POST['cacap-widget-type'];
+			}
+
+			$widget_types = cacap_widget_types();
+
+			if ( ! isset( $widget_type ) || ! isset( $widget_types[ $widget_type ] ) ) {
+				return;
+			}
+
+			$title = isset( $_POST['cacap-new-widget-title'] ) ? $_POST['cacap-new-widget-title'] : '';
+			$content = isset( $_POST['cacap-new-widget-content'] ) ? $_POST['cacap-new-widget-content'] : '';
+
+			$user = new CACAP_User( bp_displayed_user_id() );
+			$result = $user->create_widget_instance( array(
+				'type' => $widget_type,
+				'title' => $title,
+				'content' => $content,
+			) );
 		}
 	}
 
