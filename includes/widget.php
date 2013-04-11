@@ -56,6 +56,15 @@ abstract class CACAP_Widget {
 		return xprofile_set_field_data( $r['title'], absint( $r['user_id'] ), $r['content'] );
 	}
 
+	public function get_instance_for_user( $args = array() ) {
+		$r = wp_parse_args( $args, array(
+			'user_id' => 0,
+			'key' => null,
+		) );
+
+		return xprofile_get_field_data( $this->name, absint( $r['user_id'] ) );
+	}
+
 	public function create_widget_markup() {
 		$html = '';
 		$html .= $this->create_title_markup();
