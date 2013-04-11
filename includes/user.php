@@ -2,7 +2,7 @@
 
 class CACAP_User {
 	protected $user_id;
-	protected $widgets;
+	protected $widget_instances;
 
 	function __construct( $user_id = 0 ) {
 		$this->set_user_id( $user_id );
@@ -34,19 +34,22 @@ class CACAP_User {
 		return $success;
 	}
 
-	public function get_widgets() {
-		if ( is_null( $this->widgets ) ) {
-			$this->widgets = array();
+	public function get_widget_instances() {
+		if ( is_null( $this->widget_instances ) ) {
+			$this->widget_instances = array();
 
 			$widget_instance_data = $this->get_widget_instance_data();
 
 			foreach ( $widget_instance_data as $widget_instance_datum ) {
 				$key = $widget_instance_datum['key'];
-				$this->widgets[ $key ] = new CACAP_Widget_Instance( $widget_instance_datum );
+				$widget_types = cacap_widget_types();
+				if ( $key ) {
+					$this->widget_instances[ $key ] = new CACAP_Widget_Instance( $widget_instance_datum );
+				}
 			}
 		}
 
-		return $this->widgets;
+		return $this->widget_instances;
 	}
 
 	public function get_widget_instance_data() {
@@ -85,7 +88,7 @@ class CACAP_User {
 	}
 
 	public function refresh_widget_instances() {
-		$this->widgets = null;
-		$this->get_widgets();
+		$this->widget_instances = null;
+		$this->get_widget_instances();
 	}
 }

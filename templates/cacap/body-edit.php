@@ -30,9 +30,15 @@ $h = cacap_html_gen();
 
 <div id="cacap-body">
 	<div id="cacap-user-widgets">
-		<?php foreach ( cacap_user_widgets() as $widget ) : ?>
-			<?php var_dump( $widget ) ?>
+		<ul>
+		<?php foreach ( cacap_user_widget_instances() as $widget_instance ) : ?>
+			<?php /* temp */ ?>
+			<li>
+				<div id="cacap-widget-title"><?php echo $widget_instance->display_title() ?></div>
+				<div id="cacap-widget-content"><?php echo $widget_instance->display_content() ?></div>
+			</li>
 		<?php endforeach; ?>
+		</ul>
 	</div>
 
 	<div id="cacap-user-widget-new">

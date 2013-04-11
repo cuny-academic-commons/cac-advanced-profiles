@@ -140,4 +140,13 @@ abstract class CACAP_Widget {
 
 		return $html;
 	}
+
+	public function display_title_markup( $value ) {
+		return esc_html( $this->name );
+	}
+
+	// @todo use bp xprofile functions for formatting potential arrays, etc
+	public function display_content_markup( $value ) {
+		return esc_html( $value );
+	}
 }

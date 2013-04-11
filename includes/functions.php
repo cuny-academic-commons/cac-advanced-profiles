@@ -10,12 +10,12 @@ function cacap_includes_dir() {
 	return $includes_dir;
 }
 
-function cacap_user_widgets() {
+function cacap_user_widget_instances() {
 	// @todo abstract
 	$user_id = bp_displayed_user_id();
 
 	$user = buddypress()->cacap->get_user( $user_id );
-	return $user->get_widgets();
+	return $user->get_widget_instances();
 }
 
 function cacap_widget_types() {

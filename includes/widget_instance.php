@@ -98,6 +98,14 @@ class CACAP_Widget_Instance {
 		return $widget_instance_data;
 	}
 
+	public function display_title() {
+		return $this->type->display_title_markup( $this->value );
+	}
+
+	public function display_content() {
+		return $this->type->display_content_markup( $this->value );
+	}
+
 	/**
 	 * Formats instance metadata for storage in usermeta
 	 *

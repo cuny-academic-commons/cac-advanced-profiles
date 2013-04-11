@@ -59,4 +59,12 @@ class CACAP_Widget_Text extends CACAP_Widget {
 
 		return get_user_meta( absint( $r['user_id'] ), $r['key'], true );
 	}
+
+	public function display_title_markup( $value ) {
+		return esc_html( $value['title'] );
+	}
+
+	public function display_content_markup( $value ) {
+		return esc_html( $value['content'] );
+	}
 }
