@@ -38,6 +38,20 @@ abstract class CACAP_Widget {
 		);
 	}
 
+	/**
+	 * Save widget instance for a given user
+	 *
+	 * In this base method, it's assumed that you're storing data in the BP
+	 * xprofile tables, and that the field name will be the same as the
+	 * 'title' attribute passed in the $args param (or, as a fallback,
+	 * $this->name). If your widget's data schema does not match this, you
+	 * should override this method in your widget class.
+	 *
+	 * @since 1.0
+	 *
+	 * @param array $args
+	 * @return array See CACAP_Widget_Instance::format_instance() for format
+	 */
 	public function save_instance_for_user( $args = array() ) {
 		$r = wp_parse_args( $args, array(
 			'user_id' => 0,
@@ -53,7 +67,16 @@ abstract class CACAP_Widget {
 			$r['title'] = $this->name;
 		}
 
-		return xprofile_set_field_data( $r['title'], absint( $r['user_id'] ), $r['content'] );
+		if ( xprofile_set_field_data( $r['title'], absint( $r['user_id'] ), $r['content'] ) ) {
+			return CACAP_Widget_Instance::format_instance( array(
+				'user_id' => $r['user_id'],
+				'key' => $r['title'],
+				'value' => $r['content'],
+				'type' => $this->slug,
+			) );
+		} else {
+			// phooey
+		}
 	}
 
 	public function get_instance_for_user( $args = array() ) {
