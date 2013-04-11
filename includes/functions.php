@@ -44,13 +44,3 @@ function cacap_html_gen() {
 	return $wpsdl->html();
 }
 
-function cacap_profile_data_schema() {
-	static $schema;
-
-	if ( empty( $schema ) ) {
-		require_once trailingslashit( CACAP_PLUGIN_DIR ) . 'includes/profile_data_schema.php';
-		$schema = new CACAP_Profile_Data_Schema();
-	}
-
-	return $schema;
-}

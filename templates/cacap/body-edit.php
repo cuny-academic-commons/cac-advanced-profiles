@@ -40,8 +40,8 @@ $h = cacap_html_gen();
 		<?php if ( empty( $_GET['cacap-new-widget-type'] ) ) : ?>
 			<form action="" method="get">
 				<?php include( 'widget-new-selector.php' ) ?>
+				<?php $h->input( 'submit', '', __( 'Create', 'cacap' ) ) ?>
 			</form>
-			<?php $h->input( 'submit', '', __( 'Create', 'cacap' ) ) ?>
 		<?php else : ?>
 			<form action="" method="post">
 				<?php

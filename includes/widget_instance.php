@@ -12,7 +12,9 @@ class CACAP_Widget_Instance {
 	}
 
 	public function get_data() {
-		$this->data = cacap_profile_data_schema()->get_data_by_id( $this->id );
+		global $wpdb, $bp;
+		$value = $wpdb->get_var( $wpdb->prepare( "SELECT value FROM {$bp->xprofile->table_name_data} WHERE id = %d", intval( $id ) ) );
+		$this->data = maybe_unserialize( $value );
 		return $this->data;
 	}
 

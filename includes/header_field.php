@@ -31,9 +31,6 @@ class CACAP_Header_Field {
 		if ( isset( $r['field_type'] ) ) {
 			$this->field_type = $r['field_type'];
 		}
-
-		// @todo This is overkill
-		$this->schema = new CACAP_Profile_Data_Schema();
 	}
 
 	/**

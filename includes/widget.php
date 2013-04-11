@@ -1,6 +1,15 @@
 <?php
 
 abstract class CACAP_Widget {
+	/**
+	 * Initialize a widget type
+	 *
+	 * All extending classes should call this method in their constructors
+	 *
+	 * @since 1.0
+	 *
+	 * @param array $args
+	 */
 	protected function init( $args = array() ) {
 		$r = wp_parse_args( $args, array(
 			'name' => '',
@@ -44,7 +53,7 @@ abstract class CACAP_Widget {
 			$r['title'] = $this->name;
 		}
 
-		return cacap_profile_data_schema()->save_flat_data_for_user( $r['title'], absint( $r['user_id'] ), $r['content'] );
+		return xprofile_set_field_data( $r['title'], absint( $r['user_id'] ), $r['content'] );
 	}
 
 	public function create_widget_markup() {
