@@ -10,9 +10,11 @@ $header_secondary_text_color: #6f6f6f;
 
 $font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-$col_width_wide: 75%;
-$col_width_narrow: 25%;
-$col_width_narrowest: 10em;
+$col_width_threequarters: 75%;
+$col_width_onequarter: 25%;
+$col_width_twothirds: 66.666%;
+$col_width_onethird: 33.333%;
+$col_width_narrow: 10em;
 
 h1, h2, h3, h4, h5, h6 {
   color: #222222;
@@ -43,7 +45,7 @@ body.cacap {
 	}
 }
 
-#cacap-body {
+#cacap-content {
 	margin-top: 30px;
 }
 
@@ -84,7 +86,7 @@ body.cacap {
 	}
 
 	.cacap-hero {
-		width: $col_width_wide;
+		width: $col_width_threequarters;
 
 		p {
 			font-size: 1.5em;
@@ -99,7 +101,7 @@ body.cacap {
 	}
 
 	.cacap-avatar {
-		width: $col_width_narrow;
+		width: $col_width_onequarter;
 
 		.avatar {
 			float: right;
@@ -114,7 +116,7 @@ body.cacap {
 		}
 
 		dt {
-			width: $col_width_narrowest;
+			width: $col_width_narrow;
 			float: left;
 			border-right: 1px solid $header_primary_text_color;
 			margin-right: 20px;
@@ -123,4 +125,25 @@ body.cacap {
 		dd {
 		}
 	}
+}
+
+#cacap-body {
+	padding-top: 50px;
+	
+	.cacap-widget {
+		margin-bottom: 20px;
+	}
+
+	.cacap-widget-title {
+		width: $col_width_onethird;
+		float: left;
+		text-transform: uppercase;
+		font-size: 2em;
+		font-weight: 900;
+	}
+	
+	.cacap-widget-content {
+		width: $col_width_twothirds;
+	}
+
 }

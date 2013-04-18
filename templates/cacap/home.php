@@ -14,7 +14,7 @@
 <?php wp_head() ?>
 
 <body <?php body_class() ?>>
-	<div id="cacap-body">
+	<div id="cacap-content">
 		<div id="cacap-header">
 			<?php if ( bp_is_user_profile_edit() ) : ?>
 				<?php bp_get_template_part( 'cacap/header-edit' ) ?>
