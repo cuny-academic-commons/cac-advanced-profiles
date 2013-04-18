@@ -19,30 +19,18 @@
 </div>
 
 <div class="cacap-row">
+	<dl id="cacap-vitals">
+		<dt>Follow me Online</dt>
+		<dd>Icons</dd>
 
+		<dt>Contact</dt>
+		<dd>contact info</dd>
+
+		<dt>Website</dt>
+		<dd>foo.bar</dd>
+
+		<dt>Blog</dt>
+		<dd>awesome.com</dd>
+	</dl>
 </div>
 
-<div class="cacap-row">
-
-</div>
-
-<h3>Optional one sentence about me</h3>
-
-
-<div id="cac-header-avatar">
-	avatar
-</div>
-
-<dl>
-	<dt>Follow me Online</dt>
-	<dd>Icons</dd>
-
-	<dt>Contact</dt>
-	<dd>contact info</dd>
-
-	<dt>Website</dt>
-	<dd>foo.bar</dd>
-
-	<dt>Blog</dt>
-	<dd>awesome.com</dd>
-</dl>

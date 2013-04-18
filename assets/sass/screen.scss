@@ -12,6 +12,7 @@ $font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $col_width_wide: 75%;
 $col_width_narrow: 25%;
+$col_width_narrowest: 10em;
 
 h1, h2, h3, h4, h5, h6 {
   color: #222222;
@@ -42,6 +43,10 @@ body.cacap {
 	}
 }
 
+#cacap-body {
+	margin-top: 30px;
+}
+
 .cacap-row {
 	padding-top: 25px;
 	margin: 0 auto;
@@ -62,6 +67,8 @@ body.cacap {
 
 #cacap-header {
 	background: transparent url('../images/black_linen_v2.png');
+	padding-bottom: 30px;
+	box-shadow: 0 12px 12px -6px #000;
 
 	* {
 		color: $header_primary_text_color;
@@ -96,6 +103,24 @@ body.cacap {
 
 		.avatar {
 			float: right;
+		}
+	}
+
+	#cacap-vitals {
+		& > * {
+			display: block;
+			padding: 7px 10px 7px 5px;
+			margin: 0 10px 15px 0;
+		}
+
+		dt {
+			width: $col_width_narrowest;
+			float: left;
+			border-right: 1px solid $header_primary_text_color;
+			margin-right: 20px;
+		}
+
+		dd {
 		}
 	}
 }
