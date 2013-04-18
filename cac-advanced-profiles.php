@@ -14,6 +14,10 @@ if ( ! defined( 'CACAP_PLUGIN_DIR' ) ) {
 	define( 'CACAP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
 
+if ( ! defined( 'CACAP_PLUGIN_URL' ) ) {
+	define( 'CACAP_PLUGIN_URL', plugins_url() . '/cac-advanced-profiles' );
+}
+
 function cacap_init() {
 	require( dirname( __FILE__ ) . '/includes/component.php' );
 }

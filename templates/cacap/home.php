@@ -10,15 +10,27 @@
 ?>
 
 <?php /* @todo Call a real header template? Which? */ ?>
+
 <?php wp_head() ?>
 
-<?php if ( bp_is_user_profile_edit() ) : ?>
-	<?php bp_get_template_part( 'cacap/header-edit' ) ?>
-	<?php bp_get_template_part( 'cacap/body-edit' ) ?>
-<?php else : ?>
-	<?php bp_get_template_part( 'cacap/header' ) ?>
-	<?php bp_get_template_part( 'cacap/body' ) ?>
-<?php endif; ?>
+<body <?php body_class() ?>>
+	<div id="cacap-body">
+		<div id="cacap-header">
+			<?php if ( bp_is_user_profile_edit() ) : ?>
+				<?php bp_get_template_part( 'cacap/header-edit' ) ?>
+			<?php else : ?>
+				<?php bp_get_template_part( 'cacap/header' ) ?>
+			<?php endif; ?>
+		</div>
 
+		<div id="cacap-body">
+			<?php if ( bp_is_user_profile_edit() ) : ?>
+				<?php bp_get_template_part( 'cacap/body-edit' ) ?>
+			<?php else : ?>
+				<?php bp_get_template_part( 'cacap/body' ) ?>
+			<?php endif; ?>
+		</div>
+	</div>
 
-<?php get_footer( 'cacap' ) ?>
+	<?php get_footer( 'cacap' ) ?>
+</body>

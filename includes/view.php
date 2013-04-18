@@ -7,6 +7,8 @@ class CACAP_View {
 		add_action( 'bp_actions', array( $this, 'catch_widget_create' ), 5 );
 		add_filter( 'bp_located_template', array( $this, 'filter_top_level_template' ) );
 		add_filter( 'bp_get_template_stack', array( $this, 'filter_template_stack' ) );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+		add_filter( 'body_class', array( $this, 'body_class' ) );
 	}
 
 	// @todo Move to a controller
@@ -94,5 +96,17 @@ class CACAP_View {
 
 		$stack[] = CACAP_PLUGIN_DIR . 'templates';
 		return $stack;
+	}
+
+	public function enqueue_styles() {
+		wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css' );
+	}
+
+	public function body_class( $classes ) {
+		if ( bp_is_user_profile() ) {
+			$classes[] = 'cacap';
+		}
+
+		return $classes;
 	}
 }
