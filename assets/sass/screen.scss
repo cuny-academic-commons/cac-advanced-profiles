@@ -40,6 +40,33 @@ a {
 	color: $link_color;
 }
 
+.button {
+	background: none repeat scroll 0 0 #2BA6CB;
+	border: 1px solid #1E728C;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+	color: #FFFFFF;
+	cursor: pointer;
+	display: inline-block;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1;
+	margin: 0;
+	padding: 10px 20px 11px;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	transition: background-color 0.15s ease-in-out 0s;
+	width: auto;
+
+	&.secondary {
+	  background-color: #E9E9E9;
+	  border: 1px solid #C3C3C3;
+	  color: #1D1D1D;
+	}
+}
+
+
 body.cacap {
 	font-family: $font;
 	font-size: 14px;
@@ -176,6 +203,11 @@ body.cacap {
 			}
 		}
 	}
+}
+
+#cacap-edit-button {
+	float: right;
+	width: 100px;
 }
 
 #cacap-body {

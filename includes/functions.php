@@ -22,7 +22,7 @@ function cacap_widget_types() {
 	// hardcoding for now
 	$types = array(
 		'text' => 'CACAP_Widget_Text',
-		'academic-interests' => 'CACAP_Widget_AcademicInterests',
+		'academic-interests' => 'CACAP_Widget_Academic_Interests',
 	);
 
 	$widgets = array();

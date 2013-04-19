@@ -11,3 +11,9 @@
 		</li>
 	</ul>
 </div>
+
+<?php if ( bp_is_my_profile() || current_user_can( 'bp_moderate' ) ) : ?>
+	<div class="cacap-row">
+		<a id="cacap-edit-button" class="button secondary" href="<?php echo $url . 'edit/' ?>"><?php _e( 'Edit', 'cacap' ) ?></a>
+	</div>
+<?php endif ?>
