@@ -7,6 +7,8 @@
 
 $header_primary_text_color: #fff;
 $header_secondary_text_color: #6f6f6f;
+$link_color: #2ba6cb;
+$body_primary_text_color: #000;
 
 $font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -16,15 +18,17 @@ $col_width_twothirds: 66.666%;
 $col_width_onethird: 33.333%;
 $col_width_narrow: 10em;
 
+$tab_height: 40px;
+
 h1, h2, h3, h4, h5, h6 {
-  color: #222222;
-  font-family: $font;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 1.1;
-  margin-bottom: 14px;
-  margin-top: 14px;
-  text-rendering: optimizelegibility;
+	color: #222222;
+	font-family: $font;
+	font-style: normal;
+	font-weight: bold;
+	line-height: 1.1;
+	margin-bottom: 14px;
+	margin-top: 14px;
+	text-rendering: optimizelegibility;
 }
 
 p {
@@ -32,9 +36,14 @@ p {
 	margin-bottom: 17px;
 }
 
+a {
+	color: $link_color;
+}
+
 body.cacap {
 	font-family: $font;
 	font-size: 14px;
+	background: #fff;
 
 	h1 {
 		font-size: 44px;
@@ -123,6 +132,48 @@ body.cacap {
 		}
 
 		dd {
+		}
+	}
+}
+
+#cacap-tabs {
+	display: block;
+	height: $tab_height;
+	list-style: none outside none;
+	margin: 20px 0;
+	padding: 0;
+
+	a {
+		text-decoration: none;
+		color: $header_secondary_text_color;
+		display: block;
+		height: $tab_height;
+		line-height: $tab_height;
+		padding: 0 23px;
+	}
+
+	ul {
+		border-bottom: 1px solid #E6E6E6;
+		height: 100%;
+	}
+
+	li {
+		display: block;
+		float: left;
+		text-align: center;
+
+		&.current {
+			border-top: 3px solid $link_color;
+			margin-top: -3px;
+			border-left: 1px solid #e6e6e6;
+			border-right: 1px solid #e6e6e6;
+			padding-bottom: 1px;
+
+			a {
+				font-weight: bold;
+				color: #3c3c3c;
+				border-bottom: 1px solid #fff;
+			}
 		}
 	}
 }

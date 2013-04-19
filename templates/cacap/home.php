@@ -23,6 +23,10 @@
 			<?php endif; ?>
 		</div>
 
+		<div id="cacap-tabs">
+			<?php bp_get_template_part( 'cacap/tabs' ) ?>
+		</div>
+
 		<div id="cacap-body">
 			<?php if ( bp_is_user_profile_edit() ) : ?>
 				<?php bp_get_template_part( 'cacap/body-edit' ) ?>
