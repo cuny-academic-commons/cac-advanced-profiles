@@ -212,21 +212,24 @@ body.cacap {
 
 #cacap-body {
 	padding-top: 50px;
-	
-	.cacap-widget {
-		margin-bottom: 20px;
-	}
+}
 
-	.cacap-widget-title {
-		width: $col_width_onethird;
-		float: left;
-		text-transform: uppercase;
-		font-size: 2em;
-		font-weight: 900;
-	}
-	
-	.cacap-widget-content {
-		width: $col_width_twothirds;
-	}
+.cacap-widget {
+	margin-bottom: 20px;
+}
 
+.cacap-widget-title {
+	width: $col_width_onethird;
+	float: left;
+	text-transform: uppercase;
+	font-size: 2em;
+	font-weight: 900;
+}
+
+.cacap-widget-content {
+	width: $col_width_twothirds;
+}
+
+#cacap-edit {
+	
 }

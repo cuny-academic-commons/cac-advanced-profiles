@@ -1,6 +1,8 @@
 <?php
 
 class CAC_Advanced_Profiles extends BP_Component {
+	var $current_user = null;
+
 	/**
 	 * Constructor
 	 */
@@ -39,7 +41,6 @@ class CAC_Advanced_Profiles extends BP_Component {
 	function includes() {
 		require( $this->includes_dir . 'functions.php' );
 		require( $this->includes_dir . 'user.php' );
-		require( $this->includes_dir . 'default-header-fields.php' );
 		require( $this->includes_dir . 'widget.php' );
 		require( $this->includes_dir . 'default-widgets.php' );
 		require( $this->includes_dir . 'widget_instance.php' );
@@ -55,6 +56,12 @@ class CAC_Advanced_Profiles extends BP_Component {
 		}
 
 		return new CACAP_User( $user_id );
+	}
+
+	public function get_current_user() {
+		if ( is_null( $this->current_user ) && bp_displayed_user_id() ) {
+			return $this->get_user( bp_displayed_user_id() );
+		}
 	}
 }
 

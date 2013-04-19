@@ -14,12 +14,15 @@ abstract class CACAP_Widget {
 		$r = wp_parse_args( $args, array(
 			'name' => '',
 			'slug' => '',
-			'order' => 50, // @todo
+
 			'allow_custom_title' => false,
+
+			'context' => 'body',
+			'position' => 50, // @todo
 		) );
 
 		if ( empty( $r['name'] ) || empty( $r['slug'] ) ) {
-			return new WP_Error( 'missing_params', __( '"name" and "slug" bare required parameters', 'cacap' ) );
+			return new WP_Error( 'missing_params', __( '"name" and "slug" are required parameters', 'cacap' ) );
 		}
 
 		$this->name = $r['name'];
@@ -28,6 +31,9 @@ abstract class CACAP_Widget {
 		$this->slug = $r['slug'];
 
 		$this->allow_custom_title = $r['allow_custom_title'];
+
+		// @todo whitelist? how to make extensible?
+		$this->context = $r['context'];
 	}
 
 	public function option_markup() {
@@ -72,7 +78,7 @@ abstract class CACAP_Widget {
 				'user_id' => $r['user_id'],
 				'key' => $r['title'],
 				'value' => $r['content'],
-				'type' => $this->slug,
+				'widget_type' => $this->slug,
 			) );
 		} else {
 			// phooey
@@ -88,6 +94,28 @@ abstract class CACAP_Widget {
 		return xprofile_get_field_data( $this->name, absint( $r['user_id'] ) );
 	}
 
+	/**
+	 * Generates the markup for editing the Title section
+	 *
+	 * @since 1.0
+	 */
+	public function edit_title_markup() {
+		$html = '';
+
+		// The 'Edit' field may have saved data. We'll pull up the
+		// current user to access the data.
+		// @todo Something more elegant
+		if ( $user = buddypress()->cacap->get_current_user() ) {
+			$widget_instances = $user->get_widget_instances( array( 'context' => 'all', ) );
+		}
+		var_dump( $widget_instances );
+	}
+
+	/**
+	 * Generates the markup for creating a new widget
+	 *
+	 * @since 1.0
+	 */
 	public function create_widget_markup() {
 		$html = '';
 		$html .= $this->create_title_markup();
@@ -95,6 +123,11 @@ abstract class CACAP_Widget {
 		return $html;
 	}
 
+	/**
+	 * Generates the markup for the Title section of Create Widget
+	 *
+	 * @since 1.0
+	 */
 	public function create_title_markup() {
 		$id = $name = 'cacap-new-widget-title';
 

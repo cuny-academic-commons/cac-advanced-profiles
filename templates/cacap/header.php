@@ -1,4 +1,3 @@
-<?php $h = cacap_header_fields(); ?>
 
 <div class="cacap-row cacap-hero-row">
 	<div class="cacap-hero">

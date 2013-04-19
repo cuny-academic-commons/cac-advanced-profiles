@@ -44,7 +44,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 				'user_id' => $r['user_id'],
 				'key' => $meta_key,
 				'value' => $meta_value,
-				'type' => $this->slug,
+				'widget_type' => $this->slug,
 			) );
 		} else {
 			// do something bad

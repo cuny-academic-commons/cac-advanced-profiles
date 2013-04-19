@@ -34,7 +34,11 @@ class CACAP_User {
 		return $success;
 	}
 
-	public function get_widget_instances() {
+	public function get_widget_instances( $args = array() ) {
+		$r = wp_parse_args( $args, array(
+			'context' => 'body',
+		) );
+
 		if ( is_null( $this->widget_instances ) ) {
 			$this->widget_instances = array();
 
@@ -42,14 +46,26 @@ class CACAP_User {
 
 			foreach ( $widget_instance_data as $widget_instance_datum ) {
 				$key = $widget_instance_datum['key'];
+
+				// @todo Should probably be configurable by user?
 				$widget_types = cacap_widget_types();
+
 				if ( $key ) {
 					$this->widget_instances[ $key ] = new CACAP_Widget_Instance( $widget_instance_datum );
 				}
 			}
 		}
 
-		return $this->widget_instances;
+		$widget_instances = $this->widget_instances;
+
+		// Filter by context
+		foreach ( $widget_instances as $instance_key => $instance ) {
+			if ( 'all' !== $r['context'] && $instance->widget_type->context !== $r['context'] ) {
+				unset( $widget_instanes[ $instance_key ] );
+			}
+		}
+
+		return $widget_instances;
 	}
 
 	public function get_widget_instance_data() {
@@ -62,7 +78,7 @@ class CACAP_User {
 
 	public function create_widget_instance( $args = array() ) {
 		$r = wp_parse_args( $args, array(
-			'type' => '',
+			'widget_type' => '',
 			'title' => '',
 			'content' => '',
 		) );

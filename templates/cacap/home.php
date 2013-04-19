@@ -15,25 +15,24 @@
 
 <body <?php body_class() ?>>
 	<div id="cacap-content">
-		<div id="cacap-header">
-			<?php if ( bp_is_user_profile_edit() ) : ?>
+		<?php if ( bp_is_user_profile_edit() ) : ?>
+			<div id="cacap-edit">
 				<?php bp_get_template_part( 'cacap/header-edit' ) ?>
-			<?php else : ?>
-				<?php bp_get_template_part( 'cacap/header' ) ?>
-			<?php endif; ?>
-		</div>
-
-		<div id="cacap-tabs">
-			<?php bp_get_template_part( 'cacap/tabs' ) ?>
-		</div>
-
-		<div id="cacap-body">
-			<?php if ( bp_is_user_profile_edit() ) : ?>
 				<?php bp_get_template_part( 'cacap/body-edit' ) ?>
-			<?php else : ?>
+			</div>
+		<?php else : ?>
+			<div id="cacap-header">
+				<?php bp_get_template_part( 'cacap/header' ) ?>
+			</div>
+
+			<div id="cacap-tabs">
+				<?php bp_get_template_part( 'cacap/tabs' ) ?>
+			</div>
+
+			<div id="cacap-body">
 				<?php bp_get_template_part( 'cacap/body' ) ?>
-			<?php endif; ?>
-		</div>
+			</div>
+		<?php endif ?>
 	</div>
 
 	<?php get_footer( 'cacap' ) ?>

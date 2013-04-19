@@ -54,7 +54,7 @@ class CACAP_View {
 
 			$user = new CACAP_User( bp_displayed_user_id() );
 			$result = $user->create_widget_instance( array(
-				'type' => $widget_type,
+				'widget_type' => $widget_type,
 				'title' => $title,
 				'content' => $content,
 			) );

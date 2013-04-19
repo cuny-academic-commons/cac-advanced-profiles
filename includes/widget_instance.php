@@ -11,7 +11,7 @@
  */
 class CACAP_Widget_Instance {
 	protected $user_id;
-	protected $type;
+	protected $widget_type;
 	protected $key;
 	protected $value;
 
@@ -28,11 +28,11 @@ class CACAP_Widget_Instance {
 	 */
 	public function __construct( $data = null ) {
 		if ( ! is_null( $data ) ) {
-			if ( ! empty( $data['type'] ) && ! empty( $data['key'] ) && ! empty( $data['user_id'] ) ) {
+			if ( ! empty( $data['widget_type'] ) && ! empty( $data['key'] ) && ! empty( $data['user_id'] ) ) {
 
 				$widget_types = cacap_widget_types();
-				if ( isset( $widget_types[ $data['type'] ] ) ) {
-					$this->type = new $widget_types[ $data['type'] ];
+				if ( isset( $widget_types[ $data['widget_type'] ] ) ) {
+					$this->widget_type = new $widget_types[ $data['widget_type'] ];
 				}
 
 				$this->key = $data['key'];
@@ -60,7 +60,7 @@ class CACAP_Widget_Instance {
 	 * @since 1.0
 	 */
 	public function get_value() {
-		return $this->type->get_instance_for_user( array(
+		return $this->widget_type->get_instance_for_user( array(
 			'user_id' => $this->user_id,
 			'key' => $this->key,
 		) );
@@ -80,14 +80,14 @@ class CACAP_Widget_Instance {
 	 */
 	public function create( $args = array() ) {
 		$r = wp_parse_args( $args, array(
-			'type' => '',
+			'widget_type' => '',
 			'title' => '',
 			'content' => '',
 		) );
 
 		$types = cacap_widget_types();
-		if ( isset( $types[ $r['type'] ] ) ) {
-			$widget_type = $types[ $r['type'] ];
+		if ( isset( $types[ $r['widget_type'] ] ) ) {
+			$widget_type = $types[ $r['widget_type'] ];
 		} else {
 			// do something bad
 			return;
@@ -99,11 +99,11 @@ class CACAP_Widget_Instance {
 	}
 
 	public function display_title() {
-		return $this->type->display_title_markup( $this->value );
+		return $this->widget_type->display_title_markup( $this->value );
 	}
 
 	public function display_content() {
-		return $this->type->display_content_markup( $this->value );
+		return $this->widget_type->display_content_markup( $this->value );
 	}
 
 	/**
@@ -116,13 +116,13 @@ class CACAP_Widget_Instance {
 	 * The array returned from the function looks like:
 	 *   'user_id' => 4,
 	 *   'key' => 'foo',
-	 *   'type' => 'text'
+	 *   'widget_type' => 'text'
 	 *
 	 * - 'key' is a unique string. The format of the string is arbitrary;
 	 *   it's up to the widget type to decide what kind of key it's helpful
 	 *   to store. For instance, widgets that store data in usermeta will
 	 *   probably store the meta_key value here
-	 * - 'type' should match a key in the array returned by
+	 * - 'widget_type' should match a key in the array returned by
 	 *   cacap_widget_types()
 	 *
 	 * @since 1.0
@@ -134,13 +134,13 @@ class CACAP_Widget_Instance {
 		$r = wp_parse_args( $args, array(
 			'user_id' => 0,
 			'key' => '',
-			'type' => '',
+			'widget_type' => '',
 		) );
 
 		$retval = array(
 			'user_id' => $r['user_id'],
 			'key' => $r['key'],
-			'type' => $r['type'],
+			'widget_type' => $r['widget_type'],
 		);
 
 		return $retval;

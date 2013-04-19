@@ -10,17 +10,23 @@ function cacap_includes_dir() {
 	return $includes_dir;
 }
 
-function cacap_user_widget_instances() {
+function cacap_user_widget_instances( $args = array() ) {
 	// @todo abstract
 	$user_id = bp_displayed_user_id();
 
 	$user = buddypress()->cacap->get_user( $user_id );
-	return $user->get_widget_instances();
+	return $user->get_widget_instances( $args );
 }
 
-function cacap_widget_types() {
+function cacap_widget_types( $args = array() ) {
+	$r = wp_parse_args( $args, array(
+		'context' => 'body',
+	) );
+
 	// hardcoding for now
 	$types = array(
+		'name' => 'CACAP_Widget_Name',
+		'short-description' => 'CACAP_Widget_Short_Description',
 		'text' => 'CACAP_Widget_Text',
 		'academic-interests' => 'CACAP_Widget_Academic_Interests',
 	);
@@ -28,6 +34,13 @@ function cacap_widget_types() {
 	$widgets = array();
 	foreach ( $types as $type => $class ) {
 		$widgets[ $type ] = new $class;
+	}
+
+	// Filter for 'context'
+	foreach ( $widgets as $widget_key => $widget ) {
+		if ( $r['context'] !== $widget->context ) {
+			unset( $widgets[ $widget_key ] );
+		}
 	}
 
 	return $widgets;
