@@ -61,7 +61,7 @@ class CACAP_User {
 		// Filter by context
 		foreach ( $widget_instances as $instance_key => $instance ) {
 			if ( 'all' !== $r['context'] && $instance->widget_type->context !== $r['context'] ) {
-				unset( $widget_instanes[ $instance_key ] );
+				unset( $widget_instances[ $instance_key ] );
 			}
 		}
 

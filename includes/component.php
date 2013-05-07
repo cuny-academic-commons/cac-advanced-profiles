@@ -1,12 +1,13 @@
 <?php
 
 class CAC_Advanced_Profiles extends BP_Component {
-	var $current_user = null;
+	public $current_user = null;
+	public $view;
 
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 		// For now, we require xprofile
 		if ( ! bp_is_active( 'xprofile' ) ) {
 			_doing_it_wrong( __METHOD__, __( 'CAC Advanced Profiles requires BP xprofile component' ), '0.1' );
@@ -24,30 +25,25 @@ class CAC_Advanced_Profiles extends BP_Component {
 		$this->includes_dir = trailingslashit( CACAP_PLUGIN_DIR ) . trailingslashit( 'includes' );
 
 		$this->includes();
-		$this->setup_view();
-	//	$this->setup_hooks();
+		$this->setup_controller();
 	}
 
-	function setup_view() {
-		if ( empty( $this->view ) ) {
-			if ( ! class_exists( 'CACAP_View' ) ) {
-				require( $this->includes_dir . 'view.php' );
+	public function setup_controller() {
+		if ( empty( $this->controller ) ) {
+			if ( ! class_exists( 'CACAP_Controller' ) ) {
+				require( $this->includes_dir . 'controller.php' );
 			}
 
-			$this->view = new CACAP_View();
+			$this->controller = new CACAP_Controller();
 		}
 	}
 
-	function includes() {
+	public function includes() {
 		require( $this->includes_dir . 'functions.php' );
 		require( $this->includes_dir . 'user.php' );
 		require( $this->includes_dir . 'widget.php' );
 		require( $this->includes_dir . 'default-widgets.php' );
 		require( $this->includes_dir . 'widget_instance.php' );
-	}
-
-	function setup_hooks() {
-
 	}
 
 	public function get_user( $user_id ) {

@@ -108,7 +108,6 @@ abstract class CACAP_Widget {
 		if ( $user = buddypress()->cacap->get_current_user() ) {
 			$widget_instances = $user->get_widget_instances( array( 'context' => 'all', ) );
 		}
-		var_dump( $widget_instances );
 	}
 
 	/**

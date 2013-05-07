@@ -161,6 +161,37 @@ body.cacap {
 		dd {
 		}
 	}
+
+	.cacap-bp-profile-fields {
+		input, textarea {
+			color: $body_primary_text_color;
+			margin-bottom: 12px;
+			width: 100%;
+			border-radius: 2px 2px 2px 2px;
+			box-shadow: 0 1px 2px rgba(0,0,0,0.1) inset;
+		}
+
+		input[type="text"] {
+			height: 32px;
+		}
+
+		label, span.label {
+			display: block;
+			color: $header_secondary_text_color;
+			margin-bottom: 3px;
+		}
+
+		.cacap-half-col {
+			float: left;
+			width: 42%;
+			margin-right: 4%;
+		}
+
+		.current-visibility-level {
+			font-weight: bold;
+			color: #ff4466;
+		}
+	}
 }
 
 #cacap-tabs {

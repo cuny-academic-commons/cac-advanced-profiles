@@ -10,10 +10,10 @@
  * @since 1.0
  */
 class CACAP_Widget_Instance {
-	protected $user_id;
-	protected $widget_type;
-	protected $key;
-	protected $value;
+	public $user_id;
+	public $widget_type;
+	public $key;
+	public $value;
 
 	/**
 	 * Constructor
@@ -28,6 +28,11 @@ class CACAP_Widget_Instance {
 	 */
 	public function __construct( $data = null ) {
 		if ( ! is_null( $data ) ) {
+			// temp
+			if ( ! empty( $data['type'] ) && ! isset( $data['widget_type'] ) ) {
+				$data['widget_type'] = $data['type'];
+			}
+
 			if ( ! empty( $data['widget_type'] ) && ! empty( $data['key'] ) && ! empty( $data['user_id'] ) ) {
 
 				$widget_types = cacap_widget_types();
