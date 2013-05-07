@@ -1,8 +1,9 @@
 <?php $h = cacap_html_gen() ?>
 
-<?php bp_get_template_part( 'cacap/header-top' ) ?>
-
-<?php bp_get_template_part( 'cacap/bp-profile-fields-edit' ) ?>
+<form action="" method="post" id="cacap-header-form">
+	<?php bp_get_template_part( 'cacap/header-top' ) ?>
+	<?php bp_get_template_part( 'cacap/bp-profile-fields-edit' ) ?>
+</form>
 
 <form action="" method="post">
 

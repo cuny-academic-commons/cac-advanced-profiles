@@ -54,6 +54,8 @@
 		$new_group->fields = array();
 	}
 
+	$field_ids = array();
+
 	foreach ( $cols as $col_no => $col_fields ) {
 		foreach ( $fields as $field ) {
 			$which_col = null;
@@ -65,6 +67,7 @@
 
 			if ( $which_col ) {
 				$new_groups[ $which_col ]->fields[ $col_order ] = $field;
+				$field_ids[] = $field->id;
 			}
 		}
 	}
@@ -78,6 +81,8 @@
 	$profile_template->groups = array_values( $new_groups );
 
 	?>
+
+	<input type="hidden" name="field_ids" id="field_ids" value="<?php echo implode( ',', array_unique( $field_ids ) ) ?>" />
 
 	<?php while ( bp_profile_groups() ) : bp_the_profile_group(); ?>
 
@@ -210,7 +215,7 @@
 	</div>
 	<?php endwhile; ?>
 
-
+	<?php wp_nonce_field( 'bp_xprofile_edit' ); ?>
 
 	</div><!-- /.cacap-bp-profile-fields -->
 <?php endif ?>
