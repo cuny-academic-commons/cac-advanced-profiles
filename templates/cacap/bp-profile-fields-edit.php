@@ -86,7 +86,7 @@
 
 	<?php while ( bp_profile_groups() ) : bp_the_profile_group(); ?>
 
-	<div class="cacap-half-col">
+	<div class="cacap-half-col" id="cacap-half-col-<?php bp_the_profile_group_id() ?>">
 
 	<?php while ( bp_profile_fields() ) : bp_the_profile_field(); ?>
 
