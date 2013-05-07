@@ -14,6 +14,7 @@ class CACAP_Widget_Instance {
 	public $widget_type;
 	public $key;
 	public $value;
+	public $position;
 
 	/**
 	 * Constructor
@@ -45,6 +46,9 @@ class CACAP_Widget_Instance {
 
 				$this->value = $this->get_value();
 			}
+
+			$this->position = isset( $data['position'] ) ? intval( $data['position'] ) : 50;
+			$this->css_id = $this->get_css_id();
 		}
 	}
 
@@ -69,6 +73,21 @@ class CACAP_Widget_Instance {
 			'user_id' => $this->user_id,
 			'key' => $this->key,
 		) );
+	}
+
+	/**
+	 * Create a CSS ID for this item
+	 *
+	 * We have to have a specific format for jQuery UI sortable
+	 *
+	 * @since 1.0
+	 */
+	public function get_css_id() {
+		$id = $this->key;
+		$id = strtolower( $id );
+		$id = sanitize_title_with_dashes( $id );
+
+		return $id;
 	}
 
 	/**
@@ -140,12 +159,14 @@ class CACAP_Widget_Instance {
 			'user_id' => 0,
 			'key' => '',
 			'widget_type' => '',
+			'position' => 50,
 		) );
 
 		$retval = array(
 			'user_id' => $r['user_id'],
 			'key' => $r['key'],
 			'widget_type' => $r['widget_type'],
+			'position' => $r['position'],
 		);
 
 		return $retval;

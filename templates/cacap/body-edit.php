@@ -1,11 +1,4 @@
 <div id="cacap-body">
-	<?php foreach ( cacap_user_widget_instances() as $widget_instance ) : ?>
-		<div class="cacap-row cacap-widget-edit">
-			<div class="cacap-widget-title"><?php echo $widget_instance->display_title() ?></div>
-			<div class="cacap-widget-content"><?php echo $widget_instance->display_content() ?></div>
-		</div>
-	<?php endforeach; ?>
-
 	<div class="cacap-row" id="cacap-user-widget-new">
 		<h2><?php _e( 'Create New Widget', 'cacap' ) ?></h2>
 		<?php if ( empty( $_GET['cacap-new-widget-type'] ) ) : ?>
@@ -29,6 +22,17 @@
 				<?php cacap_html_gen()->input( 'submit', 'cacap-widget-create-submit', __( 'Create', 'cacap' ) ) ?>
 			</form>
 		<?php endif ?>
+	</div>
+
+	<div class="cacap-row cacap-widgets cacap-widgets-edit">
+		<ul id="cacap-widget-list">
+		<?php foreach ( cacap_user_widget_instances() as $widget_instance ) : ?>
+			<li id="cacap-widget-<?php echo esc_attr( $widget_instance->css_id ) ?>">
+				<div class="cacap-widget-title"><?php echo $widget_instance->display_title() ?></div>
+				<div class="cacap-widget-content"><?php echo $widget_instance->display_content() ?></div>
+			</li>
+		<?php endforeach; ?>
+		</ul>
 	</div>
 </div>
 
