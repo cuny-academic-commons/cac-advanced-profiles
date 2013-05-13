@@ -37,8 +37,9 @@ class CACAP_Widget_Instance {
 			if ( ! empty( $data['widget_type'] ) && ! empty( $data['key'] ) && ! empty( $data['user_id'] ) ) {
 
 				$widget_types = cacap_widget_types();
-				if ( isset( $widget_types[ $data['widget_type'] ] ) ) {
-					$this->widget_type = new $widget_types[ $data['widget_type'] ];
+				$wt = isset( $data['widget_type']->slug ) ? $data['widget_type']->slug : $data['widget_type'];
+				if ( isset( $widget_types[ $wt ] ) ) {
+					$this->widget_type = new $widget_types[ $wt ];
 				}
 
 				$this->key = $data['key'];

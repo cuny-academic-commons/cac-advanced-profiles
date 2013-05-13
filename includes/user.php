@@ -65,7 +65,18 @@ class CACAP_User {
 			}
 		}
 
+		// Sort
+		uasort( $widget_instances, array( $this, 'sort_widget_instances_callback' ) );
+
 		return $widget_instances;
+	}
+
+	protected function sort_widget_instances_callback( $a, $b ) {
+		if ( $a->position === $b->position ) {
+			return 0;
+		}
+
+		return $a->position > $b->position ? 1 : -1;
 	}
 
 	public function get_widget_instance_data() {

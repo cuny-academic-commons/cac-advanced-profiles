@@ -89,6 +89,12 @@ body.cacap {
 	margin-top: 30px;
 }
 
+.cacap-edit-submit {
+	position: absolute;
+	right: 0;
+	bottom: 20px;
+}
+
 .cacap-row {
 	padding-top: 25px;
 	margin: 0 auto;
@@ -149,10 +155,7 @@ body.cacap {
 		}
 	}
 
-	#cacap-edit-submit {
-		position: absolute;
-		right: 0;
-		bottom: 20px;
+	.cacap-edit-submit {
 		color: $button_text_color;
 	}
 
@@ -257,7 +260,12 @@ body.cacap {
 }
 
 #cacap-body {
-	padding-top: 50px;
+	padding: 50px 0 100px 0;
+	position: relative;
+
+	.cacap-edit-submit {
+		right: 130px;
+	}
 }
 
 .cacap-widget {

@@ -10,6 +10,11 @@ class CACAP_Controller {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'body_class', array( $this, 'body_class' ) );
+
+		add_action( 'xprofile_updated_profile', array( $this, 'save_profile_data' ) );
+
+		// AJAX handlers
+		add_action( 'wp_ajax_cacap_reorder_widgets', array( $this, 'reorder_widgets' ) );
 	}
 
 	public function catch_profile_edit() {
@@ -118,5 +123,32 @@ class CACAP_Controller {
 		}
 
 		return $classes;
+	}
+
+	public function save_profile_data() {
+		// @todo Break off into appropriate places
+
+		// Widget order
+		$user = new CACAP_User( bp_displayed_user_id() );
+		$widget_order = isset( $_POST['cacap-widget-order'] ) ? array_flip( explode( ',', $_POST['cacap-widget-order'] ) ) : array();
+		foreach ( cacap_user_widget_instances() as $widget_instance ) {
+			if ( isset( $widget_order[ 'cacap-widget-' . $widget_instance->css_id ] ) ) {
+				$widget_instance->position = $widget_order[ 'cacap-widget-' . $widget_instance->css_id ];
+
+				$data = CACAP_Widget_Instance::format_instance( array(
+					'user_id' => $widget_instance->user_id,
+					'key' => $widget_instance->key,
+					'widget_type' => $widget_instance->widget_type->slug,
+					'position' => $widget_instance->position,
+				) );
+
+				$user->store_widget_instance( $data );
+			}
+		}
+	}
+
+	public function reorder_widgets() {
+		echo 'fooooo';
+		die();
 	}
 }

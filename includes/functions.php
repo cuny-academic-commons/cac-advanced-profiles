@@ -57,3 +57,11 @@ function cacap_html_gen() {
 	return $wpsdl->html();
 }
 
+function cacap_widget_order() {
+	$wis = cacap_user_widget_instances();
+	$ids = array();
+	foreach ( $wis as $wi ) {
+		$ids[] = 'cacap-widget-' . $wi->css_id;
+	}
+	return esc_attr( implode( ',', $ids ) );
+}

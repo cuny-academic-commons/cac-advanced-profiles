@@ -4,13 +4,12 @@ jQuery(document).ready( function($) {
 		containment: 'parent',
 		handle: '.cacap-drag-handle',
 		stop: function( event, ui ) {
-			var order = $(this).sortable( 'toArray' );
-			console.log(order);
+			$('#cacap-widget-order').val($(this).sortable( 'toArray' ));
 		}
 	});
 
 	// Set height on draggable handles
-	// Someone shoot me
+	// Somebody shoot me
 	$('body.profile-edit .cacap-drag-handle').each( function( k, v ) {
 		$(v).css('height', $(v).parent().css('height'));	
 	});

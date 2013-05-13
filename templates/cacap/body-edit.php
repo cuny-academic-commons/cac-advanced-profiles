@@ -1,4 +1,5 @@
 <div id="cacap-body">
+
 	<div class="cacap-row" id="cacap-user-widget-new">
 		<h2><?php _e( 'Create New Widget', 'cacap' ) ?></h2>
 		<?php if ( empty( $_GET['cacap-new-widget-type'] ) ) : ?>
@@ -35,6 +36,9 @@
 		<?php endforeach; ?>
 		</ul>
 	</div>
+
+	<input type="hidden" name="cacap-widget-order" id="cacap-widget-order" value="<?php echo cacap_widget_order() ?>" />
+	<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
 </div>
 
 

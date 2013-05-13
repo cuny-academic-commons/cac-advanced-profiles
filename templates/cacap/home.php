@@ -16,13 +16,15 @@
 <body <?php body_class() ?>>
 	<div id="cacap-content">
 		<?php if ( bp_is_user_profile_edit() ) : ?>
-			<div id="cacap-header">
-				<?php bp_get_template_part( 'cacap/header-edit' ) ?>
-			</div>
+			<form action="" method="post" id="cacap-edit-form">
+				<div id="cacap-header">
+					<?php bp_get_template_part( 'cacap/header-edit' ) ?>
+				</div>
 
-			<div id="cacap-edit">
-				<?php bp_get_template_part( 'cacap/body-edit' ) ?>
-			</div>
+				<div id="cacap-edit">
+					<?php bp_get_template_part( 'cacap/body-edit' ) ?>
+				</div>
+			</form>
 		<?php else : ?>
 			<div id="cacap-header">
 				<?php bp_get_template_part( 'cacap/header' ) ?>

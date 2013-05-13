@@ -1,11 +1,7 @@
 <?php $h = cacap_html_gen() ?>
 
-<form action="" method="post" id="cacap-header-form">
 	<?php bp_get_template_part( 'cacap/header-top' ) ?>
 	<?php bp_get_template_part( 'cacap/bp-profile-fields-edit' ) ?>
-</form>
-
-<form action="" method="post">
 
 <?php /* These are the required widgets */ ?>
 <?php foreach ( cacap_widget_types( array( 'context' => 'header' ) ) as $widget ) : ?>
@@ -37,4 +33,3 @@
 		</div>
 	</div>
 <?php endforeach; ?>
-</form>
