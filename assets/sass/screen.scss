@@ -19,6 +19,9 @@ $col_width_twothirds: 66.666%;
 $col_width_onethird: 33.333%;
 $col_width_narrow: 10em;
 
+$widget_tb_padding: 25px;
+$widget_lr_padding: 15px;
+
 $tab_height: 40px;
 
 h1, h2, h3, h4, h5, h6 {
@@ -276,7 +279,11 @@ body.cacap {
 #cacap-widget-list {
 	li {
 		overflow: hidden; /* Children are floated */
-		padding: 25px 15px;
+		padding: 0 $widget_lr_padding;
+
+		& > div {
+			margin: $widget_tb_padding 0; 
+		}
 	}
 
 }
@@ -296,5 +303,22 @@ body.profile-edit {
 }
 
 #cacap-edit {
-	
+	.cacap-drag-handle {
+		width: 20px;
+		float: left;
+		cursor: pointer;
+		margin-top: 0;
+		margin-bottom: 0;
+		margin-left: -$widget_lr_padding;
+		margin-right: 20px;
+		background-color: gray;
+		background-image: 
+			repeating-linear-gradient(
+				45deg, 
+				transparent, 
+				transparent 5px, 
+				rgba(255,255,255,.5) 5px, 
+				rgba(255,255,255,.5) 10px
+			);
+	}
 }

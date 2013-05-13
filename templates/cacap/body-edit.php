@@ -28,6 +28,7 @@
 		<ul id="cacap-widget-list">
 		<?php foreach ( cacap_user_widget_instances() as $widget_instance ) : ?>
 			<li id="cacap-widget-<?php echo esc_attr( $widget_instance->css_id ) ?>">
+				<div class="cacap-drag-handle"></div>
 				<div class="cacap-widget-title"><?php echo $widget_instance->display_title() ?></div>
 				<div class="cacap-widget-content"><?php echo $widget_instance->display_content() ?></div>
 			</li>
