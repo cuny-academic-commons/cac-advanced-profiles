@@ -126,24 +126,11 @@ class CACAP_Controller {
 	}
 
 	public function save_profile_data() {
-		// @todo Break off into appropriate places
+		$user = new CACAP_User( bp_displayed_user_id() );
 
 		// Widget order
-		$user = new CACAP_User( bp_displayed_user_id() );
-		$widget_order = isset( $_POST['cacap-widget-order'] ) ? array_flip( explode( ',', $_POST['cacap-widget-order'] ) ) : array();
-		foreach ( cacap_user_widget_instances() as $widget_instance ) {
-			if ( isset( $widget_order[ 'cacap-widget-' . $widget_instance->css_id ] ) ) {
-				$widget_instance->position = $widget_order[ 'cacap-widget-' . $widget_instance->css_id ];
-
-				$data = CACAP_Widget_Instance::format_instance( array(
-					'user_id' => $widget_instance->user_id,
-					'key' => $widget_instance->key,
-					'widget_type' => $widget_instance->widget_type->slug,
-					'position' => $widget_instance->position,
-				) );
-
-				$user->store_widget_instance( $data );
-			}
+		if ( isset( $_POST['cacap-widget-order'] ) ) {
+			$user->save_widget_order( $_POST['cacap-widget-order'] );
 		}
 	}
 

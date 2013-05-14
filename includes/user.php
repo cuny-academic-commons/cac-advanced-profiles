@@ -65,7 +65,7 @@ class CACAP_User {
 			}
 		}
 
-		// Sort
+		// Sort by position
 		uasort( $widget_instances, array( $this, 'sort_widget_instances_callback' ) );
 
 		return $widget_instances;
@@ -117,5 +117,24 @@ class CACAP_User {
 	public function refresh_widget_instances() {
 		$this->widget_instances = null;
 		$this->get_widget_instances();
+	}
+
+	public function save_widget_order( $order ) {
+		$widget_order = array_flip( explode( ',', $order ) );
+
+		foreach ( cacap_user_widget_instances() as $widget_instance ) {
+			if ( isset( $widget_order[ 'cacap-widget-' . $widget_instance->css_id ] ) ) {
+				$widget_instance->position = $widget_order[ 'cacap-widget-' . $widget_instance->css_id ];
+
+				$data = CACAP_Widget_Instance::format_instance( array(
+					'user_id' => $widget_instance->user_id,
+					'key' => $widget_instance->key,
+					'widget_type' => $widget_instance->widget_type->slug,
+					'position' => $widget_instance->position,
+				) );
+
+				$this->store_widget_instance( $data );
+			}
+		}
 	}
 }
