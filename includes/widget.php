@@ -60,6 +60,7 @@ abstract class CACAP_Widget {
 	 */
 	public function save_instance_for_user( $args = array() ) {
 		$r = wp_parse_args( $args, array(
+			'key' => '',
 			'user_id' => 0,
 			'title' => $this->name,
 			'content' => '',
@@ -182,10 +183,10 @@ abstract class CACAP_Widget {
 
 	public function edit_title_markup( $value, $key ) {
 		$disabled = $this->allow_custom_title ? '' : 'disabled="disabled" ';
-		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '" value="' . esc_attr( $this->name ) . '" ' . $disabled . '/>';
+		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $this->name ) . '" ' . $disabled . '/>';
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '">' . esc_attr( $value ) . '</textarea>';
+		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $value ) . '</textarea>';
 	}
 }

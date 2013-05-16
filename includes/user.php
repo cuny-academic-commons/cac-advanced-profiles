@@ -108,6 +108,31 @@ class CACAP_User {
 		}
 	}
 
+	public function save_widget_instance( $args = array() ) {
+		$r = wp_parse_args( $args, array(
+			'key'         => '',
+			'widget_type' => '',
+			'title'       => '',
+			'content'     => '',
+		) );
+
+		$r['user_id'] = $this->user_id;
+
+		$widget_instance = new CACAP_Widget_Instance( array(
+			'key'         => $r['key'],
+			'widget_type' => $r['widget_type'],
+			'user_id'     => $r['user_id'],
+		) );
+
+		// todo - what if it's new
+		$widget_instance->widget_type->save_instance_for_user( array(
+			'key' => $widget_instance->key,
+			'user_id' => $widget_instance->user_id,
+			'title' => $r['title'],
+			'content' => $r['content'],
+		) );
+	}
+
 	public function store_widget_instance( $data ) {
 		$existing = $this->get_widget_instance_data();
 		$existing[ $data['key'] ] = $data;

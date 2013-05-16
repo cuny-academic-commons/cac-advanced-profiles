@@ -155,13 +155,13 @@ class CACAP_Widget_Instance {
 
 	public function edit_title() {
 		$html  = '<span class="hide-if-no-js cacap-edit-title-text cacap-hide-on-edit">' . $this->display_title() . '</span>';
-		$html .= '<span class="hide-if-js cacap-edit-title-input cacap-show-on-edit">' . $this->widget_type->edit_title_markup( $this->value, $this->key ) . $this->ok_cancel_buttons() . '</span>';
+		$html .= '<span class="hide-if-js cacap-edit-title-input cacap-show-on-edit">' . $this->widget_type->edit_title_markup( $this->value, $this->css_id ) . $this->ok_cancel_buttons() . '</span>';
 		return $html;
 	}
 
 	public function edit_content() {
 		$html  = '<span class="hide-if-no-js cacap-edit-content-text cacap-hide-on-edit">' . $this->display_content() . '</span>';
-		$html .= '<span class="hide-if-js cacap-edit-content-input cacap-show-on-edit">' . $this->widget_type->edit_content_markup( $this->value, $this->key ) . $this->ok_cancel_buttons() . '</span>';
+		$html .= '<span class="hide-if-js cacap-edit-content-input cacap-show-on-edit">' . $this->widget_type->edit_content_markup( $this->value, $this->css_id ) . $this->ok_cancel_buttons() . '</span>';
 		return $html;
 	}
 

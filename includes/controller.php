@@ -29,7 +29,6 @@ class CACAP_Controller {
 
 			$user = new CACAP_User( bp_displayed_user_id() );
 			$result = $user->save_fields( $submitted );
-			var_dump( $result ); die();
 		}
 	}
 
@@ -134,10 +133,24 @@ class CACAP_Controller {
 		if ( isset( $_POST['cacap-widget-order'] ) ) {
 			$user->save_widget_order( $_POST['cacap-widget-order'] );
 		}
-	}
 
-	public function reorder_widgets() {
-		echo 'fooooo';
-		die();
+		// The widgets themselves
+		// Use the widget-order array as a list of keys to check
+		if ( isset( $_POST['cacap-widget-order'] ) ) {
+			foreach ( explode( ',', $_POST['cacap-widget-order'] ) as $fullkey ) {
+				// Chop off the 'cacap-widget-' prefix
+				$key = substr( $fullkey, 13 );
+
+				$title       = isset( $_POST[ $key ]['title'] ) ? $_POST[ $key ]['title'] : '';
+				$content     = isset( $_POST[ $key ]['content'] ) ? $_POST[ $key ]['content'] : '';
+				$widget_type = isset( $_POST[ $key ]['widget_type'] ) ? $_POST[ $key ]['widget_type'] : '';
+				$user->save_widget_instance( array(
+					'key'         => $key,
+					'widget_type' => $widget_type,
+					'title'       => $title,
+					'content'     => $content,
+				) );
+			}
+		}
 	}
 }

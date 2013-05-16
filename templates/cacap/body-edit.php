@@ -46,6 +46,7 @@
 				<div class="cacap-drag-handle"></div>
 				<div class="cacap-widget-title cacap-click-to-edit"><?php echo $widget_instance->edit_title() ?></div>
 				<div class="cacap-widget-content cacap-click-to-edit"><?php echo $widget_instance->edit_content() ?></div>
+				<input type="hidden" value="<?php echo esc_attr( $widget_instance->widget_type->slug ) ?>" name="<?php echo esc_attr( $widget_instance->css_id ) ?>[widget_type]" />
 			</li>
 		<?php endforeach; ?>
 		</ul>

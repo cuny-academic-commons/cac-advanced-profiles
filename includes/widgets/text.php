@@ -21,6 +21,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	 */
 	public function save_instance_for_user( $args = array() ) {
 		$r = wp_parse_args( $args, array(
+			'key' => '',
 			'user_id' => 0,
 			'title' => '',
 			'content' => '',
@@ -37,7 +38,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 		);
 
 		// @todo - uniqueness? what about updating existing?
-		$meta_key = 'cacap_widget_instance_' . sanitize_title_with_dashes( $r['title'] );
+		$meta_key = empty( $r['key'] ) ? 'cacap_widget_instance_' . sanitize_title_with_dashes( $r['title'] ) : $r['key'];
 
 		if ( update_user_meta( $r['user_id'], $meta_key, $meta_value ) ) {
 			return CACAP_Widget_Instance::format_instance( array(
@@ -78,10 +79,10 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	}
 
 	public function edit_title_markup( $value, $key ) {
-		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value['title'] ) . '" />';
+		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $value['title'] ) . '" />';
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '">' . esc_attr( $value['content'] ) . '</textarea>';
+		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $value['content'] ) . '</textarea>';
 	}
 }
