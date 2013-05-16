@@ -10,6 +10,10 @@ function cacap_includes_dir() {
 	return $includes_dir;
 }
 
+function cacap_assets_url() {
+	return CACAP_PLUGIN_URL . '/assets/';
+}
+
 function cacap_user_widget_instances( $args = array() ) {
 	// @todo abstract
 	$user_id = bp_displayed_user_id();

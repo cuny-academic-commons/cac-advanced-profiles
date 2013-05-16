@@ -23,6 +23,9 @@ $widget_tb_padding: 25px;
 $widget_lr_padding: 15px;
 
 $tab_height: 40px;
+$row_width: 940px;
+
+$edit_hover_color: #ffff99;
 
 h1, h2, h3, h4, h5, h6 {
 	color: #222222;
@@ -42,6 +45,14 @@ p {
 
 a {
 	color: $link_color;
+}
+
+body.no-js .hide-if-no-js {
+	display: none;
+}
+
+body.js .hide-if-js {
+	display: none;
 }
 
 .button {
@@ -100,7 +111,7 @@ body.cacap {
 	margin: 0 auto;
 	max-width: 100%;
 	min-width: 768px;
-	width: 940px;
+	width: $row_width;
 
 	/* Next two declarations help to clear the row */
 	&:after {
@@ -280,10 +291,6 @@ body.cacap {
 	font-weight: 900;
 }
 
-.cacap-widget-content {
-	width: $col_width_twothirds;
-}
-
 #cacap-widget-list {
 	li {
 		overflow: hidden; /* Children are floated */
@@ -310,6 +317,42 @@ body.profile-edit {
 	}
 }
 
+#cacap-user-widget-new {
+	background-color: #eee;
+	width: 100%;
+	border: 1px dashed #555;
+	padding: 10px 0;
+
+	#cacap-user-widget-new-content {
+		width: $row_width; 
+		margin: 0 auto;
+	}
+
+	#cacap-new-widget-types {
+		overflow: hidden;
+		height: 100px;
+
+		a {
+			text-decoration: none;
+			color: $link_color;
+		}
+
+		li {
+			float: left;
+			width: 70px;
+			display: block;
+			text-align: center;
+			border: 1px solid #777;
+			height: 100%;
+			margin-right: 10px;
+
+			.cacap-widget-type-name {
+				display: block;
+			}
+		}
+	}
+}
+
 #cacap-edit {
 	.cacap-drag-handle {
 		width: 20px;
@@ -328,5 +371,19 @@ body.profile-edit {
 				rgba(255,255,255,.5) 5px, 
 				rgba(255,255,255,.5) 10px
 			);
+	}
+	
+	.cacap-click-to-edit {
+		padding: 5px 0 0 5px;
+
+		&:hover {
+			background: $edit_hover_color;
+		}
+	}
+
+	.cacap-ok-cancel .button {
+		padding: 5px 10px;
+		font-size: 12px;
+		margin: 5px 5px 0 0;
 	}
 }

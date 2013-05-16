@@ -60,11 +60,24 @@ class CACAP_Widget_Text extends CACAP_Widget {
 		return get_user_meta( absint( $r['user_id'] ), $r['key'], true );
 	}
 
+	public function get_display_value_from_value( $value ) {
+		return $value['content'];
+	}
+
+	/**
+	 * Return the HTML-ready title of the widget
+	 *
+	 * We override the parent method because the title is stored in the
+	 * $value variable
+	 *
+	 * @param array $value
+	 * @return string
+	 */
 	public function display_title_markup( $value ) {
 		return esc_html( $value['title'] );
 	}
 
-	public function display_content_markup( $value ) {
-		return esc_html( $value['content'] );
+	public function edit_title_markup( $value, $key ) {
+		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value['title'] ) . '" />';
 	}
 }

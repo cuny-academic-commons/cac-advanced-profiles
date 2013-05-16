@@ -95,22 +95,6 @@ abstract class CACAP_Widget {
 	}
 
 	/**
-	 * Generates the markup for editing the Title section
-	 *
-	 * @since 1.0
-	 */
-	public function edit_title_markup() {
-		$html = '';
-
-		// The 'Edit' field may have saved data. We'll pull up the
-		// current user to access the data.
-		// @todo Something more elegant
-		if ( $user = buddypress()->cacap->get_current_user() ) {
-			$widget_instances = $user->get_widget_instances( array( 'context' => 'all', ) );
-		}
-	}
-
-	/**
 	 * Generates the markup for creating a new widget
 	 *
 	 * @since 1.0
@@ -173,6 +157,20 @@ abstract class CACAP_Widget {
 		return $html;
 	}
 
+	/**
+	 * Returns display-ready value
+	 *
+	 * Override this in a widget type class if the widget type stores a
+	 * complex object/array for 'value', and the display value needs to be
+	 * parsed out.
+	 *
+	 * @param mixed $value
+	 * @return sting
+	 */
+	public function get_display_value_from_value( $value ) {
+		return $value;
+	}
+
 	public function display_title_markup( $value ) {
 		return esc_html( $this->name );
 	}
@@ -180,5 +178,14 @@ abstract class CACAP_Widget {
 	// @todo use bp xprofile functions for formatting potential arrays, etc
 	public function display_content_markup( $value ) {
 		return esc_html( $value );
+	}
+
+	public function edit_title_markup( $value, $key ) {
+		$disabled = $this->allow_custom_title ? '' : 'disabled="disabled" ';
+		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '" value="' . esc_attr( $this->name ) . '" ' . $disabled . '/>';
+	}
+
+	public function edit_content_markup( $value ) {
+
 	}
 }

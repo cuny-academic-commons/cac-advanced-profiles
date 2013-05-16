@@ -3,18 +3,6 @@
 	<?php bp_get_template_part( 'cacap/header-top' ) ?>
 	<?php bp_get_template_part( 'cacap/bp-profile-fields-edit' ) ?>
 
-<?php /* These are the required widgets */ ?>
-<?php foreach ( cacap_widget_types( array( 'context' => 'header' ) ) as $widget ) : ?>
-	<div class="cacap-row cacap-widget-edit">
-		<div class="cacap-widget-title">
-			<?php echo $widget->edit_title_markup() ?>
-		</div>
-
-		<div class="cacap-widget-content">
-		</div>
-	</div>
-<?php endforeach ?>
-
 <?php foreach ( cacap_user_widget_instances( array( 'context' => 'header', ) ) as $widget_instance ) : ?>
 	<div class="cacap-row cacap-widget-edit">
 		<?php /* @todo abstract this stuff */ ?>

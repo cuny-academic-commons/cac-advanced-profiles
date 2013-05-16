@@ -123,12 +123,52 @@ class CACAP_Widget_Instance {
 		return $widget_instance_data;
 	}
 
+	/**
+	 * Return the value of the instance for display
+	 *
+	 * Some methods need access to the field value, but some widget types
+	 * may store a complex object as "value" and parse it later. The value
+	 * returned from this function should be a string.
+	 *
+	 * @return string
+	 */
+	public function get_display_value() {
+		return $this->widget_type->get_display_value_from_value( $this->value );
+	}
+
+	/**
+	 * Return the markup for displaying the public view of the title
+	 *
+	 * We pass $this->value to the widget type method because some widget
+	 * types allow for user-configured titles, which are stored in this
+	 * variable.
+	 *
+	 * @return string The HTML-ready title
+	 */
 	public function display_title() {
 		return $this->widget_type->display_title_markup( $this->value );
 	}
 
 	public function display_content() {
-		return $this->widget_type->display_content_markup( $this->value );
+		return $this->widget_type->display_content_markup( $this->get_display_value() );
+	}
+
+	public function edit_title() {
+		$html  = '<span class="hide-if-no-js cacap-edit-title-text cacap-hide-on-edit">' . $this->display_title() . '</span>';
+		$html .= '<span class="hide-if-js cacap-edit-title-input cacap-show-on-edit">' . $this->widget_type->edit_title_markup( $this->value, $this->key ) . $this->ok_cancel_buttons() . '</span>';
+		return $html;
+	}
+
+	public function edit_content() {
+		$html = $this->display_content();
+		return $html;
+	}
+
+	public function ok_cancel_buttons() {
+		return '<div class="cacap-ok-cancel">'
+		     .   '<a href="#" class="button cacap-ok">' . __( 'OK', 'cacap' ) . '</a>'
+		     .   '<a href="#" class="button cacap-cancel">' . __( 'cancel', 'cacap' ) . '</a>'
+		     . '</div>';
 	}
 
 	/**
