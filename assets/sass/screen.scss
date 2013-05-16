@@ -291,6 +291,10 @@ body.cacap {
 	font-weight: 900;
 }
 
+.cacap-widget-content {
+	padding-left: $col_width_onethird;
+}
+
 #cacap-widget-list {
 	li {
 		overflow: hidden; /* Children are floated */
@@ -379,11 +383,23 @@ body.profile-edit {
 		&:hover {
 			background: $edit_hover_color;
 		}
+
+		&.cacap-widget-content {
+			margin-left: 330px;
+		}
 	}
 
-	.cacap-ok-cancel .button {
-		padding: 5px 10px;
-		font-size: 12px;
-		margin: 5px 5px 0 0;
+	.cacap-ok-cancel {
+		.button {
+			padding: 5px 10px;
+			font-size: 12px;
+			margin: 5px 5px 0 0;
+		}
+	}
+
+	.cacap-edit-content-input {
+		textarea {
+			width: 100%;
+		}
 	}
 }

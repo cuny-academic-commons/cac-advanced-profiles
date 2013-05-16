@@ -80,4 +80,8 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	public function edit_title_markup( $value, $key ) {
 		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '" value="' . esc_attr( $value['title'] ) . '" />';
 	}
+
+	public function edit_content_markup( $value, $key ) {
+		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '">' . esc_attr( $value['content'] ) . '</textarea>';
+	}
 }

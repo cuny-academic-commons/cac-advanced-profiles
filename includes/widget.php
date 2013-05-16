@@ -185,7 +185,7 @@ abstract class CACAP_Widget {
 		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '" value="' . esc_attr( $this->name ) . '" ' . $disabled . '/>';
 	}
 
-	public function edit_content_markup( $value ) {
-
+	public function edit_content_markup( $value, $key ) {
+		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '">' . esc_attr( $value ) . '</textarea>';
 	}
 }

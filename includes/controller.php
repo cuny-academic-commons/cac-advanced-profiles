@@ -107,12 +107,14 @@ class CACAP_Controller {
 	}
 
 	public function enqueue_scripts() {
+		wp_register_script( 'cacap-autogrow', CACAP_PLUGIN_URL . '/assets/js/autogrow.min.js', array( 'jquery' ) );
 		wp_enqueue_script(
 			'cacap',
 			CACAP_PLUGIN_URL . '/assets/js/cacap.js',
 			array(
 				'jquery',
 				'jquery-ui-sortable',
+				'cacap-autogrow',
 			)
 		);
 	}

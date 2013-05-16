@@ -11,6 +11,7 @@ jQuery(document).ready( function($) {
 		}
 	});
 
+
 	// Click to edit - delegated from parent
 	window.cacapedittoggles = {};
 	$('#cacap-widget-list').on('click', '.cacap-click-to-edit', function(e){
@@ -27,7 +28,8 @@ jQuery(document).ready( function($) {
 		if ( ! is_widget_toggled ) {
 			$(edit_input).show();
 			$(edit_title).hide();
-			resize_drag_handles();
+			$(edit_input_field).autogrow({animate:false});
+			$(edit_input_field).trigger('keyup');
 
 			var field_val = $(edit_input_field).val();
 
@@ -41,23 +43,23 @@ jQuery(document).ready( function($) {
 
 			// Only do anything if clicking OK or Cancel
 			if ( $(e.target).hasClass( 'cacap-ok' ) ) {
-				$(edit_title).html($(edit_input_field).val());
+				var input_value = $(edit_input_field).val().replace(/\r?\n/g, '<br />');
+				$(edit_title).html(input_value);
 				restore_me = true;
 			} else if ( $(e.target).hasClass( 'cacap-cancel' ) ) {
 				$(edit_input_field).val(window.cacapedittoggles[widget_id]);
 				restore_me = true;
 			}
-			console.log(e.target);
 
 			if ( restore_me ) {
 				delete window.cacapedittoggles[widget_id];
 				$(edit_input).hide();
 				$(edit_title).show();
-				resize_drag_handles();
 			}
-
-			return false;
 		}
+
+		resize_drag_handles();
+		return false;
 	});
 
 	function is_edit_toggled(id) {
@@ -68,7 +70,7 @@ jQuery(document).ready( function($) {
 		// Set height on draggable handles
 		// Somebody shoot me
 		$('body.profile-edit .cacap-drag-handle').each( function( k, v ) {
-			$(v).css('height', $(v).parent().css('height'));	
+			$(v).css('height','0').css('height', $(v).parent().css('height'));	
 		});
 	}
 },(jQuery));

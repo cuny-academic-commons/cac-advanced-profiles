@@ -160,14 +160,15 @@ class CACAP_Widget_Instance {
 	}
 
 	public function edit_content() {
-		$html = $this->display_content();
+		$html  = '<span class="hide-if-no-js cacap-edit-content-text cacap-hide-on-edit">' . $this->display_content() . '</span>';
+		$html .= '<span class="hide-if-js cacap-edit-content-input cacap-show-on-edit">' . $this->widget_type->edit_content_markup( $this->value, $this->key ) . $this->ok_cancel_buttons() . '</span>';
 		return $html;
 	}
 
 	public function ok_cancel_buttons() {
 		return '<div class="cacap-ok-cancel">'
 		     .   '<a href="#" class="button cacap-ok">' . __( 'OK', 'cacap' ) . '</a>'
-		     .   '<a href="#" class="button cacap-cancel">' . __( 'cancel', 'cacap' ) . '</a>'
+		     .   '<a href="#" class="button cacap-cancel">' . __( 'Cancel', 'cacap' ) . '</a>'
 		     . '</div>';
 	}
 
