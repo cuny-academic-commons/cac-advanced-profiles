@@ -301,6 +301,7 @@ body.cacap {
 	li {
 		overflow: hidden; /* Children are floated */
 		padding: 0 $widget_lr_padding;
+		position: relative;
 
 		& > div {
 			margin: $widget_tb_padding 0; 
@@ -447,5 +448,13 @@ body.profile-edit {
 		textarea {
 			width: 100%;
 		}
+	}
+
+	.cacap-widget-remove {
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 12px;
+		padding: 5px 10px;
 	}
 }

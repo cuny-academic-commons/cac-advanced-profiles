@@ -31,30 +31,6 @@
 
 			<?php endforeach ?>
 			</div>
-
-			<?php /*
-			<?php if ( empty( $_GET['cacap-new-widget-type'] ) ) : ?>
-				<form action="" method="get">
-					<?php include( 'widget-new-selector.php' ) ?>
-					<?php cacap_html_gen()->input( 'submit', '', __( 'Create', 'cacap' ) ) ?>
-				</form>
-			<?php else : ?>
-				<form action="" method="post">
-					<?php
-					$widget_types = cacap_widget_types();
-					// @todo better checks
-					if ( isset( $widget_types[ $_GET['cacap-new-widget-type'] ] ) ) {
-						echo $widget_types[ $_GET['cacap-new-widget-type'] ]->create_widget_markup();
-					}
-					wp_nonce_field( 'cacap_new_widget' );
-					?>
-
-					<input type="hidden" name="cacap-widget-type" value="<?php echo esc_attr( $_GET['cacap-new-widget-type'] ) ?>" />
-
-					<?php cacap_html_gen()->input( 'submit', 'cacap-widget-create-submit', __( 'Create', 'cacap' ) ) ?>
-				</form>
-			<?php endif ?>
-			*/ ?>
 		</div>
 	</div>
 
@@ -66,6 +42,8 @@
 				<div class="cacap-widget-title cacap-click-to-edit"><?php echo $widget_instance->edit_title() ?></div>
 				<div class="cacap-widget-content cacap-click-to-edit"><?php echo $widget_instance->edit_content() ?></div>
 				<input type="hidden" value="<?php echo esc_attr( $widget_instance->widget_type->slug ) ?>" name="<?php echo esc_attr( $widget_instance->css_id ) ?>[widget_type]" />
+
+				<a href="#" class="cacap-widget-remove button confirm"><?php _e( 'Remove', 'cacap' ) ?></a>
 			</li>
 		<?php endforeach; ?>
 		</ul>

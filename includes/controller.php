@@ -137,9 +137,14 @@ class CACAP_Controller {
 		// The widgets themselves
 		// Use the widget-order array as a list of keys to check
 		if ( isset( $_POST['cacap-widget-order'] ) ) {
-			foreach ( explode( ',', $_POST['cacap-widget-order'] ) as $fullkey ) {
+			$widget_order = explode( ',', $_POST['cacap-widget-order'] );
+			// Trim the 'cacap-widget-' bit
+			foreach ( $widget_order as &$wo ) {
+				$wo = substr( $wo, 13 );
+			}
+
+			foreach ( $widget_order as $key ) {
 				// Chop off the 'cacap-widget-' prefix
-				$key = substr( $fullkey, 13 );
 
 				$title       = isset( $_POST[ $key ]['title'] ) ? $_POST[ $key ]['title'] : '';
 				$content     = isset( $_POST[ $key ]['content'] ) ? $_POST[ $key ]['content'] : '';
@@ -158,6 +163,13 @@ class CACAP_Controller {
 						'title'       => $title,
 						'content'     => $content,
 					) );
+				}
+			}
+
+			// Check to see if any have been deleted
+			foreach ( cacap_user_widget_instances() as $wi ) {
+				if ( ! in_array( $wi->key, $widget_order ) ) {
+					$user->delete_widget_instance( $wi->key );
 				}
 			}
 		}

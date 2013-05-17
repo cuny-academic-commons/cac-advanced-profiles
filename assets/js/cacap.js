@@ -96,6 +96,20 @@ jQuery(document).ready( function($) {
 		return false;
 	});
 
+	$('#cacap-widget-list').on('click', '.cacap-widget-remove', function(e){
+		var widget_order_input = $('#cacap-widget-order');
+		var widget_order = widget_order_input.val().split(',');
+		var widget_id = $(this).closest('#cacap-widget-list li').attr('id');
+		var wo_key = $.inArray(widget_id, widget_order);
+
+		widget_order.splice(wo_key, 1);
+		widget_order_input.val(widget_order);
+
+		$('#'+widget_id).remove();
+
+		return false;
+	});
+
 	function is_edit_toggled(id) {
 		return window.cacapedittoggles.hasOwnProperty(id);
 	}

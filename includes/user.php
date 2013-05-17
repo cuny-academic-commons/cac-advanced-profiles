@@ -133,6 +133,13 @@ class CACAP_User {
 		) );
 	}
 
+	public function delete_widget_instance( $key ) {
+		// For now, save the data and delete the metadata only
+		$existing = $this->get_widget_instance_data();
+		unset( $existing[ $key ] );
+		bp_update_user_meta( $this->user_id, 'cacap_widget_instance_data', $existing );
+	}
+
 	public function store_widget_instance( $data ) {
 		$existing = $this->get_widget_instance_data();
 		$existing[ $data['key'] ] = $data;
