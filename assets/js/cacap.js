@@ -82,8 +82,12 @@ jQuery(document).ready( function($) {
 		var new_widget_id = "cacap-widget-newwidget" + window.newwidget_count;
 
 		$('#cacap-widget-list').append('<li id="' + new_widget_id + '">' + proto + '</li>');
+		var widget_order_input = $('#cacap-widget-order');
+		var widget_order = widget_order_input.val().split(',');
+		widget_order.push(new_widget_id);
+		widget_order_input.val(widget_order);
 
-		$('#'+new_widget_id).find('.cacap-click-to-edit').trigger('click').focus();
+		$('#' + new_widget_id).find('.cacap-click-to-edit').trigger('click').focus();
 		resize_drag_handles();
 
 		return false;
