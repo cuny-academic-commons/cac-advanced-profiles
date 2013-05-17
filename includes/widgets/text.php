@@ -3,7 +3,7 @@
 class CACAP_Widget_Text extends CACAP_Widget {
 	public function __construct() {
 		parent::init( array(
-			'name' => __( 'Text', 'cacap' ),
+			'name' => __( 'Free Entry', 'cacap' ),
 			'slug' => 'text',
 			'allow_custom_title' => true,
 			'allow_multiple' => true,

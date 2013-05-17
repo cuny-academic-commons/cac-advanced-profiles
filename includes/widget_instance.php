@@ -152,8 +152,11 @@ class CACAP_Widget_Instance {
 		return $this->widget_type->display_title_markup( $this->value );
 	}
 
+	/**
+	 * Todo: run through proper filters (not just wpautop)
+	 */
 	public function display_content() {
-		return $this->widget_type->display_content_markup( $this->get_display_value() );
+		return wpautop( $this->widget_type->display_content_markup( $this->get_display_value() ) );
 	}
 
 	public function edit_title() {

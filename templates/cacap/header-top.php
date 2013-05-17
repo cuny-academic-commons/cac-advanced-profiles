@@ -22,7 +22,7 @@
 	</div>
 
 	<?php if ( bp_is_user_profile_edit() ) : ?>
-		<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" id="cacap-edit-submit" />
+		<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
 	<?php endif ?>
 </div>
 
