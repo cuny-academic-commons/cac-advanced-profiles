@@ -6,6 +6,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 			'name' => __( 'Text', 'cacap' ),
 			'slug' => 'text',
 			'allow_custom_title' => true,
+			'allow_multiple' => true,
 		) );
 	}
 

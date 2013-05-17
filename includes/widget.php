@@ -16,6 +16,7 @@ abstract class CACAP_Widget {
 			'slug' => '',
 
 			'allow_custom_title' => false,
+			'allow_multiple' => false,
 
 			'context' => 'body',
 			'position' => 50, // @todo
@@ -31,6 +32,7 @@ abstract class CACAP_Widget {
 		$this->slug = $r['slug'];
 
 		$this->allow_custom_title = $r['allow_custom_title'];
+		$this->allow_multiple = (bool) $r['allow_multiple'];
 
 		// @todo whitelist? how to make extensible?
 		$this->context = $r['context'];

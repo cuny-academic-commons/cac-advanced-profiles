@@ -6,10 +6,14 @@
 
 			<ul id="cacap-new-widget-types">
 			<?php foreach ( cacap_widget_types() as $widget_type ) : ?>
-				<li id="cacap-new-widget-<?php echo esc_attr( $widget_type->slug ) ?>">
+				<?php $disabled = cacap_widget_type_is_disabled_for_user( $widget_type ) ? 'cacap-has-max' : '' ?>
+				<li class="<?php echo $disabled ?>" id="cacap-new-widget-<?php echo esc_attr( $widget_type->slug ) ?>">
 					<a href="#cacap-user-widget-new-content?type=<?php echo esc_attr( $widget_type->slug ) ?>">
 						<img src="<?php echo cacap_assets_url() ?>/images/plus.png" />
 						<span class="cacap-widget-type-name"><?php echo esc_html( $widget_type->name ) ?></span>
+						<?php if ( ! empty( $disabled ) ) : ?>
+							<span class="cacap-has-max-tooltip"><?php _e( 'You already have a widget of this type.', 'cacap' ) ?></span>
+						<?php endif ?>
 					</a>
 				</li>
 			<?php endforeach ?>

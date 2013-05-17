@@ -69,3 +69,17 @@ function cacap_widget_order() {
 	}
 	return esc_attr( implode( ',', $ids ) );
 }
+
+function cacap_widget_type_is_disabled_for_user( $widget_type ) {
+	$disabled = false;
+
+	$wis = cacap_user_widget_instances();
+	foreach ( $wis as $wi ) {
+		if ( $widget_type->slug === $wi->widget_type->slug && ! $widget_type->allow_multiple ) {
+			$disabled = true;
+			break;
+		}
+	}
+
+	return $disabled;
+}

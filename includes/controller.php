@@ -144,12 +144,21 @@ class CACAP_Controller {
 				$title       = isset( $_POST[ $key ]['title'] ) ? $_POST[ $key ]['title'] : '';
 				$content     = isset( $_POST[ $key ]['content'] ) ? $_POST[ $key ]['content'] : '';
 				$widget_type = isset( $_POST[ $key ]['widget_type'] ) ? $_POST[ $key ]['widget_type'] : '';
-				$user->save_widget_instance( array(
-					'key'         => $key,
-					'widget_type' => $widget_type,
-					'title'       => $title,
-					'content'     => $content,
-				) );
+
+				if ( 0 === strpos( array_pop( explode( '-', $key ) ), 'newwidget' ) ) {
+					$user->create_widget_instance( array(
+						'widget_type' => $widget_type,
+						'title'       => $title,
+						'content'     => $content,
+					) );
+				} else {
+					$user->save_widget_instance( array(
+						'key'         => $key,
+						'widget_type' => $widget_type,
+						'title'       => $title,
+						'content'     => $content,
+					) );
+				}
 			}
 		}
 	}

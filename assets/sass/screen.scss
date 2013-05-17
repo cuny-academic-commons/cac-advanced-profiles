@@ -352,6 +352,36 @@ body.profile-edit {
 			height: 90%;
 			margin-right: 10px;
 			padding: 3px;
+			cursor: pointer;
+
+			&.cacap-has-max {
+				opacity: .4;
+
+				.cacap-has-max-tooltip {
+					position: absolute;
+					font-size: .9em;
+					height: 1.4em;
+					background: #fff;
+					border: 1px solid #666;
+					opacity: 2;
+					color: #000;
+					display: none;
+				}
+
+				&:hover {
+					background: transparent;
+					cursor: default;
+
+					.cacap-has-max-tooltip {
+						display: block;
+					}
+					
+					a {
+						color: $link_pink;
+						cursor: default;
+					}
+				}
+			}
 
 			&:hover {
 				background: $button_blue;
