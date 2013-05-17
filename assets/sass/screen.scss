@@ -298,7 +298,7 @@ body.cacap {
 }
 
 #cacap-widget-list {
-	li {
+	& > li {
 		overflow: hidden; /* Children are floated */
 		padding: 0 $widget_lr_padding;
 		position: relative;
@@ -312,7 +312,7 @@ body.cacap {
 
 body.profile-edit {
 	#cacap-widget-list {
-		li {
+		& > li {
 			outline: 1px solid #555555;
 			margin: 0.5em 0;
 		}
@@ -456,5 +456,29 @@ body.profile-edit {
 		right: 0;
 		font-size: 12px;
 		padding: 5px 10px;
+	}
+}
+
+/* RSS WIDGETS    
+/********************************************/
+
+.cacap-rss-items {
+	li {
+		margin-bottom: 2em;
+	}
+
+	.cacap-feed-item-title {
+		margin-bottom: 1em;
+	}
+
+	.cacap-feed-item-meta {
+		font-size: .8em;
+		color: #666;
+		font-style: italic;
+		margin-top: .5em;
+		
+		& > span {
+			margin-right: 30px;
+		}
 	}
 }

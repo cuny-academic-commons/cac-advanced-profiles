@@ -145,7 +145,7 @@ class CACAP_Controller {
 
 			// First check to see if any have been deleted
 			foreach ( cacap_user_widget_instances() as $wi ) {
-				if ( ! in_array( $wi->key, $widget_order ) ) {
+				if ( ! in_array( $wi->css_id, $widget_order ) ) {
 					$user->delete_widget_instance( $wi->key );
 				}
 			}

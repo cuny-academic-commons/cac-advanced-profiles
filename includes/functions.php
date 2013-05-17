@@ -29,9 +29,12 @@ function cacap_widget_types( $args = array() ) {
 
 	// hardcoding for now
 	$types = array(
-		'text' => 'CACAP_Widget_Text',
+		'text'               => 'CACAP_Widget_Text',
 		'academic-interests' => 'CACAP_Widget_Academic_Interests',
-		'publications' => 'CACAP_Widget_Publications',
+		'education'          => 'CACAP_Widget_Education',
+		'positions'          => 'CACAP_Widget_Positions',
+		'publications'       => 'CACAP_Widget_Publications',
+		'rss'                => 'CACAP_Widget_RSS',
 	);
 
 	$widgets = array();
