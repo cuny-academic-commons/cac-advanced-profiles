@@ -34,17 +34,20 @@ class CACAP_Widget_Instance {
 				$data['widget_type'] = $data['type'];
 			}
 
-			if ( ! empty( $data['widget_type'] ) && ! empty( $data['key'] ) && ! empty( $data['user_id'] ) ) {
-
+			if ( ! empty( $data['widget_type'] ) ) {
 				$widget_types = cacap_widget_types();
 				$wt = isset( $data['widget_type']->slug ) ? $data['widget_type']->slug : $data['widget_type'];
 				if ( isset( $widget_types[ $wt ] ) ) {
 					$this->widget_type = new $widget_types[ $wt ];
 				}
+			}
 
+			if ( ! empty( $data['key'] ) ) {
 				$this->key = $data['key'];
-				$this->user_id = $data['user_id'];
+			}
 
+			if ( ! empty( $data['user_id'] ) ) {
+				$this->user_id = $data['user_id'];
 				$this->value = $this->get_value();
 			}
 

@@ -79,10 +79,12 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	}
 
 	public function edit_title_markup( $value, $key ) {
-		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $value['title'] ) . '" />';
+		$title = isset( $value['title'] ) ? $value['title'] : '';
+		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $title ) . '" />';
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $value['content'] ) . '</textarea>';
+		$content = isset( $value['content'] ) ? $value['content'] : '';
+		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $content ) . '</textarea>';
 	}
 }

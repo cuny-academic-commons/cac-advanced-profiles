@@ -55,10 +55,37 @@ jQuery(document).ready( function($) {
 				delete window.cacapedittoggles[widget_id];
 				$(edit_input).hide();
 				$(edit_title).show();
+
+				// Check to see whether the partner box is empty, and if so, open
+				var my_buddy = $(this).siblings('.cacap-click-to-edit');
+				var my_buddy_content = $(my_buddy).find('.cacap-edit-input').val();
+
+				if ( '' == my_buddy_content ) {
+					$(my_buddy).trigger('click');
+				}
 			}
 		}
 
 		resize_drag_handles();
+		return false;
+	});
+
+	window.newwidget_count = 0;
+	$('#cacap-new-widget-types li').on('click', function(e){
+		window.newwidget_count++;
+		var widget_type = $(this).attr('id').slice(17);
+
+		// Get the prototype and swap with the autoincrement
+		var proto = $('#cacap-widget-prototype-'+widget_type).html();
+		proto = proto.replace(/newwidgetkey/g, 'newwidget' + window.newwidget_count);
+
+		var new_widget_id = "cacap-widget-newwidget" + window.newwidget_count;
+
+		$('#cacap-widget-list').append('<li id="' + new_widget_id + '">' + proto + '</li>');
+
+		$('#'+new_widget_id).find('.cacap-click-to-edit').trigger('click').focus();
+		resize_drag_handles();
+
 		return false;
 	});
 

@@ -6,8 +6,8 @@
 
 			<ul id="cacap-new-widget-types">
 			<?php foreach ( cacap_widget_types() as $widget_type ) : ?>
-				<li>
-					<a href="">
+				<li id="cacap-new-widget-<?php echo esc_attr( $widget_type->slug ) ?>">
+					<a href="#cacap-user-widget-new-content?type=<?php echo esc_attr( $widget_type->slug ) ?>">
 						<img src="<?php echo cacap_assets_url() ?>/images/plus.png" />
 						<span class="cacap-widget-type-name"><?php echo esc_html( $widget_type->name ) ?></span>
 					</a>
@@ -15,6 +15,20 @@
 			<?php endforeach ?>
 			</ul>
 
+			<div id="cacap-widget-prototypes">
+			<?php foreach ( cacap_widget_types() as $widget_type ) : ?>
+				<?php $wi_prototype = new CACAP_Widget_Instance( array( 'widget_type' => $widget_type, 'key' => 'newwidgetkey' ) ) ?>
+				<div id="cacap-widget-prototype-<?php echo esc_attr( $widget_type->slug ) ?>">
+					<div class="cacap-drag-handle"></div>
+					<div class="cacap-widget-title cacap-click-to-edit"><?php echo $wi_prototype->edit_title() ?></div>
+					<div class="cacap-widget-content cacap-click-to-edit"><?php echo $wi_prototype->edit_content() ?></div>
+					<input type="hidden" value="<?php echo esc_attr( $wi_prototype->widget_type->slug ) ?>" name="<?php echo esc_attr( $wi_prototype->css_id ) ?>[widget_type]" />
+				</div>
+
+			<?php endforeach ?>
+			</div>
+
+			<?php /*
 			<?php if ( empty( $_GET['cacap-new-widget-type'] ) ) : ?>
 				<form action="" method="get">
 					<?php include( 'widget-new-selector.php' ) ?>
@@ -36,6 +50,7 @@
 					<?php cacap_html_gen()->input( 'submit', 'cacap-widget-create-submit', __( 'Create', 'cacap' ) ) ?>
 				</form>
 			<?php endif ?>
+			*/ ?>
 		</div>
 	</div>
 
