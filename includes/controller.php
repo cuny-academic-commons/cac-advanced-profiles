@@ -143,9 +143,15 @@ class CACAP_Controller {
 				$wo = substr( $wo, 13 );
 			}
 
-			foreach ( $widget_order as $key ) {
-				// Chop off the 'cacap-widget-' prefix
+			// First check to see if any have been deleted
+			foreach ( cacap_user_widget_instances() as $wi ) {
+				if ( ! in_array( $wi->key, $widget_order ) ) {
+					$user->delete_widget_instance( $wi->key );
+				}
+			}
 
+			// Now edit and add
+			foreach ( $widget_order as $key ) {
 				$title       = isset( $_POST[ $key ]['title'] ) ? $_POST[ $key ]['title'] : '';
 				$content     = isset( $_POST[ $key ]['content'] ) ? $_POST[ $key ]['content'] : '';
 				$widget_type = isset( $_POST[ $key ]['widget_type'] ) ? $_POST[ $key ]['widget_type'] : '';
@@ -163,13 +169,6 @@ class CACAP_Controller {
 						'title'       => $title,
 						'content'     => $content,
 					) );
-				}
-			}
-
-			// Check to see if any have been deleted
-			foreach ( cacap_user_widget_instances() as $wi ) {
-				if ( ! in_array( $wi->key, $widget_order ) ) {
-					$user->delete_widget_instance( $wi->key );
 				}
 			}
 		}

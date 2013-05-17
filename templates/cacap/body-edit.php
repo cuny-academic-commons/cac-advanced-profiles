@@ -27,6 +27,7 @@
 					<div class="cacap-widget-title cacap-click-to-edit"><?php echo $wi_prototype->edit_title() ?></div>
 					<div class="cacap-widget-content cacap-click-to-edit"><?php echo $wi_prototype->edit_content() ?></div>
 					<input type="hidden" value="<?php echo esc_attr( $wi_prototype->widget_type->slug ) ?>" name="<?php echo esc_attr( $wi_prototype->css_id ) ?>[widget_type]" />
+					<a href="#" class="cacap-widget-remove button confirm"><?php _e( 'Remove', 'cacap' ) ?></a>
 				</div>
 
 			<?php endforeach ?>
