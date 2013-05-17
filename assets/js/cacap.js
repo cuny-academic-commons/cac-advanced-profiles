@@ -72,6 +72,9 @@ jQuery(document).ready( function($) {
 
 	window.newwidget_count = 0;
 	$('#cacap-new-widget-types li').on('click', function(e){
+		if ($(this).hasClass('cacap-has-max')) {
+			return false;
+		}
 		window.newwidget_count++;
 		var widget_type = $(this).attr('id').slice(17);
 
