@@ -11,7 +11,6 @@ jQuery(document).ready( function($) {
 		}
 	});
 
-
 	// Click to edit - delegated from parent
 	window.cacapedittoggles = {};
 	$('#cacap-widget-list').on('click', '.cacap-click-to-edit', function(e){
@@ -90,7 +89,15 @@ jQuery(document).ready( function($) {
 		widget_order.push(new_widget_id);
 		widget_order_input.val(widget_order);
 
-		$('#' + new_widget_id).find('.cacap-click-to-edit').trigger('click').focus();
+		// Set focus on 'title', unless it's disabled
+		var $new_widget = $('#' + new_widget_id);
+		var $new_widget_title = $new_widget.find('.cacap-widget-title');
+		if ( 'disabled' == $new_widget_title.find('.cacap-edit-input').attr('disabled') )	{
+			$new_widget.find('.cacap-widget-content').trigger('click').focus();	
+		} else {
+			$new_widget_title.trigger('click').focus();
+		}
+		
 		resize_drag_handles();
 
 		return false;
