@@ -97,7 +97,12 @@ jQuery(document).ready( function($) {
 		} else {
 			$new_widget_title.trigger('click').focus();
 		}
-		
+
+		// Clone the Add New prototype for Positions
+		if ( 'positions' == widget_type ) {
+			clone_add_new_position_fields( $new_widget );
+		}
+
 		resize_drag_handles();
 
 		return false;
@@ -127,5 +132,35 @@ jQuery(document).ready( function($) {
 		$('body.profile-edit .cacap-drag-handle').each( function( k, v ) {
 			$(v).css('height','0').css('height', $(v).parent().css('height'));	
 		});
+	}
+
+	function clone_add_new_position_fields( $new_widget ) {
+		$fields = $new_widget.find('#cacap-position-new').clone()
+		
+		// Don't need this class anymore
+		$fields.removeClass('hide-if-js');
+
+		// Swap 'new' with proper iterator
+		// Subtract 1 for the prototype
+		var existing_positions_count = $new_widget.find('ul').length - 1;
+		var this_position_count = existing_positions_count + 1;
+		var tpid = 'cacap-position-' + this_position_count;
+		var thefor, thename, theid;
+
+		$fields.removeAttr('id').attr('id', tpid);
+		$fields.find('label').each( function(k, v) {
+			thefor = $(this).attr('for');
+			$(this).attr('for', thefor.replace('cacap-position-new', tpid));
+		});
+		$fields.find('input,select').each( function(k, v) {
+			theid = $(this).attr('id');
+			$(this).attr('id', theid.replace('cacap-position-new', tpid));
+			thename = $(this).attr('name');
+			$(this).attr('name', thename.replace('new', this_position_count));
+		});
+//		$fields.find('label').attr('for', this.replace('cacap-position-new', tpid));
+		console.log( $fields );
+		
+		$fields.prependTo( $new_widget.find('.cacap-edit-content-input') );
 	}
 },(jQuery));

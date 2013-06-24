@@ -198,18 +198,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 			'user_id' => 0,
 		) );
 
-		$positions = get_user_meta( $r['user_id'], 'cacap_positions' );
-
-		if ( '' == $positions || ! is_array( $positions ) ) {
-			$positions = array();
-		}
-
-		return $positions;
-		return array(
-			'college'    => wp_get_object_terms( $r['user_id'], 'cacap_position_college' ),
-			'department' => wp_get_object_terms( $r['user_id'], 'cacap_position_department' ),
-			'title'      => get_user_meta( $r['user_id'], 'cacap_position_title' ),
-		);
+		return $this->get_user_positions( $r['user_id'] );
 	}
 
 	public function get_display_value_from_value( $value ) {
@@ -219,10 +208,10 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 	public function edit_content_markup( $value, $key ) {
 		$markup = '';
 
-		// not enough - need a blank one for a prototype
+		// First, show existing fields
 		if ( ! empty( $value ) && is_array( $value ) ) {
 			foreach ( $value as $position ) {
-				$markup  = '<ul>';
+				$markup .= '<ul>';
 
 				$markup .=   '<li>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_college">' . __( 'College', 'cacap' ) . '</label>';
@@ -247,6 +236,33 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 				$markup .= '</ul>';
 			}
 		}
+
+		// Second, provide a blank set of fields
+		// When JS is enabled, this'll be hidden and used to clone new
+		// position fields. Otherwise, it'll be used for position entry
+		$markup  = '<ul id="cacap-position-new" class="hide-if-js">';
+
+		$markup .=   '<li>';
+		$markup .=     '<label for="cacap-position-new-college">' . __( 'College', 'cacap' ) . '</label>';
+		$markup .=     '<select name="cacap-positions[content][new][college]" id="cacap-position-new-college">';
+
+		foreach ( $this->colleges as $college ) {
+			$markup .= '<option value="' . esc_attr( $college ) . '">' . esc_attr( $college ) . '</option>';
+		}
+
+		$markup .=     '</select>';
+		$markup .=   '</li>';
+
+		$markup .=   '<li>';
+		$markup .=     '<label for="cacap-position-new-department">' . __( 'Department', 'cacap' ) . '</label>';
+		$markup .=     '<input class="cacap-edit-input" name="cacap-positions[content][new][department]" id="cacap-position-new-department" val="" />';
+		$markup .=   '</li>';
+
+		$markup .=   '<li>';
+		$markup .=     '<label for="cacap-position-new-title">' . __( 'Title', 'cacap' ) . '</label>';
+		$markup .=     '<input class="cacap-edit-input" name="cacap-positions[content][new][title]" id="cacap-position-new-title" val="" />';
+		$markup .=   '</li>';
+		$markup .= '</ul>';
 
 		return $markup;
 	}
