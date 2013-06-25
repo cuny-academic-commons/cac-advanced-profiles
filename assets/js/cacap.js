@@ -98,6 +98,9 @@ jQuery(document).ready( function($) {
 			$new_widget_title.trigger('click').focus();
 		}
 
+		// Add the type class
+		$new_widget.addClass( 'cacap-widget-' + widget_type );
+
 		// Clone the Add New prototype for Positions
 		if ( 'positions' == widget_type ) {
 			clone_add_new_position_fields( $new_widget );
