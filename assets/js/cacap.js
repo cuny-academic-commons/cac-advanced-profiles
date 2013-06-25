@@ -197,9 +197,9 @@ jQuery(document).ready( function($) {
 					for ( var i=0; i<positions.length; i++ ) {
 						this_position = '';
 						if ( positions[i].college && positions[i].department && positions[i].title ) {
-							this_position += '<em>' + positions[i].title + '</em> ';
-							this_position += positions[i].department + '<br />';
-							this_position += positions[i].college;
+							this_position += '<span class="cacap-positions-title">' + positions[i].title + '</span> ';
+							this_position += '<span class="cacap-positions-department">' + positions[i].department + '</span>';
+							this_position += '<span class="cacap-positions-college">' + positions[i].college + '</span>';
 						}
 
 						if ( this_position.length ) {
@@ -208,7 +208,7 @@ jQuery(document).ready( function($) {
 					}
 
 					if ( the_value.length ) {
-						the_value = '<ul>' + the_value + '</ul>';
+						the_value = '<ul class="cacap-positions-list">' + the_value + '</ul>';
 					}
 					
 					break;
