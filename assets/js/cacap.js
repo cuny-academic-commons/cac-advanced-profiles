@@ -46,7 +46,6 @@ jQuery(document).ready( function($) {
 				restore_me = true;
 			} else if ( $(e.target).hasClass( 'cacap-cancel' ) ) {
 				convert_fields_to_display( this, 'old' );
-				$(edit_input_field).val(window.cacapedittoggles[widget_id]);
 				restore_me = true;
 			}
 
@@ -176,6 +175,7 @@ jQuery(document).ready( function($) {
 			// into static field
 			widget_type_regex = /cacap\-widget\-(.+?)\b/;
 			widget_type = $widget.attr('class').match(widget_type_regex).pop();
+			widget_id = $widget.attr('id');
 
 			switch ( widget_type ) {
 				case 'positions' :
@@ -217,10 +217,11 @@ jQuery(document).ready( function($) {
 					the_value = $edit_div.find('.cacap-edit-input').val().replace(/\r?\n/g, '<br />');
 					break;
 			}
+
+			window.cacapedittoggles[widget_id] = the_value;
 		} else {
 			// 'Cancel' - replace input value with cached value
 			// @todo This doesn't handle Positions yet
-			widget_id = $widget.attr('id');
 			the_value = window.cacapedittoggles[widget_id]; 
 		}
 
