@@ -215,7 +215,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 				$markup .=   '<li>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_college">' . __( 'College', 'cacap' ) . '</label>';
-				$markup .=     '<select name="' . esc_attr( $key ) . '[content][][college]" id="' . esc_attr( $key ) . '_college">';
+				$markup .=     '<select name="' . esc_attr( $key ) . '[content][][college]" id="' . esc_attr( $key ) . '_college" class="cacap-position-field-college">';
 
 				foreach ( $this->colleges as $college ) {
 					$markup .= '<option value="' . esc_attr( $college ) . '" ' . selected( $college, $current_college, false ) . '>' . esc_attr( $college ) . '</option>';
@@ -223,15 +223,12 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 				$markup .=     '</select>';
 				$markup .=   '</li>';
-
-				$markup .=   '<li>';
-				$markup .=     '<label for="' . esc_attr( $key ) . '_department">' . __( 'Department', 'cacap' ) . '</label>';
-				$markup .=     '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[content][][department]" id="' . esc_attr( $key ) . '_department" val="' . esc_attr( $content ) . '" />';
+$markup .=   '<li>'; $markup .=     '<label for="' . esc_attr( $key ) . '_department">' . __( 'Department', 'cacap' ) . '</label>'; $markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="' . esc_attr( $key ) . '[content][][department]" id="' . esc_attr( $key ) . '_department" val="' . esc_attr( $content ) . '" />';
 				$markup .=   '</li>';
 
 				$markup .=   '<li>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_title">' . __( 'Title', 'cacap' ) . '</label>';
-				$markup .=     '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[content][][title]" id="' . esc_attr( $key ) . '_title" val="' . esc_attr( $content ) . '" />';
+				$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="' . esc_attr( $key ) . '[content][][title]" id="' . esc_attr( $key ) . '_title" val="' . esc_attr( $content ) . '" />';
 				$markup .=   '</li>';
 				$markup .= '</ul>';
 			}
@@ -244,7 +241,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 		$markup .=   '<li>';
 		$markup .=     '<label for="cacap-position-new-college">' . __( 'College', 'cacap' ) . '</label>';
-		$markup .=     '<select name="cacap-positions[content][new][college]" id="cacap-position-new-college">';
+		$markup .=     '<select class="cacap-position-field-college" name="cacap-positions[content][new][college]" id="cacap-position-new-college">';
 
 		foreach ( $this->colleges as $college ) {
 			$markup .= '<option value="' . esc_attr( $college ) . '">' . esc_attr( $college ) . '</option>';
@@ -255,15 +252,14 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 		$markup .=   '<li>';
 		$markup .=     '<label for="cacap-position-new-department">' . __( 'Department', 'cacap' ) . '</label>';
-		$markup .=     '<input class="cacap-edit-input" name="cacap-positions[content][new][department]" id="cacap-position-new-department" val="" />';
+		$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="cacap-positions[content][new][department]" id="cacap-position-new-department" val="" />';
 		$markup .=   '</li>';
 
 		$markup .=   '<li>';
 		$markup .=     '<label for="cacap-position-new-title">' . __( 'Title', 'cacap' ) . '</label>';
-		$markup .=     '<input class="cacap-edit-input" name="cacap-positions[content][new][title]" id="cacap-position-new-title" val="" />';
+		$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="cacap-positions[content][new][title]" id="cacap-position-new-title" val="" />';
 		$markup .=   '</li>';
 		$markup .= '</ul>';
-
 		return $markup;
 	}
 

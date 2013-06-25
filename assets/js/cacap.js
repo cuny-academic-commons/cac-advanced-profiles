@@ -42,10 +42,10 @@ jQuery(document).ready( function($) {
 
 			// Only do anything if clicking OK or Cancel
 			if ( $(e.target).hasClass( 'cacap-ok' ) ) {
-				var input_value = $(edit_input_field).val().replace(/\r?\n/g, '<br />');
-				$(edit_title).html(input_value);
+				convert_fields_to_display( this, 'new' );
 				restore_me = true;
 			} else if ( $(e.target).hasClass( 'cacap-cancel' ) ) {
+				convert_fields_to_display( this, 'old' );
 				$(edit_input_field).val(window.cacapedittoggles[widget_id]);
 				restore_me = true;
 			}
@@ -161,9 +161,69 @@ jQuery(document).ready( function($) {
 			thename = $(this).attr('name');
 			$(this).attr('name', thename.replace('new', this_position_count));
 		});
-//		$fields.find('label').attr('for', this.replace('cacap-position-new', tpid));
-		console.log( $fields );
 		
 		$fields.prependTo( $new_widget.find('.cacap-edit-content-input') );
+	}
+
+	function convert_fields_to_display( clicked, new_or_old ) {
+		var $widget, $edit_div, $edit_input_field, $edit_title, $current_position, widget_id, widget_type_regex, widget_type, the_value, positions, this_position;
+
+		$widget = $(clicked).closest('ul#cacap-widget-list li');	
+		$edit_div = $(clicked).closest('.cacap-click-to-edit'); 
+
+		if ( 'new' == new_or_old ) {
+			// 'OK' - convert input value to plain text, and swap
+			// into static field
+			widget_type_regex = /cacap\-widget\-(.+?)\b/;
+			widget_type = $widget.attr('class').match(widget_type_regex).pop();
+
+			switch ( widget_type ) {
+				case 'positions' :
+					positions = [];
+					$widget.find('.cacap-edit-content-input').children('ul').each( function( index ) {
+						$current_position = $(this);
+
+						if ( 'new' != $current_position.attr('id').split('-').pop() ) {
+							positions.push({
+								'college': $current_position.find('.cacap-position-field-college').val(),
+								'department': $current_position.find('.cacap-position-field-department').val(),
+								'title': $current_position.find('.cacap-position-field-title').val()
+							});
+						}
+					} );
+
+					the_value = '';
+					
+					for ( var i=0; i<positions.length; i++ ) {
+						this_position = '';
+						if ( positions[i].college && positions[i].department && positions[i].title ) {
+							this_position += '<em>' + positions[i].title + '</em> ';
+							this_position += positions[i].department + '<br />';
+							this_position += positions[i].college;
+						}
+
+						if ( this_position.length ) {
+							the_value += '<li>' + this_position + '</li>';
+						}
+					}
+
+					if ( the_value.length ) {
+						the_value = '<ul>' + the_value + '</ul>';
+					}
+					
+					break;
+
+				default :
+					the_value = $edit_div.find('.cacap-edit-input').val().replace(/\r?\n/g, '<br />');
+					break;
+			}
+		} else {
+			// 'Cancel' - replace input value with cached value
+			// @todo This doesn't handle Positions yet
+			widget_id = $widget.attr('id');
+			the_value = window.cacapedittoggles[widget_id]; 
+		}
+
+		$edit_div.find('.cacap-hide-on-edit').html(the_value);
 	}
 },(jQuery));
