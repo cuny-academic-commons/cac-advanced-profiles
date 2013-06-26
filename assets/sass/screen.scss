@@ -466,8 +466,12 @@ body.profile-edit {
 	}
 
 	.cacap-widget-positions {
+		.cacap-show-on-edit > ul {
+			margin-bottom: 2em;
+		}
 		input {
 			height: auto !important;
+			margin-top: .5em;
 		}
 	}
 }
