@@ -307,7 +307,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		return $markup;
 	}
 
-	public function register_taxonomies() {
+	static public function register_taxonomies() {
 		register_taxonomy( 'cacap_position_college', 'user', array(
 			'hierarchical' => false,
 			'show_ui' => true,
@@ -326,3 +326,37 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 	}
 }
+
+
+function cacap_positions_suggest_cb() {
+	$field = isset( $_GET['field'] ) ? $_GET['field'] : '';
+	$value = isset( $_GET['term'] ) ? urldecode( $_GET['term'] ) : '';
+
+	$retval = array();
+
+	if ( ! taxonomy_exists( 'cacap_position_department' ) ) {
+		CACAP_Widget_Positions::register_taxonomies();
+	}
+
+	if ( $field && $value ) {
+		switch ( $field ) {
+			case 'department' :
+				$terms = get_terms( 'cacap_position_department', array(
+					'name__like' => $value,
+				) );
+
+				foreach ( $terms as $term ) {
+					$retval[] = array(
+						'id' => $term->name,
+						'label' => $term->name,
+						'value' => $term->name,
+					);
+				}
+
+				break;
+		}
+	}
+
+	die( json_encode( $retval ) );
+}
+add_action( 'wp_ajax_cacap_position_suggest', 'cacap_positions_suggest_cb' );

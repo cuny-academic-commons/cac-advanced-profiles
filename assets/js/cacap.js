@@ -156,6 +156,9 @@ jQuery(document).ready( function($) {
 		$(this).remove();
 	});
 
+	// Initialize autocomplete for existing widget
+	positions_autocomplete_setup( $positions_widget );	
+
 	function is_edit_toggled(id) {
 		return window.cacapedittoggles.hasOwnProperty(id);
 	}
@@ -214,7 +217,6 @@ jQuery(document).ready( function($) {
 			switch ( widget_type ) {
 				case 'positions' :
 					positions = [];
-					console.log($widget.find('.cacap-edit-content-input').children('ul'));
 					$widget.find('.cacap-edit-content-input').children('ul').each( function( index ) {
 						$current_position = $(this);
 
@@ -266,5 +268,17 @@ jQuery(document).ready( function($) {
 	function get_widget_type_from_class( classname ) {
 		widget_type_regex = /cacap\-widget\-([a-zA-Z0-9\-]+)/;
 		return classname.match(widget_type_regex).pop();
+	}
+	
+	function positions_autocomplete_setup( $widget ) {
+		if ( $widget ) {
+			var autocomplete_ep = ajaxurl + '?action=cacap_position_suggest';
+			$widget.find('.cacap-position-field-department').autocomplete({
+				source: autocomplete_ep + '&field=department',
+				minLength: 2,
+			});
+
+			// @todo Title?
+		}
 	}
 },(jQuery));

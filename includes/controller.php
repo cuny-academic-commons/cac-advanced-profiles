@@ -113,6 +113,7 @@ class CACAP_Controller {
 			array(
 				'jquery',
 				'jquery-ui-sortable',
+				'jquery-ui-autocomplete',
 				'cacap-autogrow',
 			)
 		);
