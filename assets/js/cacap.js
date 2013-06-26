@@ -16,27 +16,41 @@ jQuery(document).ready( function($) {
 	$('#cacap-widget-list').on('click', '.cacap-click-to-edit', function(e){
 		var edit_div = this;
 
-		var widget_id = $(edit_div).parent().attr('id');
+		var $widget = $(edit_div).closest('ul#cacap-widget-list li');	
+		var widget_id = $widget.attr('id');
 		var is_widget_toggled = is_edit_toggled(widget_id);
+		var widget_type = get_widget_type_from_class( $widget.attr('class') );
 
 		var edit_input = $(edit_div).find('.cacap-show-on-edit');
 		var edit_title = $(edit_div).find('.cacap-hide-on-edit');
-
 		var edit_input_field = $(edit_div).find('.cacap-edit-input');
 
 		if ( ! is_widget_toggled ) {
 			$(edit_input).show();
 			$(edit_title).hide();
-			$(edit_input_field).autogrow({animate:false});
-			$(edit_input_field).trigger('keyup');
 
-			var field_val = $(edit_input_field).val();
+			var value_to_cache;
 
-			// reset the val to get focus to the end. Dumb
-			$(edit_input_field).focus().val('').val(field_val);
+			switch ( widget_type ) {
+				case 'positions' :
+					value_to_cache = $(edit_input).html();
+					break;
+				
+				default :
+					$(edit_input_field).autogrow({animate:false});
+					$(edit_input_field).trigger('keyup');
+
+					value_to_cache = $(edit_input_field).val();
+
+					// reset the val to get focus to the end. Dumb
+					$(edit_input_field).focus().val('').val(value_to_cache);
+
+					break;
+
+			}
 
 			// Set in global object in case of Cancel
-			window.cacapedittoggles[widget_id] = field_val;
+			window.cacapedittoggles[widget_id] = value_to_cache;
 		} else {
 			var restore_me = false;
 
@@ -124,6 +138,15 @@ jQuery(document).ready( function($) {
 		return false;
 	});
 
+	// Cleanup for the Positions widget
+	$positions_widget = $('.cacap-widget-positions');
+
+	// On load, add the Add New Position fields 
+	clone_add_new_position_fields( $positions_widget );
+	
+	// Also swap out the lousy 'newwidgetkey' stuff. Blargh
+	$positions_widget.html( $positions_widget.html().replace(/\bnewwidgetkey\b/g, 'cacap_positions') );
+
 	function is_edit_toggled(id) {
 		return window.cacapedittoggles.hasOwnProperty(id);
 	}
@@ -137,7 +160,7 @@ jQuery(document).ready( function($) {
 	}
 
 	function clone_add_new_position_fields( $new_widget ) {
-		$fields = $new_widget.find('#cacap-position-new').clone()
+		$fields = $new_widget.find('#cacap-position-new').clone();
 		
 		// Don't need this class anymore
 		$fields.removeClass('hide-if-js');
@@ -158,7 +181,7 @@ jQuery(document).ready( function($) {
 			theid = $(this).attr('id');
 			$(this).attr('id', theid.replace('cacap-position-new', tpid));
 			thename = $(this).attr('name');
-			$(this).attr('name', thename.replace('new', this_position_count));
+			$(this).attr('name', thename.replace(/\bnew\b/, this_position_count));
 		});
 		
 		$fields.prependTo( $new_widget.find('.cacap-edit-content-input') );
@@ -173,13 +196,13 @@ jQuery(document).ready( function($) {
 		if ( 'new' == new_or_old ) {
 			// 'OK' - convert input value to plain text, and swap
 			// into static field
-			widget_type_regex = /cacap\-widget\-(.+?)\b/;
-			widget_type = $widget.attr('class').match(widget_type_regex).pop();
+			widget_type = get_widget_type_from_class( $widget.attr('class') );
 			widget_id = $widget.attr('id');
 
 			switch ( widget_type ) {
 				case 'positions' :
 					positions = [];
+					console.log($widget.find('.cacap-edit-content-input').children('ul'));
 					$widget.find('.cacap-edit-content-input').children('ul').each( function( index ) {
 						$current_position = $(this);
 
@@ -226,5 +249,10 @@ jQuery(document).ready( function($) {
 		}
 
 		$edit_div.find('.cacap-hide-on-edit').html(the_value);
+	}
+
+	function get_widget_type_from_class( classname ) {
+		widget_type_regex = /cacap\-widget\-([a-zA-Z0-9\-]+)/;
+		return classname.match(widget_type_regex).pop();
 	}
 },(jQuery));

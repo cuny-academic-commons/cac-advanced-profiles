@@ -68,8 +68,13 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		foreach ( $submitted_positions as $submitted_position ) {
 			$new_position = array();
 
+			// Discard any incomplete entries along the way
 			foreach ( array( 'college', 'department', 'title' ) as $type ) {
 				$new_position[ $type ] = $this->get_term_for_position( $submitted_position, $type );
+
+				if ( empty( $new_position[ $type ] ) ) {
+					continue 2;
+				}
 			}
 
 			$new_positions[] = $new_position;
@@ -202,7 +207,34 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 	}
 
 	public function get_display_value_from_value( $value ) {
-		return $value['content'];
+		$html  = '<ul class="cacap-positions-list">';
+
+		foreach ( (array) $value as $position ) {
+			foreach ( array( 'title', 'department', 'college' ) as $type ) {
+				$$type = isset( $position[ $type ] ) ? $position[ $type ] : '';
+			}
+			$html .= '<li>';
+			$html .=   '<span class="cacap-positions-title">' . $title . '</span>';
+			$html .=   '<span class="cacap-positions-department">' . $department . '</span>';
+			$html .=   '<span class="cacap-positions-college">' . $college . '</span>';
+			$html .= '</li>';
+		}
+
+		$html .= '</ul>';
+
+		return $html;
+	}
+
+	/**
+	 * Display the content markup
+	 *
+	 * Overriding the parent because we have already done the necessary
+	 * escaping, and want to avoid esc_html()
+	 *
+	 * @param string $value
+	 */
+	public function display_content_markup( $value ) {
+		return $value;
 	}
 
 	public function edit_content_markup( $value, $key ) {
@@ -210,12 +242,18 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 		// First, show existing fields
 		if ( ! empty( $value ) && is_array( $value ) ) {
+			$counter = 0;
 			foreach ( $value as $position ) {
-				$markup .= '<ul>';
+				$counter++;
+				$current_college = isset( $position['college'] ) ? $position['college'] : '';
+				$current_department = isset( $position['department'] ) ? $position['department'] : '';
+				$current_title = isset( $position['title'] ) ? $position['title'] : '';
+
+				$markup .= '<ul id="cacap-position-' . $counter . '">';
 
 				$markup .=   '<li>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_college">' . __( 'College', 'cacap' ) . '</label>';
-				$markup .=     '<select name="' . esc_attr( $key ) . '[content][][college]" id="' . esc_attr( $key ) . '_college" class="cacap-position-field-college">';
+				$markup .=     '<select name="' . esc_attr( $key ) . '[content][' . $counter . '][college]" id="' . esc_attr( $key ) . '_college" class="cacap-position-field-college">';
 
 				foreach ( $this->colleges as $college ) {
 					$markup .= '<option value="' . esc_attr( $college ) . '" ' . selected( $college, $current_college, false ) . '>' . esc_attr( $college ) . '</option>';
@@ -223,12 +261,15 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 				$markup .=     '</select>';
 				$markup .=   '</li>';
-$markup .=   '<li>'; $markup .=     '<label for="' . esc_attr( $key ) . '_department">' . __( 'Department', 'cacap' ) . '</label>'; $markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="' . esc_attr( $key ) . '[content][][department]" id="' . esc_attr( $key ) . '_department" val="' . esc_attr( $content ) . '" />';
+
+				$markup .=   '<li>';
+				$markup .=     '<label for="' . esc_attr( $key ) . '_department">' . __( 'Department', 'cacap' ) . '</label>';
+				$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="' . esc_attr( $key ) . '[content][' . $counter . '][department]" id="' . esc_attr( $key ) . '_department" value="' . esc_attr( $current_department ) . '" />';
 				$markup .=   '</li>';
 
 				$markup .=   '<li>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_title">' . __( 'Title', 'cacap' ) . '</label>';
-				$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="' . esc_attr( $key ) . '[content][][title]" id="' . esc_attr( $key ) . '_title" val="' . esc_attr( $content ) . '" />';
+				$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="' . esc_attr( $key ) . '[content][' . $counter . '][title]" id="' . esc_attr( $key ) . '_title" value="' . esc_attr( $current_title ) . '" />';
 				$markup .=   '</li>';
 				$markup .= '</ul>';
 			}
@@ -237,11 +278,11 @@ $markup .=   '<li>'; $markup .=     '<label for="' . esc_attr( $key ) . '_depart
 		// Second, provide a blank set of fields
 		// When JS is enabled, this'll be hidden and used to clone new
 		// position fields. Otherwise, it'll be used for position entry
-		$markup  = '<ul id="cacap-position-new" class="hide-if-js">';
+		$markup .= '<ul id="cacap-position-new" class="hide-if-js">';
 
 		$markup .=   '<li>';
 		$markup .=     '<label for="cacap-position-new-college">' . __( 'College', 'cacap' ) . '</label>';
-		$markup .=     '<select class="cacap-position-field-college" name="cacap-positions[content][new][college]" id="cacap-position-new-college">';
+		$markup .=     '<select class="cacap-position-field-college" name="newwidgetkey[content][new][college]" id="cacap-position-new-college">';
 
 		foreach ( $this->colleges as $college ) {
 			$markup .= '<option value="' . esc_attr( $college ) . '">' . esc_attr( $college ) . '</option>';
@@ -252,14 +293,15 @@ $markup .=   '<li>'; $markup .=     '<label for="' . esc_attr( $key ) . '_depart
 
 		$markup .=   '<li>';
 		$markup .=     '<label for="cacap-position-new-department">' . __( 'Department', 'cacap' ) . '</label>';
-		$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="cacap-positions[content][new][department]" id="cacap-position-new-department" val="" />';
+		$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="newwidgetkey[content][new][department]" id="cacap-position-new-department" val="" />';
 		$markup .=   '</li>';
 
 		$markup .=   '<li>';
 		$markup .=     '<label for="cacap-position-new-title">' . __( 'Title', 'cacap' ) . '</label>';
-		$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="cacap-positions[content][new][title]" id="cacap-position-new-title" val="" />';
+		$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="newwidgetkey[content][new][title]" id="cacap-position-new-title" val="" />';
 		$markup .=   '</li>';
 		$markup .= '</ul>';
+
 		return $markup;
 	}
 
