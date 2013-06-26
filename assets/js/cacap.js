@@ -138,7 +138,9 @@ jQuery(document).ready( function($) {
 		return false;
 	});
 
-	// Cleanup for the Positions widget
+	/**
+	 * Positions setup
+	 */
 	$positions_widget = $('.cacap-widget-positions');
 
 	// On load, add the Add New Position fields 
@@ -146,6 +148,13 @@ jQuery(document).ready( function($) {
 	
 	// Also swap out the lousy 'newwidgetkey' stuff. Blargh
 	$positions_widget.html( $positions_widget.html().replace(/\bnewwidgetkey\b/g, 'cacap_positions') );
+
+	// Delete a position
+	$('#cacap-widget-list').on('click', '.cacap-delete-position', function(e){
+		var position_id = $(this).attr('id').split('-').pop();
+		$('#cacap-position-'+position_id).remove();
+		$(this).remove();
+	});
 
 	function is_edit_toggled(id) {
 		return window.cacapedittoggles.hasOwnProperty(id);
@@ -183,6 +192,9 @@ jQuery(document).ready( function($) {
 			thename = $(this).attr('name');
 			$(this).attr('name', thename.replace(/\bnew\b/, this_position_count));
 		});
+
+		// No delete button
+		$fields.find('.cacap-delete-position').remove();
 		
 		$fields.prependTo( $new_widget.find('.cacap-edit-content-input') );
 	}

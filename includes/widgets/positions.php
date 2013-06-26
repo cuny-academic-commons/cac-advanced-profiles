@@ -249,6 +249,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 				$current_department = isset( $position['department'] ) ? $position['department'] : '';
 				$current_title = isset( $position['title'] ) ? $position['title'] : '';
 
+				$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-' . $counter . '">' . 'x' . '</a>';
 				$markup .= '<ul id="cacap-position-' . $counter . '">';
 
 				$markup .=   '<li>';
@@ -279,6 +280,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		// When JS is enabled, this'll be hidden and used to clone new
 		// position fields. Otherwise, it'll be used for position entry
 		$markup .= '<ul id="cacap-position-new" class="hide-if-js">';
+		$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-new">' . 'x' . '</a>';
 
 		$markup .=   '<li>';
 		$markup .=     '<label for="cacap-position-new-college">' . __( 'College', 'cacap' ) . '</label>';
