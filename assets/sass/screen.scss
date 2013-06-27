@@ -12,6 +12,7 @@ $body_primary_text_color: #000;
 $button_text_color: #1d1d1d;
 $button_blue: #2BA6CB;
 $link_pink: #ff4466;
+$activity_color: #ffeaa6;
 
 $font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -81,6 +82,11 @@ body.js .hide-if-js {
 	  border: 1px solid #C3C3C3;
 	  color: #1D1D1D;
 	}
+
+	a {
+		text-decoration: none;
+		color: #fff;
+	}
 }
 
 
@@ -128,7 +134,7 @@ body.cacap {
 
 #cacap-header {
 	background: transparent url('../images/black_linen_v2.png');
-	padding-bottom: 30px;
+	padding: 0 10px 30px;
 	box-shadow: 0 12px 12px -6px #000;
 
 	* {
@@ -142,6 +148,15 @@ body.cacap {
 
 		& > div {
 			float: left;
+		}
+
+		a {
+			color: $link_color;
+			text-decoration: none;
+		}
+
+		.button > a {
+			color: #fff;
 		}
 	}
 
@@ -161,11 +176,18 @@ body.cacap {
 	}
 
 	.cacap-avatar {
-		width: $col_width_onequarter;
+		width: 130px;
+		float: right !important;
 
-		.avatar {
-			float: right;
+		& > * {
+			margin-bottom: 1em;
 		}
+
+	}
+
+	.activity {
+		color: $activity_color;
+		font-size: 0.8rem;
 	}
 
 	.cacap-edit-submit {

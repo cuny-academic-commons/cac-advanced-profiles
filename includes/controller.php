@@ -11,6 +11,11 @@ class CACAP_Controller {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'body_class', array( $this, 'body_class' ) );
 
+		// Filter buttons
+		add_filter( 'bp_get_add_friend_button', array( $this, 'filter_add_friend_button' ) );
+		add_filter( 'bp_get_send_message_button_args', array( $this, 'filter_send_message_button' ) );
+		add_filter( 'bp_get_send_public_message_button', array( $this, 'filter_send_public_message_button' ) );
+
 		add_action( 'xprofile_updated_profile', array( $this, 'save_profile_data' ) );
 
 		// AJAX handlers
@@ -175,4 +180,29 @@ class CACAP_Controller {
 			}
 		}
 	}
+
+	public function filter_add_friend_button( $button ) {
+		if ( bp_is_user_profile() ) {
+			$button['wrapper_class'] .= ' button';
+		}
+
+		return $button;
+	}
+
+	public function filter_send_message_button( $button ) {
+		if ( bp_is_user_profile() ) {
+			$button['link_text'] = __( 'Send Message', 'cacap' );
+		}
+
+		return $button;
+	}
+
+	public function filter_send_public_message_button( $button ) {
+		if ( bp_is_user_profile() ) {
+			$button['link_text'] = __( 'Mention', 'cacap' );
+		}
+
+		return $button;
+	}
+
 }
