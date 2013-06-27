@@ -2,16 +2,21 @@
 
 <div class="cacap-row">
 	<dl id="cacap-vitals">
-		<dt class="cacap-vitals-contact">Follow me Online</dt>
-		<dd class="cacap-vitals-contact">
-			<?php
-			buddypress()->social_media_profiles->setup_user_sm_fields();
+		<?php
+		buddypress()->social_media_profiles->setup_user_sm_fields();
 
-			foreach ( buddypress()->social_media_profiles->user_sm_fields as $field ) {
-				echo $field['html'];
-			}
-			?>
-		</dd>
+		$user_sm_fields = buddypress()->social_media_profiles->user_sm_fields;
+		$user_sm_fields_html = '';
+
+		foreach ( (array) $user_sm_fields as $field ) {
+			$user_sm_fields_html .= $field['html'];
+		}
+		?>
+
+		<?php if ( $user_sm_fields_html ) : ?>
+			<dt class="cacap-vitals-contact">Follow me Online</dt>
+			<dd class="cacap-vitals-contact"><?php echo $user_sm_fields_html ?></dd>
+		<?php endif ?>
 
 		<?php
 		$contact_info = array();
