@@ -73,6 +73,7 @@ class CACAP_Controller {
 		}
 
 		$template = $this->locate_top_level_template();
+
 		return $template;
 	}
 

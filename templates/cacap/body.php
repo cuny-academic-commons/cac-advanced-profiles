@@ -1,4 +1,4 @@
-<?php if ( ! empty( $_GET['commons-profile'] ) && 1 === (int) $_GET['commons-profile'] ) : ?>
+<?php if ( ! bp_is_user_profile() || ( ! empty( $_GET['commons-profile'] ) && 1 === (int) $_GET['commons-profile'] ) ) : ?>
 	<?php bp_locate_template( 'cacap/commons-profile.php', true ) ?>
 <?php else : ?>
 	<div id="cacap-user-widgets">
