@@ -2,8 +2,8 @@
 
 <div class="cacap-row">
 	<dl id="cacap-vitals">
-		<dt>Follow me Online</dt>
-		<dd>
+		<dt class="cacap-vitals-contact">Follow me Online</dt>
+		<dd class="cacap-vitals-contact">
 			<?php
 			buddypress()->social_media_profiles->setup_user_sm_fields();
 
