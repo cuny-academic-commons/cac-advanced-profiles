@@ -279,7 +279,8 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		// Second, provide a blank set of fields
 		// When JS is enabled, this'll be hidden and used to clone new
 		// position fields. Otherwise, it'll be used for position entry
-		$markup .= '<ul id="cacap-position-new" class="hide-if-js">';
+		$markup .= '<ul id="cacap-position-new" class="cacap-position-add-new hide-if-js">';
+		$markup .= '<div class="cacap-position-add-new-title">' . __( 'Add New', 'cacap' ) . '</div>';
 		$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-new">' . 'x' . '</a>';
 
 		$markup .=   '<li>';

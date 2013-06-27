@@ -494,10 +494,29 @@ body.profile-edit {
 	.cacap-widget-positions {
 		.cacap-show-on-edit > ul {
 			margin-bottom: 2em;
+			padding-left: 20px;	
 		}
 		input {
 			height: auto !important;
 			margin-top: .5em;
+		}
+		.cacap-position-add-new {
+			background: #ddd;
+			padding: 10px 20px;
+		}
+			.cacap-position-add-new .hide-if-js {
+				display: none;
+			}
+		.cacap-position-add-new-title {
+			font-style: italic;
+			margin-bottom: 1em;
+			font-size: 1.1em;
+		}
+		a.cacap-delete-position {
+			text-decoration: none;
+			color: #f00;
+			font-weight: bold;
+			position: absolute;
 		}
 	}
 }
