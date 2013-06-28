@@ -1,6 +1,4 @@
 jQuery(document).ready( function($) {
-	resize_drag_handles();
-
 	// This should already be done by BP, but just in case...
 	var bodyclass = document.body.className;
 	bodyclass = bodyclass.replace( /no-js/,'js' );
@@ -164,6 +162,24 @@ jQuery(document).ready( function($) {
 		$('#cacap-position-'+position_id).remove();
 		$(this).remove();
 	});
+
+	// Alert before leaving without save
+	window.shouldconfirm = false;
+	$("#cacap-edit-form input:not(:submit), #cacap-edit-form textarea, #cacap-edit-form select").change( function() { 
+		window.shouldconfirm = true; 
+ 	}); 
+
+	$('#cacap-edit-form input:submit').on( 'click', function() { 
+		window.shouldconfirm = false; 
+	}); 
+
+	window.onbeforeunload = function(e) { 
+		if ( window.shouldconfirm ) { 
+			return 'Are you sure you want to leave?'; 
+		} 
+	}; 
+
+	resize_drag_handles();
 
 	function is_edit_toggled(id) {
 		return window.cacapedittoggles.hasOwnProperty(id);
