@@ -142,12 +142,16 @@ jQuery(document).ready( function($) {
 	 * Positions setup
 	 */
 	$positions_widget = $('.cacap-widget-positions');
+	if ( $positions_widget.length ) {
+		// On load, add the Add New Position fields 
+		clone_add_new_position_fields( $positions_widget );
+		
+		// Also swap out the lousy 'newwidgetkey' stuff. Blargh
+		$positions_widget.html( $positions_widget.html().replace(/\bnewwidgetkey\b/g, 'cacap_positions') );
 
-	// On load, add the Add New Position fields 
-	clone_add_new_position_fields( $positions_widget );
-	
-	// Also swap out the lousy 'newwidgetkey' stuff. Blargh
-	$positions_widget.html( $positions_widget.html().replace(/\bnewwidgetkey\b/g, 'cacap_positions') );
+		// Initialize autocomplete for existing widget
+		positions_autocomplete_setup( $positions_widget );	
+	}
 
 	// Delete a position
 	$('#cacap-widget-list').on('click', '.cacap-delete-position', function(e){
@@ -155,9 +159,6 @@ jQuery(document).ready( function($) {
 		$('#cacap-position-'+position_id).remove();
 		$(this).remove();
 	});
-
-	// Initialize autocomplete for existing widget
-	positions_autocomplete_setup( $positions_widget );	
 
 	function is_edit_toggled(id) {
 		return window.cacapedittoggles.hasOwnProperty(id);
