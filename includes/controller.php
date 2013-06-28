@@ -109,6 +109,9 @@ class CACAP_Controller {
 
 	public function enqueue_styles() {
 		wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css' );
+
+		// enqueue CAC css for commons-profile pages
+		wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css' );
 	}
 
 	public function enqueue_scripts() {
@@ -123,6 +126,9 @@ class CACAP_Controller {
 				'cacap-autogrow',
 			)
 		);
+
+		// enqueue CAC js for commons-profile pages
+		wp_enqueue_script( 'bp-dtheme-js' );
 	}
 
 	public function body_class( $classes ) {
