@@ -163,6 +163,40 @@ body.cacap {
 		.button > a {
 			color: #fff;
 		}
+
+		&.stuck {
+			background: transparent url('../images/black_linen_v2.png');
+			width: 100%;
+			position: fixed;
+			padding: 35px 0 10px 10px;
+			margin-left: -10px;
+			border-bottom: none;
+			top: 0;
+			z-index: 1000;
+
+			.cacap-hero *,
+			.cacap-avatar * {
+				display: none;
+			}
+
+			.cacap-hero h1,
+			.cacap-avatar img.avatar {
+				display: inherit;
+				z-index: 1000;
+			}
+
+			.cacap-avatar img.avatar {
+				height: 80px;
+				width: 80px;
+				float: right;
+			}
+		}
+	}
+
+	.cacap-hero-row-sticky {
+		padding-top: 0;
+		height: 70px !important;
+		width: 100% !important;
 	}
 
 	.cacap-hero {
