@@ -16,6 +16,9 @@ class CACAP_Controller {
 		add_filter( 'bp_get_send_message_button_args', array( $this, 'filter_send_message_button' ) );
 		add_filter( 'bp_get_send_public_message_button', array( $this, 'filter_send_public_message_button' ) );
 
+		// Hack - don't show College field
+		add_filter( 'bp_has_profile', array( $this, 'hide_college_field' ) );
+
 		add_action( 'xprofile_updated_profile', array( $this, 'save_profile_data' ) );
 
 		// AJAX handlers
@@ -218,6 +221,19 @@ class CACAP_Controller {
 		}
 
 		return $button;
+	}
+
+	public function hide_college_field( $has_profile ) {
+		global $profile_template;
+
+		if ( bp_is_profile_edit() ) {
+			if ( isset( $profile_template->groups[0]->fields[1] ) && 'College' == $profile_template->groups[0]->fields[1]->name ) {
+				unset( $profile_template->groups[0]->fields[1] );
+				$profile_template->groups[0]->fields = array_values( $profile_template->groups[0]->fields );
+			}
+		}
+
+		return $has_profile;
 	}
 
 }
