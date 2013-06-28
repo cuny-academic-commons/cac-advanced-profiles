@@ -96,7 +96,7 @@ jQuery(document).ready( function($) {
 
 		var new_widget_id = "cacap-widget-newwidget" + window.newwidget_count;
 
-		$('#cacap-widget-list').append('<li id="' + new_widget_id + '">' + proto + '</li>');
+		$('#cacap-widget-list').append('<li id="' + new_widget_id + '" class="cacap-widget-' + widget_type + '">' + proto + '</li>');
 		var widget_order_input = $('#cacap-widget-order');
 		var widget_order = widget_order_input.val().split(',');
 		widget_order.push(new_widget_id);
