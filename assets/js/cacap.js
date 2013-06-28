@@ -1,6 +1,11 @@
 jQuery(document).ready( function($) {
 	resize_drag_handles();
 
+	// This should already be done by BP, but just in case...
+	var bodyclass = document.body.className;
+	bodyclass = bodyclass.replace( /no-js/,'js' );
+	document.body.className = bodyclass;
+
 	// Set up sortable widgets
 	$('body.profile-edit #cacap-widget-list').sortable({
 		placeholder: 'ui-state-highlight',
