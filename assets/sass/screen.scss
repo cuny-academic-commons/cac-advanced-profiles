@@ -175,6 +175,20 @@ body.cacap {
 		}
 	}
 
+	.cacap-at-name {
+		font-size: .5em;
+		
+		.cacap-at-name-tooltip {
+			padding: 4px 6px;	
+		}
+		.cacap-at-name-tooltip:hover .cacap-tooltip {
+			display: block;
+			color: $body_primary_text_color;
+			text-align: left;
+			width: 140px;
+		}
+	}
+
 	.cacap-short-aboutme {
 		color: $header_secondary_text_color;
 		font-weight: 300;
@@ -360,6 +374,21 @@ body.profile-edit {
 		}
 		
 	}
+}
+
+.cacap-tooltip {
+	color: $body_primary_text_color;
+	font-weight: normal;
+	padding: 3px;
+	border-radius: 1px;
+	line-height: 1.0rem;
+	position: absolute;
+	font-size: .7rem;
+	background: #fff;
+	border: 1px solid #666;
+	opacity: 2;
+	color: #000;
+	display: none;
 }
 
 #cacap-user-widget-new {
