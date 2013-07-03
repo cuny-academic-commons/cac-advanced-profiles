@@ -68,11 +68,15 @@ jQuery(document).ready( function($) {
 
 	window.newwidget_count = 0;
 	$('#cacap-new-widget-types li').on('click', function(e){
-		if ($(this).hasClass('cacap-has-max')) {
+		var $clicked;
+
+		$clicked = $(this);
+
+		if ($clicked.hasClass('cacap-has-max')) {
 			return false;
 		}
 		window.newwidget_count++;
-		var widget_type = $(this).attr('id').slice(17);
+		var widget_type = $clicked.attr('id').slice(17);
 
 		// Get the prototype and swap with the autoincrement
 		var proto = $('#cacap-widget-prototype-'+widget_type).html();
@@ -98,6 +102,12 @@ jQuery(document).ready( function($) {
 		// Add the type class
 		$new_widget.addClass( 'cacap-widget-' + widget_type );
 
+		// If this widget doesn't allow multiple types, disable the
+		// button
+		if ( $clicked.hasClass( 'disable-multiple' ) ) {
+			$clicked.addClass( 'cacap-has-max' );
+		}
+
 		resize_drag_handles();
 
 		return false;
@@ -113,7 +123,15 @@ jQuery(document).ready( function($) {
 		widget_order.splice(wo_key, 1);
 		widget_order_input.val(widget_order);
 
-		$('#'+widget_id).remove();
+		var $widget_to_remove = $( '#' + widget_id );
+		var widget_type = get_widget_type_from_class( $widget_to_remove.attr('class') );
+
+		var $widget_type_new_button = $( '#cacap-new-widget-' + widget_type );
+		if ( $widget_type_new_button.hasClass( 'disable-multiple' ) ) {
+			$widget_type_new_button.removeClass( 'cacap-has-max' );
+		}
+
+		$widget_to_remove.remove();
 
 		return false;
 	});
