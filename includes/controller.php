@@ -112,8 +112,10 @@ class CACAP_Controller {
 
 	public function enqueue_styles() {
 		// enqueue CAC css for commons-profile pages
-		wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css' );
-		wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css', array( 'cac-bp-css' ) );
+                if ( bp_is_user() ) {
+                        wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css' );
+                        wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css', array( 'cac-bp-css' ) );
+                }
 	}
 
 	public function enqueue_scripts() {
