@@ -29,10 +29,6 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 	public function __construct() {
 		static $setup;
 
-		if ( empty( $setup ) ) {
-			$this->register_taxonomies();
-		}
-
 		parent::init( array(
 			'name' => __( 'Positions', 'cacap' ),
 			'slug' => 'positions',
@@ -310,25 +306,26 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		return $markup;
 	}
 
-	static public function register_taxonomies() {
-		register_taxonomy( 'cacap_position_college', 'user', array(
-			'hierarchical' => false,
-			'show_ui' => true,
-		) );
-		register_taxonomy( 'cacap_position_department', 'user', array(
-			'hierarchical' => false,
-			'show_ui' => true,
-		) );
-		register_taxonomy( 'cacap_position_title', 'user', array(
-			'hierarchical' => false,
-			'show_ui' => true,
-		) );
-	}
-
 	public static function taxonomy_setup() {
 
 	}
 }
+
+function cacap_positions_register_taxonomies() {
+	register_taxonomy( 'cacap_position_college', 'user', array(
+		'hierarchical' => false,
+		'show_ui' => true,
+	) );
+	register_taxonomy( 'cacap_position_department', 'user', array(
+		'hierarchical' => false,
+		'show_ui' => true,
+	) );
+	register_taxonomy( 'cacap_position_title', 'user', array(
+		'hierarchical' => false,
+		'show_ui' => true,
+	) );
+}
+add_action( 'init', 'cacap_positions_register_taxonomies', 100 );
 
 function cacap_positions_suggest_cb() {
 	$field = isset( $_GET['field'] ) ? $_GET['field'] : '';
@@ -337,7 +334,7 @@ function cacap_positions_suggest_cb() {
 	$retval = array();
 
 	if ( ! taxonomy_exists( 'cacap_position_department' ) ) {
-		CACAP_Widget_Positions::register_taxonomies();
+		cacap_positions_register_taxonomies();
 	}
 
 	if ( $field && $value ) {
