@@ -355,6 +355,10 @@ body.profile-edit {
 			outline: 1px dashed #555;
 			height: 75px;
 		}
+		.ui-helper-hidden-accessible {
+			display: none;
+		}
+		
 	}
 }
 
@@ -506,6 +510,7 @@ body.profile-edit {
 		input {
 			height: auto !important;
 			margin-top: .5em;
+			width: 300px;
 		}
 		.cacap-position-add-new {
 			background: #ddd;
@@ -568,3 +573,23 @@ body.profile-edit {
 		}
 	}
 }
+
+.ui-autocomplete {
+	background: #fff;
+	border: 1px solid #aaa;
+	padding: 3px;
+	width: 300px;
+
+	li.ui-menu-item {
+		a {
+			display: block;
+			width: 296px;
+			padding: 2px;
+
+			&.ui-state-focus {
+				background: #ccc;
+			}
+		}
+	}
+}
+
