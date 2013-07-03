@@ -117,11 +117,6 @@ jQuery(document).ready( function($) {
 		// Add the type class
 		$new_widget.addClass( 'cacap-widget-' + widget_type );
 
-		// Clone the Add New prototype for Positions
-		if ( 'positions' == widget_type ) {
-			clone_add_new_position_fields( $new_widget );
-		}
-
 		resize_drag_handles();
 
 		return false;
@@ -146,15 +141,17 @@ jQuery(document).ready( function($) {
 	 */
 	$positions_widget = $('.cacap-widget-positions');
 	if ( $positions_widget.length ) {
-		// On load, add the Add New Position fields 
-		clone_add_new_position_fields( $positions_widget );
-		
 		// Also swap out the lousy 'newwidgetkey' stuff. Blargh
 		$positions_widget.html( $positions_widget.html().replace(/\bnewwidgetkey\b/g, 'cacap_positions') );
 
 		// Initialize autocomplete for existing widget
 		positions_autocomplete_setup( $positions_widget );	
 	}
+
+	// Add a position
+	$('#cacap-widget-list').on('click', '.cacap-add-position', function(e){
+		clone_add_new_position_fields( $(this).closest( '.cacap-widget-positions' ) );
+	});
 
 	// Delete a position
 	$('#cacap-widget-list').on('click', '.cacap-delete-position', function(e){

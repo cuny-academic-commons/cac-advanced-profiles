@@ -241,6 +241,8 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		$markup = '';
 
 		// First, show existing fields
+		$markup .= '<div class="cacap-position-add-new-title hide-if-no-js"><a class="cacap-add-position" href="#">' . __( '&#43; Add New', 'cacap' ) . '</a></div>';
+
 		if ( ! empty( $value ) && is_array( $value ) ) {
 			$counter = 0;
 			foreach ( $value as $position ) {
@@ -279,8 +281,8 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		// Second, provide a blank set of fields
 		// When JS is enabled, this'll be hidden and used to clone new
 		// position fields. Otherwise, it'll be used for position entry
+
 		$markup .= '<ul id="cacap-position-new" class="cacap-position-add-new hide-if-js">';
-		$markup .= '<div class="cacap-position-add-new-title">' . __( 'Add New', 'cacap' ) . '</div>';
 		$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-new">' . 'x' . '</a>';
 
 		$markup .=   '<li>';
@@ -327,7 +329,6 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 
 	}
 }
-
 
 function cacap_positions_suggest_cb() {
 	$field = isset( $_GET['field'] ) ? $_GET['field'] : '';

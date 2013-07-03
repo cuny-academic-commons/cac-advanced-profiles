@@ -515,9 +515,12 @@ body.profile-edit {
 				display: none;
 			}
 		.cacap-position-add-new-title {
-			font-style: italic;
 			margin-bottom: 1em;
-			font-size: 1.1em;
+			
+			a {
+				text-decoration: none;
+				font-weight: bold;
+			}
 		}
 		a.cacap-delete-position {
 			text-decoration: none;
