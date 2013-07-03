@@ -76,6 +76,16 @@ abstract class CACAP_Widget {
 			$r['title'] = $this->name;
 		}
 
+		// Lame - autocreate field if it doesn't exist
+		$field_id = xprofile_get_field_id_from_name( $r['title'] );
+		if ( ! $field_id ) {
+			$field_id = xprofile_insert_field( array(
+				'field_group_id' => 1,
+				'type' => 'textbox',
+				'name' => $r['title'],
+			) );
+		}
+
 		if ( xprofile_set_field_data( $r['title'], absint( $r['user_id'] ), $r['content'] ) ) {
 			return CACAP_Widget_Instance::format_instance( array(
 				'user_id' => $r['user_id'],
