@@ -89,12 +89,16 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 
 	public function edit_title_markup( $value, $key ) {
 		$title = isset( $value['title'] ) ? $value['title'] : '';
-		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $title ) . '" />';
+		$html  = '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $title ) . '" />';
+
+		return $html;
 	}
 
 	public function edit_content_markup( $value, $key ) {
 		$content = isset( $value['content'] ) ? $value['content'] : '';
-		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]" value="' . esc_attr( $content ) . '" />';
+		$html  = '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]" value="' . esc_attr( $content ) . '" />';
+		$html .= '<p class="description">' . __( 'Enter the URL of your RSS feed (eg <code>http://news.commons.gc.cuny.edu/feed</code>)', 'cacap' ) . '</p>';
+		return $html;
 	}
 
 	public function format_rss_items_html( $feed_url, $num_items = 5 ) {

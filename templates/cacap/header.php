@@ -16,6 +16,7 @@
 		<?php if ( $user_sm_fields_html ) : ?>
 			<dt class="cacap-vitals-contact">Follow me Online</dt>
 			<dd class="cacap-vitals-contact"><?php echo $user_sm_fields_html ?></dd>
+                        <div clear="both"> </div>
 		<?php endif ?>
 
 		<?php

@@ -6,8 +6,18 @@
 
 			<ul id="cacap-new-widget-types">
 			<?php foreach ( cacap_widget_types() as $widget_type ) : ?>
-				<?php $disabled = cacap_widget_type_is_disabled_for_user( $widget_type ) ? 'cacap-has-max' : '' ?>
-				<li class="<?php echo $disabled ?>" id="cacap-new-widget-<?php echo esc_attr( $widget_type->slug ) ?>">
+				<?php
+				$css_classes = array();
+				if ( cacap_widget_type_is_disabled_for_user( $widget_type ) ) {
+					$css_classes[] = 'cacap-has-max';
+				}
+
+				if ( ! $widget_type->allow_multiple ) {
+					$css_classes[] = 'disable-multiple';
+				}
+				?>
+
+				<li class="<?php echo implode( ' ', $css_classes ) ?>" id="cacap-new-widget-<?php echo esc_attr( $widget_type->slug ) ?>">
 					<a href="#cacap-user-widget-new-content?type=<?php echo esc_attr( $widget_type->slug ) ?>">
 						<img src="<?php echo cacap_assets_url() ?>/images/plus.png" />
 						<span class="cacap-widget-type-name"><?php echo esc_html( $widget_type->name ) ?></span>

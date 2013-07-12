@@ -16,6 +16,9 @@ class CACAP_Controller {
 		add_filter( 'bp_get_send_message_button_args', array( $this, 'filter_send_message_button' ) );
 		add_filter( 'bp_get_send_public_message_button', array( $this, 'filter_send_public_message_button' ) );
 
+		// Hack - don't show College field
+		add_filter( 'bp_has_profile', array( $this, 'hide_college_field' ) );
+
 		add_action( 'xprofile_updated_profile', array( $this, 'save_profile_data' ) );
 
 		// AJAX handlers
@@ -108,7 +111,11 @@ class CACAP_Controller {
 	}
 
 	public function enqueue_styles() {
-		wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css' );
+		// enqueue CAC css for commons-profile pages
+                if ( bp_is_user() ) {
+                        wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css' );
+                        wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css', array( 'cac-bp-css' ) );
+                }
 	}
 
 	public function enqueue_scripts() {
@@ -127,6 +134,9 @@ class CACAP_Controller {
 				'cacap-waypoints-sticky',
 			)
 		);
+
+		// enqueue CAC js for commons-profile pages
+		wp_enqueue_script( 'bp-dtheme-js' );
 	}
 
 	public function body_class( $classes ) {
@@ -147,12 +157,21 @@ class CACAP_Controller {
 
 		// The widgets themselves
 		// Use the widget-order array as a list of keys to check
-		if ( isset( $_POST['cacap-widget-order'] ) ) {
+		if ( ! empty( $_POST['cacap-widget-order'] ) ) {
 			$widget_order = explode( ',', $_POST['cacap-widget-order'] );
+
 			// Trim the 'cacap-widget-' bit
 			foreach ( $widget_order as &$wo ) {
 				$wo = substr( $wo, 13 );
 			}
+
+			// Trim empties
+			foreach ( $widget_order as $wo_key => $wo_value ) {
+				if ( empty( $wo_value ) ) {
+					unset( $widget_order[ $wo_key ] );
+				}
+			}
+			$widget_order = array_values( $widget_order );
 
 			// First check to see if any have been deleted
 			foreach ( cacap_user_widget_instances() as $wi ) {
@@ -207,6 +226,19 @@ class CACAP_Controller {
 		}
 
 		return $button;
+	}
+
+	public function hide_college_field( $has_profile ) {
+		global $profile_template;
+
+		if ( bp_is_profile_edit() ) {
+			if ( isset( $profile_template->groups[0]->fields[1] ) && 'College' == $profile_template->groups[0]->fields[1]->name ) {
+				unset( $profile_template->groups[0]->fields[1] );
+				$profile_template->groups[0]->fields = array_values( $profile_template->groups[0]->fields );
+			}
+		}
+
+		return $has_profile;
 	}
 
 }

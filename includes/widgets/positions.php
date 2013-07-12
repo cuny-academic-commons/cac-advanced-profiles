@@ -29,10 +29,6 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 	public function __construct() {
 		static $setup;
 
-		if ( empty( $setup ) ) {
-			$this->register_taxonomies();
-		}
-
 		parent::init( array(
 			'name' => __( 'Positions', 'cacap' ),
 			'slug' => 'positions',
@@ -241,6 +237,8 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		$markup = '';
 
 		// First, show existing fields
+		$markup .= '<div class="cacap-position-add-new-title hide-if-no-js"><a class="cacap-add-position" href="#">' . __( '&#43; Add New', 'cacap' ) . '</a></div>';
+
 		if ( ! empty( $value ) && is_array( $value ) ) {
 			$counter = 0;
 			foreach ( $value as $position ) {
@@ -279,8 +277,8 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		// Second, provide a blank set of fields
 		// When JS is enabled, this'll be hidden and used to clone new
 		// position fields. Otherwise, it'll be used for position entry
+
 		$markup .= '<ul id="cacap-position-new" class="cacap-position-add-new hide-if-js">';
-		$markup .= '<div class="cacap-position-add-new-title">' . __( 'Add New', 'cacap' ) . '</div>';
 		$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-new">' . 'x' . '</a>';
 
 		$markup .=   '<li>';
@@ -308,26 +306,26 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		return $markup;
 	}
 
-	static public function register_taxonomies() {
-		register_taxonomy( 'cacap_position_college', 'user', array(
-			'hierarchical' => false,
-			'show_ui' => true,
-		) );
-		register_taxonomy( 'cacap_position_department', 'user', array(
-			'hierarchical' => false,
-			'show_ui' => true,
-		) );
-		register_taxonomy( 'cacap_position_title', 'user', array(
-			'hierarchical' => false,
-			'show_ui' => true,
-		) );
-	}
-
 	public static function taxonomy_setup() {
 
 	}
 }
 
+function cacap_positions_register_taxonomies() {
+	register_taxonomy( 'cacap_position_college', 'user', array(
+		'hierarchical' => false,
+		'show_ui' => true,
+	) );
+	register_taxonomy( 'cacap_position_department', 'user', array(
+		'hierarchical' => false,
+		'show_ui' => true,
+	) );
+	register_taxonomy( 'cacap_position_title', 'user', array(
+		'hierarchical' => false,
+		'show_ui' => true,
+	) );
+}
+add_action( 'init', 'cacap_positions_register_taxonomies', 100 );
 
 function cacap_positions_suggest_cb() {
 	$field = isset( $_GET['field'] ) ? $_GET['field'] : '';
@@ -336,7 +334,7 @@ function cacap_positions_suggest_cb() {
 	$retval = array();
 
 	if ( ! taxonomy_exists( 'cacap_position_department' ) ) {
-		CACAP_Widget_Positions::register_taxonomies();
+		cacap_positions_register_taxonomies();
 	}
 
 	if ( $field && $value ) {
@@ -361,3 +359,51 @@ function cacap_positions_suggest_cb() {
 	die( json_encode( $retval ) );
 }
 add_action( 'wp_ajax_cacap_position_suggest', 'cacap_positions_suggest_cb' );
+
+/**
+ * When a search term is found, also search in position terms
+ *
+ * NOTE!! This will only work with the legacy queries
+ */
+function cacap_filter_member_search_by_position( $s, $sql ) {
+	if ( ! empty( $sql['where_searchterms'] ) ) {
+		preg_match( '/%%(.*?)%%/', $sql['where_searchterms'], $matches );
+		if ( ! empty( $matches[1] ) ) {
+			$search_term = $matches[1];
+			$taxes = array(
+				'cacap_position_college',
+				'cacap_position_department',
+				'cacap_position_title',
+			);
+			$terms = get_terms(
+				$taxes,
+				array(
+					'name__like' => $search_term,
+				)
+			);
+			$term_ids = wp_list_pluck( $terms, 'term_id' );
+
+			$user_ids = get_objects_in_term( $term_ids, $taxes );
+			if ( ! empty( $user_ids ) ) {
+				// Royal pain. No way to ensure distinct except this
+				global $wpdb;
+				$interim_s = preg_replace( '/u.ID.*?FROM/', 'u.ID FROM', $s );
+				$interim_s = preg_replace( '/LIMIT.*$/', '', $interim_s );
+
+				$interim_members = $wpdb->get_col( $interim_s );
+
+				$user_ids = array_unique( array_merge( $interim_members, $user_ids ) );
+
+				$s = preg_replace( '/WHERE (.*?) ORDER BY/', 'WHERE \1 AND u.ID in (' . implode( ',', wp_parse_id_list( $user_ids ) ) . ') ORDER BY', $s );
+				// The manual search takes the place of the spd stuff
+				$s = str_replace( $sql['join_profiledata_search'], '', $s );
+				$s = str_replace( $sql['where_searchterms'], '', $s );
+			}
+		}
+	}
+
+	return $s;
+}
+add_filter( 'bp_core_get_paged_users_sql', 'cacap_filter_member_search_by_position', 100, 2 );
+add_filter( 'bp_core_get_total_users_sql', 'cacap_filter_member_search_by_position', 100, 2 );
+

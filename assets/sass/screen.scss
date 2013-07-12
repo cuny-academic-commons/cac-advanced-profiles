@@ -58,7 +58,7 @@ body.js .hide-if-js {
 	display: none;
 }
 
-.button {
+body.cacap .button {
 	background: none repeat scroll 0 0 $button_blue;
 	border: 1px solid #1E728C;
 	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
@@ -94,6 +94,8 @@ body.cacap {
 	font-family: $font;
 	font-size: 14px;
 	background: #fff;
+	width: 100%;
+	margin: 0 auto;
 
 	h1 {
 		font-size: 44px;
@@ -185,6 +187,7 @@ body.cacap {
 			}
 
 			.cacap-hero h1,
+			.cacap-hero h1 a,
 			.cacap-avatar img.avatar {
 				display: inherit;
 				z-index: 1000;
@@ -209,6 +212,20 @@ body.cacap {
 
 		p {
 			font-size: 1.5em;
+		}
+	}
+
+	.cacap-at-name {
+		font-size: .5em;
+		
+		.cacap-at-name-tooltip {
+			padding: 4px 6px;	
+		}
+		.cacap-at-name-tooltip:hover .cacap-tooltip {
+			display: block;
+			color: $body_primary_text_color;
+			text-align: left;
+			width: 140px;
 		}
 	}
 
@@ -321,7 +338,7 @@ body.cacap {
 		float: left;
 		text-align: center;
 
-		&.current {
+		&.current-tab {
 			border-top: 3px solid $link_color;
 			margin-top: -3px;
 			border-left: 1px solid #e6e6e6;
@@ -392,7 +409,26 @@ body.profile-edit {
 			outline: 1px dashed #555;
 			height: 75px;
 		}
+		.ui-helper-hidden-accessible {
+			display: none;
+		}
+		
 	}
+}
+
+.cacap-tooltip {
+	color: $body_primary_text_color;
+	font-weight: normal;
+	padding: 3px;
+	border-radius: 1px;
+	line-height: 1.0rem;
+	position: absolute;
+	font-size: .7rem;
+	background: #fff;
+	border: 1px solid #666;
+	opacity: 2;
+	color: #000;
+	display: none;
 }
 
 #cacap-user-widget-new {
@@ -543,6 +579,7 @@ body.profile-edit {
 		input {
 			height: auto !important;
 			margin-top: .5em;
+			width: 300px;
 		}
 		.cacap-position-add-new {
 			background: #ddd;
@@ -552,9 +589,12 @@ body.profile-edit {
 				display: none;
 			}
 		.cacap-position-add-new-title {
-			font-style: italic;
 			margin-bottom: 1em;
-			font-size: 1.1em;
+			
+			a {
+				text-decoration: none;
+				font-weight: bold;
+			}
 		}
 		a.cacap-delete-position {
 			text-decoration: none;
@@ -602,3 +642,23 @@ body.profile-edit {
 		}
 	}
 }
+
+.ui-autocomplete {
+	background: #fff;
+	border: 1px solid #aaa;
+	padding: 3px;
+	width: 300px;
+
+	li.ui-menu-item {
+		a {
+			display: block;
+			width: 296px;
+			padding: 2px;
+
+			&.ui-state-focus {
+				background: #ccc;
+			}
+		}
+	}
+}
+
