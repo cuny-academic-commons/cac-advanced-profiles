@@ -151,7 +151,7 @@ body.cacap {
 		padding-bottom: 40px;
 		position: relative;
 
-		& > div {
+		& > div > div {
 			float: left;
 		}
 
@@ -169,10 +169,15 @@ body.cacap {
 			width: 100%;
 			position: fixed;
 			padding: 35px 0 10px 10px;
-			margin-left: -10px;
+			margin-left: -20px;
 			border-bottom: none;
 			top: 0;
 			z-index: 1000;
+
+			.cacap-sticky-dummy {
+				width: 940px;
+				margin: 0px auto;
+			}
 
 			.cacap-hero *,
 			.cacap-avatar * {

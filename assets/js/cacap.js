@@ -139,7 +139,7 @@ jQuery(document).ready( function($) {
 	});
 
 	$('.cacap-hero-row').waypoint('sticky', {
-		offset: -30,
+		offset: 10,
 		wrapper: '<div class="cacap-hero-row-sticky" />' 
 	});
 
