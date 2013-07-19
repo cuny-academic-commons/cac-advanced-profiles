@@ -233,7 +233,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		return $value;
 	}
 
-	public function edit_content_markup( $value, $key ) {
+	public function edit_content_markup( $value = '', $key = 'cacap-positions' ) {
 		$markup = '';
 
 		// First, show existing fields
