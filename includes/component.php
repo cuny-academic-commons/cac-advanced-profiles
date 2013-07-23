@@ -38,7 +38,7 @@ class CAC_Advanced_Profiles extends BP_Component {
 		}
 	}
 
-	public function includes() {
+	public function includes( $includes = array() ) {
 		require( $this->includes_dir . 'functions.php' );
 		require( $this->includes_dir . 'user.php' );
 		require( $this->includes_dir . 'widget.php' );
