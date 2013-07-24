@@ -46,11 +46,12 @@ class CACAP_User {
 
 			foreach ( $widget_instance_data as $widget_instance_datum ) {
 				$key = $widget_instance_datum['key'];
+				$widget_type = $widget_instance_datum['widget_type'];
 
 				// @todo Should probably be configurable by user?
 				$widget_types = cacap_widget_types();
 
-				if ( $key ) {
+				if ( $key && isset( $widget_types[ $widget_type ] ) ) {
 					$this->widget_instances[ $key ] = new CACAP_Widget_Instance( $widget_instance_datum );
 				}
 			}

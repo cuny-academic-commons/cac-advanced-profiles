@@ -35,6 +35,8 @@ function cacap_widget_types( $args = array() ) {
 		'positions'          => 'CACAP_Widget_Positions',
 		'publications'       => 'CACAP_Widget_Publications',
 		'rss'                => 'CACAP_Widget_RSS',
+		'college'            => 'CACAP_Widget_College',
+		'titlewidget'        => 'CACAP_Widget_Title',
 	);
 
 	$widgets = array();

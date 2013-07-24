@@ -17,6 +17,8 @@ abstract class CACAP_Widget {
 
 			'allow_custom_title' => false,
 			'allow_multiple' => false,
+			'allow_new' => true,
+			'allow_edit' => true,
 
 			'context' => 'body',
 			'position' => 50, // @todo
@@ -33,6 +35,8 @@ abstract class CACAP_Widget {
 
 		$this->allow_custom_title = $r['allow_custom_title'];
 		$this->allow_multiple = (bool) $r['allow_multiple'];
+		$this->allow_new = (bool) $r['allow_new'];
+		$this->allow_edit = (bool) $r['allow_edit'];
 
 		// @todo whitelist? how to make extensible?
 		$this->context = $r['context'];
@@ -86,7 +90,7 @@ abstract class CACAP_Widget {
 			) );
 		}
 
-		if ( xprofile_set_field_data( $r['title'], absint( $r['user_id'] ), $r['content'] ) ) {
+		if ( xprofile_set_field_data( $field_id, absint( $r['user_id'] ), $r['content'] ) ) {
 			return CACAP_Widget_Instance::format_instance( array(
 				'user_id' => $r['user_id'],
 				'key' => $r['title'],
@@ -190,15 +194,23 @@ abstract class CACAP_Widget {
 
 	// @todo use bp xprofile functions for formatting potential arrays, etc
 	public function display_content_markup( $value ) {
-		return esc_html( $value );
+		return apply_filters( 'bp_get_the_profile_field_value', $value );
 	}
 
 	public function edit_title_markup( $value, $key ) {
-		$disabled = $this->allow_custom_title ? '' : 'disabled="disabled" ';
-		return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $this->name ) . '" ' . $disabled . '/>';
+		if ( $this->allow_edit ) {
+			$disabled = $this->allow_custom_title ? '' : 'disabled="disabled" ';
+			return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $this->name ) . '" ' . $disabled . '/>';
+		} else {
+			return $this->display_title_markup( $value );
+		}
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $value ) . '</textarea>';
+		if ( $this->allow_edit ) {
+			return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $value ) . '</textarea>';
+		} else {
+			return $this->display_content_markup( $value );
+		}
 	}
 }
