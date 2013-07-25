@@ -48,6 +48,8 @@
 	<div class="cacap-row cacap-widgets cacap-widgets-edit">
 		<ul id="cacap-widget-list">
 		<?php foreach ( cacap_user_widget_instances() as $widget_instance ) : ?>
+                        <?php if ( ! $widget_instance->widget_type->allow_edit ) continue ?>
+
 			<li id="cacap-widget-<?php echo esc_attr( $widget_instance->css_id ) ?>" class="cacap-widget-<?php echo esc_attr( $widget_instance->widget_type->slug ) ?>">
 				<div class="cacap-drag-handle"></div>
 				<div class="cacap-widget-title cacap-click-to-edit"><?php echo $widget_instance->edit_title() ?></div>

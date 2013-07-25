@@ -232,6 +232,12 @@ class CACAP_Controller {
 		global $profile_template;
 
 		if ( bp_is_profile_edit() ) {
+                        foreach ( $profile_template->groups[0]->fields as $pf_key => $pf ) {
+                                if ( 'College' == $pf->name ) {
+                                        unset( $profile_template->groups[0]->fields[ $pf_key ] );
+                                        $profile_template->groups[0]->fields = array_values( $profile_template->groups[0]->fields );
+                                }
+                        }
 			if ( isset( $profile_template->groups[0]->fields[1] ) && 'College' == $profile_template->groups[0]->fields[1]->name ) {
 				unset( $profile_template->groups[0]->fields[1] );
 				$profile_template->groups[0]->fields = array_values( $profile_template->groups[0]->fields );
