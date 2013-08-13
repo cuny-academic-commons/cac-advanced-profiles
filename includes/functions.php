@@ -87,3 +87,17 @@ function cacap_widget_type_is_disabled_for_user( $widget_type ) {
 
 	return $disabled;
 }
+
+function cacap_field_is_visible_for_user( $field_id = 0, $displayed_user_id = 0, $current_user_id = 0 ) {
+	if ( ! is_numeric( $field_id ) ) {
+		$field_id = xprofile_get_field_id_from_name( $field_id );
+	}
+
+	if ( ! $field_id ) {
+		return true;
+	}
+
+	$hidden_fields_for_user = bp_xprofile_get_hidden_fields_for_user( $displayed_user_id, $current_user_id );
+
+	return ! in_array( $field_id, $hidden_fields_for_user );
+}
