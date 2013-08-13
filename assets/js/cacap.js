@@ -189,17 +189,18 @@ jQuery(document).ready( function($) {
 	// [ESC] and [ENTER] on widget edit inputs
 	$('#cacap-edit-form').on( 'keydown', 'input:not(:submit), textarea', function(e){
 		window.the_code = (e.keyCode ? e.keyCode : e.which);
+		var $current_field = $(this);
 		
 		// ESC
 		if ( the_code === 27 ) {
-			$(this).closest('.cacap-show-on-edit').find('.cacap-cancel').trigger('click');
+			$current_field.closest('.cacap-show-on-edit').find('.cacap-cancel').trigger('click');
 			return false;
 		}
 	
 		// ENTER
-		// We want to preserve Enter behavior in textareas
-		if ( the_code === 13 && 'textarea' !== this.type ) {
-			$(this).closest('.cacap-show-on-edit').find('.cacap-ok').trigger('click');
+		// We want to preserve Enter behavior in textareas and autocomplete
+		if ( the_code === 13 && 'textarea' !== this.type && ! $current_field.hasClass( 'ui-autocomplete-input' ) ) {
+			$current_field.closest('.cacap-show-on-edit').find('.cacap-ok').trigger('click');
 			return false;
 		}
 
