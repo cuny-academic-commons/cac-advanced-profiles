@@ -23,6 +23,9 @@ class CACAP_Controller {
 
 		// AJAX handlers
 		add_action( 'wp_ajax_cacap_reorder_widgets', array( $this, 'reorder_widgets' ) );
+
+		// Remove some BP profile filters
+		add_filter( 'bp_get_the_profile_field_value', array( $this, 'maybe_remove_esc_html' ), 1, 3 );
 	}
 
 	public function catch_profile_edit() {
@@ -254,4 +257,18 @@ class CACAP_Controller {
 		return $has_profile;
 	}
 
+	public function maybe_remove_esc_html( $value, $type, $id ) {
+		$about_you_field = xprofile_get_field_id_from_name( 'About You' );
+
+		$remove = in_array( $id, array( $about_you_field ) );
+
+		if ( $remove ) {
+			remove_filter( 'xprofile_get_the_profile_field_value', 'esc_html', 8 );
+		} else {
+			// just in case it was removed last time around
+			add_filter( 'xprofile_get_the_profile_field_value', 'esc_html', 8 );
+		}
+
+		return $value;
+	}
 }
