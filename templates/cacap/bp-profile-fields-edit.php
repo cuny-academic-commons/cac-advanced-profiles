@@ -15,8 +15,8 @@
 			'Twitter',
 			'IM',
 			'LinkedIn Profile Link',
-			'Flickr ID',
-			'YouTube ID',
+			'Flickr ID ',
+			'YouTube ID ',
 		),
 		2 => array(
 			'Brief Descriptor',
