@@ -278,7 +278,7 @@ body.cacap {
 	}
 
 	.cacap-bp-profile-fields {
-		input, textarea {
+		input[type="text"], textarea {
 			color: $body_primary_text_color;
 			margin-bottom: 12px;
 			width: 100%;
@@ -296,6 +296,16 @@ body.cacap {
 			margin-bottom: 3px;
 		}
 
+		input[type="radio"], input[type="checkbox"] {
+			margin: .3em 0;
+		}
+
+		.field-visibility-settings legend,
+		.field-visibility-settings-toggle,
+		p.description {
+			margin-bottom: 0;
+		}
+
 		.cacap-half-col {
 			float: left;
 			width: 48%;
@@ -308,6 +318,10 @@ body.cacap {
 		.current-visibility-level {
 			font-weight: bold;
 			color: $link_pink;
+		}
+
+		div.editfield {
+			margin-bottom: 2.5em;
 		}
 	}
 }
