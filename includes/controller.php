@@ -19,6 +19,9 @@ class CACAP_Controller {
 		// Hack - don't show College field
 		add_filter( 'bp_has_profile', array( $this, 'hide_college_field' ) );
 
+                // Hack - don't call it "Title Widget" if you can help it
+                add_filter( 'bp_get_the_profile_field_name', array( $this, 'rename_title_widget' ) );
+
 		add_action( 'xprofile_updated_profile', array( $this, 'save_profile_data' ) );
 
 		// AJAX handlers
@@ -271,4 +274,12 @@ class CACAP_Controller {
 
 		return $value;
 	}
+
+        public function rename_title_widget( $value ) {
+                if ( 'Title Widget' == $value ) {
+                        $value = 'Title';
+                }
+
+                return $value;
+        }
 }
