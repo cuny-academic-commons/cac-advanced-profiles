@@ -108,6 +108,11 @@ jQuery(document).ready( function($) {
 			$clicked.addClass( 'cacap-has-max' );
 		}
 
+		// If it's a positions field, set it up
+		if ( 'positions' == widget_type ) {
+			clone_add_new_position_fields( $new_widget );
+		}
+
 		resize_drag_handles();
 
 		return false;
@@ -284,6 +289,8 @@ jQuery(document).ready( function($) {
 		$fields.find('.cacap-delete-position').remove();
 		
 		$fields.prependTo( $new_widget.find('.cacap-edit-content-input') );
+
+		positions_autocomplete_setup( $new_widget );
 	}
 
 	function convert_fields_to_display( $clicked, new_or_old ) {
