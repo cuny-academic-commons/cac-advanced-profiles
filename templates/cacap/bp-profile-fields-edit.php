@@ -14,7 +14,7 @@
 			'Role',
 			'Twitter',
 			'IM',
-			'LinkedIn Profile Field',
+			'LinkedIn Profile Link',
 			'Flickr ID',
 			'YouTube ID',
 		),
