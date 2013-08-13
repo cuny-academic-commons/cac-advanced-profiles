@@ -186,6 +186,13 @@ class CACAP_Controller {
 				$content     = isset( $_POST[ $key ]['content'] ) ? $_POST[ $key ]['content'] : '';
 				$widget_type = isset( $_POST[ $key ]['widget_type'] ) ? $_POST[ $key ]['widget_type'] : '';
 
+				// In some cases, such as College, fields may
+				// be empty because it's not intended to be
+				// saved from this interface
+				if ( ! $widget_type ) {
+					continue;
+				}
+
 				if ( 0 === strpos( array_pop( explode( '-', $key ) ), 'newwidget' ) ) {
 					$user->create_widget_instance( array(
 						'widget_type' => $widget_type,
