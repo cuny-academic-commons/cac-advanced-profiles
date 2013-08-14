@@ -22,12 +22,18 @@
 		<?php
 		$contact_info = array();
 
-		if ( $phone = xprofile_get_field_data( 'Phone', bp_displayed_user_id() ) && cacap_field_is_visible_for_user( 'Phone' ) ) {
-			$contact_info[] = $phone;
+		if ( cacap_field_is_visible_for_user( 'Phone' ) ) {
+			$phone = xprofile_get_field_data( 'Phone', bp_displayed_user_id() );
+			if ( $phone ) {
+				$contact_info[] = $phone;
+			}
 		}
 
-		if ( $email = xprofile_get_field_data( 'Email Address', bp_displayed_user_id() ) && cacap_field_is_visible_for_user( 'Email Address' ) ) {
-			$contact_info[] = $email;
+		if ( cacap_field_is_visible_for_user( 'Email Address' ) ) {
+			$email = xprofile_get_field_data( 'Email Address', bp_displayed_user_id() );
+			if ( $email ) {
+				$contact_info[] = $email;
+			}
 		}
 
 		$contact_info = implode( ' &middot; ', $contact_info );
@@ -38,14 +44,20 @@
 			<dd><?php echo $contact_info ?></dd>
 		<?php endif ?>
 
-		<?php if ( $website = xprofile_get_field_data( 'Website', bp_displayed_user_id() ) && cacap_field_is_visible_for_user( 'Website' ) ) : ?>
-			<dt><?php _e( 'Website', 'cacap' ) ?></dt>
-			<dd><a href="<?php echo esc_url( $website ) ?>"><?php echo esc_html( $website ) ?></a></dd>
+		<?php if ( cacap_field_is_visible_for_user( 'Website' ) ) : ?>
+			<?php $website = xprofile_get_field_data( 'Website', bp_displayed_user_id() ) ?>
+			<?php if ( $website ) : ?>
+				<dt><?php _e( 'Website', 'cacap' ) ?></dt>
+				<dd><a href="<?php echo esc_url( $website ) ?>"><?php echo esc_html( $website ) ?></a></dd>
+			<?php endif ?>
 		<?php endif ?>
 
-		<?php if ( $blog = xprofile_get_field_data( 'Blog', bp_displayed_user_id() ) && cacap_field_is_visible_for_user( 'Blog' ) ) : ?>
-			<dt><?php _e( 'Blog', 'cacap' ) ?></dt>
-			<dd><a href="<?php echo esc_url( $blog ) ?>"><?php echo esc_html( $blog ) ?></a></dd>
+		<?php if ( cacap_field_is_visible_for_user( 'Blog' ) ) : ?>
+			<?php $blog = xprofile_get_field_data( 'Blog', bp_displayed_user_id() ) ?>
+			<?php if ( $blog ) : ?>
+				<dt><?php _e( 'Blog', 'cacap' ) ?></dt>
+				<dd><a href="<?php echo esc_url( $blog ) ?>"><?php echo esc_html( $blog ) ?></a></dd>
+			<?php endif ?>
 		<?php endif ?>
 	</dl>
 </div>
