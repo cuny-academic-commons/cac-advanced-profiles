@@ -148,6 +148,29 @@ body.cacap {
 		text-decoration: none;
 	}
 
+	.cacap-char-count-gloss {
+		text-align: right;
+		font-size: .75rem;
+		margin-bottom: .5em;
+		font-style: italic;
+	}
+
+	span.cacap-char-count-warning {
+		display: none;
+	}
+
+	.cacap-length-red span.cacap-char-count {
+		color: #f00; 
+	}
+
+	.cacap-length-red span.cacap-char-count-warning {
+		display: block;
+	}
+
+	.cacap-length-yellow span.cacap-char-count {
+		color: yellow; 
+	}
+
 	.cacap-hero-row {
 		border-bottom: 1px solid $header_primary_text_color;
 		padding-bottom: 40px;

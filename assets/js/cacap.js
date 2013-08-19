@@ -206,6 +206,13 @@ jQuery(document).ready( function($) {
 
 	});
 
+	// Character count for About You
+	var $about_you = $('div.field_about-you textarea');
+	window.about_you_max_length = 350;
+	$about_you.after('<div class="cacap-char-count-gloss">Using <span class="cacap-char-count">0</span> of ' + window.about_you_max_length + ' characters<span class="cacap-char-count-warning"> (additional characters will be trimmed)</span></div>'); 
+	update_character_count_for_field( $about_you );
+	$about_you.on('keyup', function() { update_character_count_for_field( $about_you ); });
+
 	// Resize these idiotic widgets
 	resize_drag_handles();
 
@@ -372,5 +379,24 @@ jQuery(document).ready( function($) {
 
 			// @todo Title?
 		}
+	}
+
+	function update_character_count_for_field( $field ) {
+		var class_to_add, value_length, $gloss;
+
+		value_length = $field.val().length;
+		$gloss = $field.siblings('.cacap-char-count-gloss');
+		$gloss.find('span.cacap-char-count').html(value_length);
+
+		if ( value_length > window.about_you_max_length ) {
+			class_to_add = 'cacap-length-red';	
+		} else if ( value_length > window.about_you_max_length - 40 ) {
+			class_to_add = 'cacap-length-yellow';	
+		} else {
+			class_to_add = 'cacap-length-green';	
+		}
+
+		$gloss.removeClass( 'cacap-length-red cacap-length-yellow cacap-length-green' );
+		$gloss.addClass( class_to_add );
 	}
 },(jQuery));

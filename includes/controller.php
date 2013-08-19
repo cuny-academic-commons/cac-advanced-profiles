@@ -275,11 +275,11 @@ class CACAP_Controller {
 		return $value;
 	}
 
-        public function rename_title_widget( $value ) {
-                if ( 'Title Widget' == $value ) {
-                        $value = 'Title';
-                }
+	public function rename_title_widget( $value ) {
+		if ( 'Title Widget' == $value ) {
+			$value = 'Title';
+		}
 
-                return $value;
-        }
+		return $value;
+	}
 }
