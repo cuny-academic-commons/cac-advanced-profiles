@@ -4,7 +4,7 @@
 		<?php $url = trailingslashit( bp_displayed_user_domain() . BP_XPROFILE_SLUG ) ?>
 
 		<li<?php if ( ! $is_commons_profile ) : ?> class="current-tab"<?php endif ?>>
-			<a href="<?php echo $url ?>"><?php _e( 'Portfolio (CV)', 'cacap' ) ?></a>
+			<a href="<?php echo $url ?>"><?php _e( 'Public Portfolio', 'cacap' ) ?></a>
 		</li>
 
 		<li<?php if ( $is_commons_profile ) : ?> class="current-tab"<?php endif ?>>
