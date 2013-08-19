@@ -430,6 +430,12 @@ body.profile-edit {
 	}
 }
 
+.deprecated-para {
+	opacity: .75;
+	font-size: .8rem;
+	font-style: italic;
+}
+
 .cacap-tooltip {
 	color: $body_primary_text_color;
 	font-weight: normal;

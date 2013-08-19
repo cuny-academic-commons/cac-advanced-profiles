@@ -11,7 +11,7 @@ class CACAP_Widget_College extends CACAP_Widget {
 			'name' => __( 'College', 'cacap' ),
 			'slug' => 'college',
 			'allow_new' => false,
-			'allow_edit' => false,
+			'allow_edit' => true,
 		) );
 	}
 
@@ -68,7 +68,18 @@ class CACAP_Widget_College extends CACAP_Widget {
 			'key' => null,
 		) );
 
-		return xprofile_get_field_data( 'College Widget', absint( $r['user_id'] ) );
+		$college = xprofile_get_field_data( 'College Widget', absint( $r['user_id'] ) );
+		return $college;
 	}
 
+	public function edit_content_markup( $value, $key ) {
+		$content = isset( $value['content'] ) ? $value['content'] : '';
+		$field = '<textarea disabled="disabled" class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $content ) . '</textarea>';
+		$field .= '<p class="description deprecated-para">' . $this->deprecated_para() . '</p>';
+		return $field;
+	}
+
+	protected function deprecated_para() {
+		return __( 'We are phasing out the <strong>College</strong> field in favor of <strong>Positions</strong>. Once you have created a Positions widget (see "Add New Section" above), your College widget will disappear. For this reason, College cannot be edited.', 'cacap' );
+	}
 }
