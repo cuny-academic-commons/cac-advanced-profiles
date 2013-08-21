@@ -208,10 +208,11 @@ jQuery(document).ready( function($) {
 
 	// Character count for About You
 	var $about_you = $('div.field_about-you textarea');
-	window.about_you_max_length = 350;
-	$about_you.after('<div class="cacap-char-count-gloss">Using <span class="cacap-char-count">0</span> of ' + window.about_you_max_length + ' characters<span class="cacap-char-count-warning"> (additional characters will be trimmed)</span></div>'); 
-	update_character_count_for_field( $about_you );
-	$about_you.on('keyup', function() { update_character_count_for_field( $about_you ); });
+	if ( $about_you.length !== 0 ) {
+		$about_you.after('<div class="cacap-char-count-gloss">Using <span class="cacap-char-count">0</span> of ' + window.about_you_max_length + ' characters<span class="cacap-char-count-warning"> (additional characters will be trimmed)</span></div>'); 
+		update_character_count_for_field( $about_you );
+		$about_you.on('keyup', function() { update_character_count_for_field( $about_you ); });
+	}
 
 	// Resize these idiotic widgets
 	resize_drag_handles();
