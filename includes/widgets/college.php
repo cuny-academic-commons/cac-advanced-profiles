@@ -73,8 +73,11 @@ class CACAP_Widget_College extends CACAP_Widget {
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		$content = isset( $value['content'] ) ? $value['content'] : '';
-		$field = '<textarea disabled="disabled" class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $content ) . '</textarea>';
+		if ( is_array( $value ) ) {
+			$value = implode( ', ', $value );
+		}
+		$field = '<input disabled="disabled" class="cacap-edit-input" name="college-dummy" value="' . esc_attr( $value ) . '" />';
+		$field .= '<input type="hidden" name="' . esc_attr( $key ) . '[content]" value="' . esc_attr( $value ) . '" />';
 		$field .= '<p class="description deprecated-para">' . $this->deprecated_para() . '</p>';
 		return $field;
 	}
