@@ -9,7 +9,6 @@
 		<div class="cacap-hero">
 			<h1>
 				<a href="<?php echo bp_displayed_user_domain() ?>"><?php echo xprofile_get_field_data( 1, bp_displayed_user_id() ) ?></a>
-				<span class="cacap-at-name">(@<?php bp_displayed_user_username() ?>) <span class="button cacap-at-name-tooltip">?<span class="cacap-at-name-tooltip-text cacap-tooltip"><?php printf( __( 'Using "@%s" will cause this user to receive a notification.', 'cacap' ), bp_get_displayed_user_username() ) ?></span></span>
 			</h1>
 
 			<?php if ( cacap_field_is_visible_for_user( 'Brief Descriptor' ) ) : ?>
