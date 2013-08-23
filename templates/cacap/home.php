@@ -1,3 +1,4 @@
+<html>
 <?php
 /**
  * The top-level template for CAC Advanced Profiles
@@ -11,7 +12,10 @@
 
 <?php /* @todo Call a real header template? Which? */ ?>
 
-<?php wp_head() ?>
+<head>
+	<title><?php wp_title( '|', true, 'right' ); ?> CUNY Academic Commons</title>
+	<?php wp_head() ?>
+</head>
 
 <body <?php body_class() ?>>
 	<div id="cacap-content">
@@ -46,3 +50,4 @@
 
 	<?php get_footer( 'cacap' ) ?>
 </body>
+</html>
