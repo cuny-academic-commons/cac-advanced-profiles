@@ -17,6 +17,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		'CUNY School of Public Health',
 		'Hostos Community College',
 		'Hunter College',
+		'Macaulay Honors College',
 		'Medgar Evers College',
 		'Stella and Charles Guttman Community College',
 		'John Jay College of Criminal Justice',
