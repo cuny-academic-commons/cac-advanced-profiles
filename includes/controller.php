@@ -116,18 +116,35 @@ class CACAP_Controller {
 		return $stack;
 	}
 
+	/**
+	 * This is a hack necessary to bust browser caches
+	 *
+	 * See eg Commons #2741
+	 */
+	public function get_version_string() {
+		$version = false;
+
+		if ( version_compare( WP_VERSION, '3.6', '<=' ) ) {
+			$version = '3.6.0.1';
+		}
+
+		return $version;
+	}
+
 	public function enqueue_styles() {
 		// enqueue CAC css for commons-profile pages
-                if ( bp_is_user() ) {
-                        wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css' );
-                        wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css', array( 'cac-bp-css' ) );
-                }
+		if ( bp_is_user() ) {
+			$v = $this->get_version_string();
+			wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css', $v );
+			wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css', array( 'cac-bp-css' ), $v );
+		}
 	}
 
 	public function enqueue_scripts() {
-		wp_register_script( 'cacap-autogrow', CACAP_PLUGIN_URL . '/assets/js/autogrow.min.js', array( 'jquery' ) );
-		wp_register_script( 'cacap-waypoints', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints.min.js', array( 'jquery' ) );
-		wp_register_script( 'cacap-waypoints-sticky', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints-sticky.min.js', array( 'jquery', 'cacap-waypoints' ) );
+		$v = $this->get_version_string();
+		wp_register_script( 'cacap-autogrow', CACAP_PLUGIN_URL . '/assets/js/autogrow.min.js', array( 'jquery' ), $v );
+		wp_register_script( 'cacap-waypoints', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints.min.js', array( 'jquery' ), $v );
+		wp_register_script( 'cacap-waypoints-sticky', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints-sticky.min.js', array( 'jquery', 'cacap-waypoints' ), $v );
 		wp_enqueue_script(
 			'cacap',
 			CACAP_PLUGIN_URL . '/assets/js/cacap.js',
@@ -138,7 +155,8 @@ class CACAP_Controller {
 				'cacap-autogrow',
 				'cacap-waypoints',
 				'cacap-waypoints-sticky',
-			)
+			),
+			$v
 		);
 
 		// enqueue CAC js for commons-profile pages
