@@ -164,7 +164,8 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 			$value = $position[ $type];
 			$tax   = 'cacap_position_' . $type;
 
-			$term = get_term_by( 'name', $value, $tax );
+			$sanitized_value = sanitize_term_field( 'name', $value, 0, $tax, 'db' );
+			$term = get_term_by( 'name', $sanitized_value, $tax );
 
 			// No term found. Create one
 			if ( empty( $term ) ) {
