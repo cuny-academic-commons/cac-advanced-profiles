@@ -219,3 +219,5 @@
 
 	</div><!-- /.cacap-bp-profile-fields -->
 <?php endif ?>
+
+<?php do_action( 'cacap_after_bp_profile_fields_edit' ) ?>
