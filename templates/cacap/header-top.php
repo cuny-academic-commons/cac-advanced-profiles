@@ -17,7 +17,7 @@
 
 			<?php if ( cacap_field_is_visible_for_user( 'About You' ) ) : ?>
 				<div class="cacap-long-aboutme">
-					<?php echo wpautop( bp_create_excerpt( xprofile_get_field_data( 'About You', bp_displayed_user_id() ), 350 ) ) ?>
+					<?php echo wpautop( html_entity_decode( bp_create_excerpt( xprofile_get_field_data( 'About You', bp_displayed_user_id() ), 355 ) ) ) ?>
 				</div>
 			<?php endif ?>
 		</div>
