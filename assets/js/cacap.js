@@ -379,7 +379,7 @@ jQuery(document).ready( function($) {
 			var autocomplete_ep = ajaxurl + '?action=cacap_position_suggest';
 			$widget.find('.cacap-position-field-department').autocomplete({
 				source: autocomplete_ep + '&field=department',
-				minLength: 2,
+				minLength: 2
 			});
 
 			// @todo Title?
