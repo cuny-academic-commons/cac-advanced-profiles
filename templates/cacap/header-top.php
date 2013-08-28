@@ -29,6 +29,13 @@
 				'height' => '130px',
 			) ) ?>
 			<div class="activity"><?php bp_last_activity( bp_displayed_user_id() ) ?></div>
+
+			<?php if ( bp_is_my_profile() ) : ?>
+				<div id="change-avatar-button" class="generic-button">
+					<a href="<?php echo bp_displayed_user_domain() ?>profile/change-avatar">Change Avatar</a>
+				</div>
+			<?php endif ?>
+
 			<?php bp_add_friend_button( bp_displayed_user_id() ) ?>
 			<?php bp_send_private_message_button( bp_displayed_user_id() ) ?>
 			<?php bp_send_public_message_button( bp_displayed_user_id() ) ?>
