@@ -102,7 +102,7 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 	}
 
 	public function format_rss_items_html( $feed_url, $num_items = 5 ) {
-		$items = $this->format_rss_items( $feed_url, $num_items );
+		$items = $this->fetch_rss_items( $feed_url, $num_items );
 
 		$html = '';
 
@@ -144,6 +144,18 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 		$html .= '</ul>';
 
 		return $html;
+	}
+
+	public function fetch_rss_items( $feed_url, $num_items = 5 ) {
+		$transient_key = substr( md5( 'cacap_external_posts_' . $feed_url . '_' . $num_items ), 0, 40 );
+
+		$items = get_transient( $transient_key );
+		if ( empty( $items ) ) {
+			$items = $this->format_rss_items( $feed_url, $num_items );
+			set_transient( $transient_key, $items, 5 * 60 );
+		}
+
+		return $items;
 	}
 
 	/**
