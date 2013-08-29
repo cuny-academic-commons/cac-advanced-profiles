@@ -142,20 +142,27 @@ class CACAP_Controller {
 
 	public function enqueue_scripts() {
 		$v = $this->get_version_string();
+
 		wp_register_script( 'cacap-autogrow', CACAP_PLUGIN_URL . '/assets/js/autogrow.min.js', array( 'jquery' ), $v );
 		wp_register_script( 'cacap-waypoints', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints.min.js', array( 'jquery' ), $v );
 		wp_register_script( 'cacap-waypoints-sticky', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints-sticky.min.js', array( 'jquery', 'cacap-waypoints' ), $v );
+
+		$deps = array(
+			'jquery',
+			'cacap-waypoints',
+			'cacap-waypoints-sticky',
+		);
+
+		if ( bp_is_profile_edit() ) {
+			$deps[] = 'jquery-ui-sortable';
+			$deps[] = 'jquery-ui-autocomplete';
+			$deps[] = 'cacap-autogrow';
+		}
+
 		wp_enqueue_script(
 			'cacap',
 			CACAP_PLUGIN_URL . '/assets/js/cacap.js',
-			array(
-				'jquery',
-				'jquery-ui-sortable',
-				'jquery-ui-autocomplete',
-				'cacap-autogrow',
-				'cacap-waypoints',
-				'cacap-waypoints-sticky',
-			),
+			$deps,
 			$v
 		);
 
