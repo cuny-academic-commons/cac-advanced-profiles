@@ -614,6 +614,13 @@ body.profile-edit {
 		width: 120px;
 	}
 
+	p.description {
+		font-size: .8rem;
+		font-style: italic;
+		font-weight: normal;
+		text-transform: none;
+	}
+
 	.cacap-widget-positions {
 		.cacap-show-on-edit > ul {
 			margin-bottom: 2em;

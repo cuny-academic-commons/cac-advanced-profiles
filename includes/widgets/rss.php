@@ -90,6 +90,7 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 	public function edit_title_markup( $value, $key ) {
 		$title = isset( $value['title'] ) ? $value['title'] : '';
 		$html  = '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $title ) . '" />';
+		$html .= '<p class="description">' . __( 'Enter a title for your RSS widget, such as "My Blog Posts"', 'cacap' ) . '</p>';
 
 		return $html;
 	}
