@@ -7,6 +7,11 @@
 			<ul id="cacap-new-widget-types">
 			<?php foreach ( cacap_widget_types() as $widget_type ) : ?>
 				<?php
+
+				if ( ! $widget_type->allow_new ) {
+					continue;
+				}
+
 				$css_classes = array();
 				if ( cacap_widget_type_is_disabled_for_user( $widget_type ) ) {
 					$css_classes[] = 'cacap-has-max';
@@ -15,6 +20,7 @@
 				if ( ! $widget_type->allow_multiple ) {
 					$css_classes[] = 'disable-multiple';
 				}
+
 				?>
 
 				<li class="<?php echo implode( ' ', $css_classes ) ?>" id="cacap-new-widget-<?php echo esc_attr( $widget_type->slug ) ?>">
