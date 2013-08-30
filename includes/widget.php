@@ -194,7 +194,24 @@ abstract class CACAP_Widget {
 
 	// @todo use bp xprofile functions for formatting potential arrays, etc
 	public function display_content_markup( $value ) {
-		return apply_filters( 'bp_get_the_profile_field_value', $value );
+		// Hack for now
+		$value = wptexturize( $value );
+		$value = convert_chars( $value );
+		$value = wpautop( $value );
+		$value = force_balance_tags( $value );
+		$value = make_clickable( $value );
+		$value = convert_smilies( $value );
+		$value = xprofile_filter_kses( $value );
+
+		if ( function_exists( 'cpfb_filter_link_profile_data' ) ) {
+			$value = cpfb_filter_link_profile_data( $value );
+		}
+
+		if ( function_exists( 'cpfb_add_brackets' ) ) {
+			$value = cpfb_add_brackets( $value );
+		}
+
+		return $value;
 	}
 
 	public function edit_title_markup( $value, $key ) {
