@@ -16,7 +16,7 @@
 </div>
 
 <?php if ( bp_is_user_profile() && ! bp_is_user_profile_edit() && ( bp_is_my_profile() || current_user_can( 'bp_moderate' ) ) ) : ?>
-	<div class="cacap-row">
+	<div class="cacap-row cacap-row-edit-button">
 		<a id="cacap-edit-button" class="button secondary" href="<?php echo $url . 'edit/' ?>"><?php _e( 'Edit', 'cacap' ) ?></a>
 	</div>
 <?php endif ?>

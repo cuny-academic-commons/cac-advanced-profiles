@@ -29,6 +29,9 @@ class CACAP_Controller {
 
 		// Remove some BP profile filters
 		add_filter( 'bp_get_the_profile_field_value', array( $this, 'maybe_remove_esc_html' ), 1, 3 );
+
+		// Add the commons-profile body class if necessary
+		add_filter( 'bp_get_the_body_class', array( $this, 'modify_body_class' ) );
 	}
 
 	public function catch_profile_edit() {
@@ -306,5 +309,12 @@ class CACAP_Controller {
 		}
 
 		return $value;
+	}
+
+	public function modify_body_class( $classes ) {
+		if ( ! empty( $_GET['commons-profile'] ) && 1 == $_GET['commons-profile'] ) {
+			$classes[] = 'commons-profile';
+		}
+		return $classes;
 	}
 }

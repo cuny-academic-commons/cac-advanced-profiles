@@ -132,6 +132,10 @@ body.cacap, body.bp-user {
 		content: " ";
 		display: table;
 	}
+
+	&.cacap-row-edit-button {
+		padding: 15px 0 0 0;
+	}
 }
 
 #cacap-header {
@@ -715,3 +719,20 @@ body.profile-edit {
 	}
 }
 
+.commons-profile {
+	div#item-body {
+		padding-bottom: 3em;
+	}
+
+	#cacap-body {
+		padding: 15px 0 0 0;
+		position: relative;
+		clear: both;
+	}
+
+	div.profile h4 {
+		background-color: #e6e6e6;
+		padding: 8px;
+		margin-top: 0;
+	}
+}
