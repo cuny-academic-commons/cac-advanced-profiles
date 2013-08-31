@@ -63,7 +63,7 @@
 		<?php if ( function_exists( 'cac_yourls_get_user_shorturl' ) ) : ?>
 			<?php $shorturl = cac_yourls_get_user_shorturl( bp_displayed_user_id() ) ?>
 			<?php if ( $shorturl ) : ?>
-				<dt><?php _e( 'Short URL', 'cacap' ) ?></dt>
+				<dt><?php _e( 'Quick Link', 'cacap' ) ?></dt>
 				<dd><a href="http://cuny.is/<?php echo esc_attr( $shorturl ) ?>">http://cuny.is/<?php echo esc_html( $shorturl ) ?></a></dd>
 			<?php endif ?>
 		<?php endif ?>
