@@ -10,6 +10,8 @@
 		<li<?php if ( $is_commons_profile ) : ?> class="current-tab"<?php endif ?>>
 			<a href="<?php echo add_query_arg( 'commons-profile', '1', $url ) ?>"><?php _e( 'Commons Profile', 'cacap' ) ?></a>
 		</li>
+
+		<div style="clear: both;"></div>
 	</ul>
 </div>
 
