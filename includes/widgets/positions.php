@@ -20,6 +20,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		'John Jay College of Criminal Justice',
 		'Kingsborough Community College',
 		'LaGuardia Community College',
+		'Lehman College',
 		'Macaulay Honors College',
 		'Medgar Evers College',
 		'NYC College of Technology',
