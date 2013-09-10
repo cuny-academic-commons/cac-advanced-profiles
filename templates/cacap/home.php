@@ -19,6 +19,9 @@
 </head>
 
 <body <?php body_class() ?>>
+
+	<?php do_action( 'cacap_before_content' ) ?>
+
 	<div id="cacap-content">
 		<?php if ( bp_is_user_profile_edit() ) : ?>
 			<form action="" method="post" id="cacap-edit-form">
