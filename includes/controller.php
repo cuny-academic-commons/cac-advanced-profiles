@@ -142,6 +142,8 @@ class CACAP_Controller {
 			$v = $this->get_version_string();
 			wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css', $v );
 			wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css', array( 'cac-bp-css' ), $v );
+			wp_enqueue_style( 'cacap-jquery-ui', CACAP_PLUGIN_URL . '/lib/smoothness/jquery-ui-1.10.3.custom.css', array( 'cac-bp-css' ), $v );
+			wp_enqueue_style( 'cacap-font-awesome', CACAP_PLUGIN_URL . '/lib/font-awesome/css/font-awesome.css', array( 'cac-bp-css' ), $v );
 		}
 	}
 
@@ -151,6 +153,8 @@ class CACAP_Controller {
 		wp_register_script( 'cacap-autogrow', CACAP_PLUGIN_URL . '/assets/js/autogrow.min.js', array( 'jquery' ), $v );
 		wp_register_script( 'cacap-waypoints', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints.min.js', array( 'jquery' ), $v );
 		wp_register_script( 'cacap-waypoints-sticky', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints-sticky.min.js', array( 'jquery', 'cacap-waypoints' ), $v );
+		wp_register_script( 'cacap-rangy', CACAP_PLUGIN_URL . '/lib/rangy/rangy-core.js', array( 'jquery' ), $v );
+		wp_register_script( 'cacap-hallo', CACAP_PLUGIN_URL . '/lib/hallo/dist/hallo.js', array( 'jquery', 'jquery-ui-widget', 'cacap-rangy' ), $v );
 
 		$deps = array(
 			'jquery',
@@ -158,10 +162,12 @@ class CACAP_Controller {
 			'cacap-waypoints-sticky',
 		);
 
-		if ( bp_is_profile_edit() ) {
+		if ( bp_is_user_profile_edit() ) {
 			$deps[] = 'jquery-ui-sortable';
 			$deps[] = 'jquery-ui-autocomplete';
 			$deps[] = 'cacap-autogrow';
+			wp_enqueue_script( 'cacap-rangy' );
+			wp_enqueue_script( 'cacap-hallo' );
 		}
 
 		wp_enqueue_script(

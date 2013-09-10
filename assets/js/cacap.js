@@ -23,6 +23,12 @@ jQuery(document).ready( function($) {
 			}
 		});
 
+		$('article').hallo({
+			plugins: {
+				'halloformat': {}
+			}
+		});
+
 		// Click to edit - delegated from parent
 		window.cacapedittoggles = {};
 		$('#cacap-widget-list').on('click', '.cacap-click-to-edit', function(e){

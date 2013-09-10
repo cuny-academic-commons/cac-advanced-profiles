@@ -225,6 +225,7 @@ abstract class CACAP_Widget {
 
 	public function edit_content_markup( $value, $key ) {
 		if ( $this->allow_edit ) {
+			return '<article class="cacap-edit-input" contenteditable="true">' . $value . '</article>';
 			return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $value ) . '</textarea>';
 		} else {
 			return $this->display_content_markup( $value );
