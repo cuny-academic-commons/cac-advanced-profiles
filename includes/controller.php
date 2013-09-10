@@ -125,9 +125,11 @@ class CACAP_Controller {
 	 * See eg Commons #2741
 	 */
 	public function get_version_string() {
+		global $wp_version;
+
 		$version = false;
 
-		if ( version_compare( WP_VERSION, '3.6', '<=' ) ) {
+		if ( version_compare( $wp_version, '3.6', '<=' ) ) {
 			$version = '3.6.0.1';
 		}
 
