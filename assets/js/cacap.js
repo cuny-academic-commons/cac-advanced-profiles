@@ -4,10 +4,28 @@ jQuery(document).ready( function($) {
 	bodyclass = bodyclass.replace( /no-js/,'js' );
 	document.body.className = bodyclass;
 
+	/**
+	 * Deciding whether to snap the header. Logic:
+	 *
+	 * Snap begins at snap_point, at which point snap_point pixels are above
+	 * the scroll, reducing effective document height. The snap results in 
+	 * a document height reduction of savings (full-size hero row height minus
+	 * small hero row height). This reduced document height tells what's left
+	 * to show left_to_show. Only snap if the window is smaller than this, with
+	 * 100px padding to account for the existing scroll
+	 *
+	 * This sucks
+	 */
 	var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-	if ( window_height < $(document).height() - 200 ) {
+	var document_height = $(document).height();
+	var admin_bar_height = 45;
+	var snap_point = 50;
+	var full_hero_height = $('.cacap-hero-row').height();
+	var savings = full_hero_height - 110;
+	var left_to_show = document_height - snap_point - savings;
+	if ( left_to_show - 100 > window_height ) {
 		$('.cacap-hero-row').waypoint('sticky', {
-			offset: 40,
+			offset: snap_point,
 			wrapper: '<div class="cacap-hero-row-sticky" />' 
 		});
 	}
