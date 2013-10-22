@@ -17,6 +17,8 @@
 			'LinkedIn Profile Link',
 			'Flickr ID ',
 			'YouTube ID ',
+			'Github',
+			'Vimeo',
 		),
 		2 => array(
 			'Brief Descriptor',
