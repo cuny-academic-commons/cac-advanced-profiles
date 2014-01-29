@@ -154,7 +154,7 @@ class CACAP_Controller {
 		wp_register_script( 'cacap-waypoints', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints.min.js', array( 'jquery' ), $v );
 		wp_register_script( 'cacap-waypoints-sticky', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints-sticky.min.js', array( 'jquery', 'cacap-waypoints' ), $v );
 		wp_register_script( 'cacap-rangy', CACAP_PLUGIN_URL . '/lib/rangy/rangy-core.js', array( 'jquery' ), $v );
-		wp_register_script( 'cacap-hallo', CACAP_PLUGIN_URL . '/lib/hallo/dist/hallo.js', array( 'jquery', 'jquery-ui-widget', 'cacap-rangy' ), $v );
+		wp_register_script( 'cacap-hallo', CACAP_PLUGIN_URL . '/lib/hallo/hallo.js', array( 'jquery', 'jquery-ui-widget', 'cacap-rangy' ), $v );
 
 		$deps = array(
 			'jquery',

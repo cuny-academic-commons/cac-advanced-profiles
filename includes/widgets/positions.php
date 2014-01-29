@@ -241,7 +241,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 	}
 
 	public function edit_content_markup( $value = '', $key = 'cacap-positions' ) {
-		$markup = '';
+		$markup = '<div class="cacap-positions-inputs">';
 
 		// First, show existing fields
 		$markup .= '<div class="cacap-position-add-new-title hide-if-no-js"><a class="cacap-add-position" href="#">' . __( '&#43; Add New', 'cacap' ) . '</a></div>';
@@ -309,6 +309,10 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="newwidgetkey[content][new][title]" id="cacap-position-new-title" val="" />';
 		$markup .=   '</li>';
 		$markup .= '</ul>';
+
+		$markup .= '</div> <!-- /-inputs -->';
+
+		$markup .= '<div class="cacap-positions-static-text"></div>';
 
 		return $markup;
 	}

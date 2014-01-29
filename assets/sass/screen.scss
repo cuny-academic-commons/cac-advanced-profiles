@@ -427,6 +427,7 @@ body.cacap, body.bp-user {
 
 .cacap-widget-content {
 	padding-left: $col_width_onethird;
+	min-height: 1.5em;
 }
 
 #cacap-widget-list {
@@ -594,10 +595,34 @@ body.profile-edit {
 	}
 
 	.cacap-ok-cancel {
+		display: none;
 		.button {
 			padding: 5px 10px;
 			font-size: 12px;
 			margin: 5px 5px 0 0;
+		}
+	}
+
+	article.editable-content {
+		min-height: 2em;
+	}
+
+	.cacap-positions-inputs {
+		display: none;
+	}
+
+
+	.editing {
+		.cacap-positions-inputs {
+			display: block;
+		}
+
+		.cacap-positions-static-text {
+			display: none;
+		}
+
+		.cacap-ok-cancel {
+			display: block;
 		}
 	}
 
