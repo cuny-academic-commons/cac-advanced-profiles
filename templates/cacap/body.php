@@ -1,3 +1,5 @@
+<a id="m"></a>
+
 <?php if ( ! bp_is_user_profile() || bp_is_user_change_avatar() || ( ! empty( $_GET['commons-profile'] ) && 1 === (int) $_GET['commons-profile'] ) ) : ?>
 	<?php bp_locate_template( 'cacap/commons-profile.php', true ) ?>
 <?php else : ?>
