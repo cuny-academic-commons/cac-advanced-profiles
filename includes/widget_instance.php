@@ -167,7 +167,7 @@ class CACAP_Widget_Instance {
 
 	public function edit_content() {
 		$html  = $this->widget_type->edit_content_markup( $this->value, $this->css_id );
-		$html .= '<input name="' . $this->css_id . '" class="editable-content-stash" type="hidden" value="" />';
+		$html .= '<input name="' . $this->css_id . '[content]" class="editable-content-stash" type="hidden" value="" />';
 		$html .= $this->ok_cancel_buttons();
 		//$html  = '<span class="hide-if-no-js cacap-edit-content-text cacap-hide-on-edit">' . $this->display_content() . '</span>';
 		//$html .= '<span class="hide-if-js cacap-edit-content-input cacap-show-on-edit">' . $this->widget_type->edit_content_markup( $this->value, $this->css_id ) . $this->ok_cancel_buttons() . '</span>';

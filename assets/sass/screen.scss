@@ -762,10 +762,19 @@ body.profile-edit {
 	}
 }
 
+/* Hallo */
+
 b {
 	font-weight: bold;
 }
 
 i {
 	font-style: italic;
+}
+
+.hallotoolbar {
+	width: 300px;
+	 button {
+		margin-bottom: 8px;
+	 }
 }

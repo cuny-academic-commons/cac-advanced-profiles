@@ -89,8 +89,12 @@ window.wp = window.wp || {};
 		 */
 		function init_editable_widgets() {
 			$('article').hallo({
+				toolbarPositionAbove: true,
 				plugins: {
-					'halloformat': {}
+					'halloformat': {},
+					'hallojustify': {},
+					'hallolists': {},
+					'halloheadings': {}
 				}
 			});
 		}
@@ -215,6 +219,7 @@ window.wp = window.wp || {};
 
 			// Remove editing class
 			$jcw_half.removeClass( 'editing' );
+			resize_drag_handles();
 		}
 
 		/**
@@ -530,7 +535,7 @@ window.wp = window.wp || {};
 
 			if ( $( 'body' ).hasClass( 'profile-edit' ) ) {
 				init_sortable_widgets();
-				//init_editable_widgets();
+				init_editable_widgets();
 				init_positions_widgets();
 				init_new_widget_buttons();
 				init_exit_confirm();
