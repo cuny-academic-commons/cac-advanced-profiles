@@ -4,8 +4,11 @@ window.wp = window.wp || {};
 (function($){
 	var CACAP = function() {
 		var self = this,
+			about_you_max_length = 350,
+			class_to_add,
 			edit_toggles = {},
 			exit_confirm,
+			field_char_count,
 			jcw_target_is_button,
 			keypress_code,
 			new_widget_count,
@@ -21,6 +24,8 @@ window.wp = window.wp || {};
 			widget_value_cache = {},
 			window_height,
 			wtype,
+			$about_you,
+			$about_you_gloss,
 			$current_position,
 			$current_field,
 			$jcw_half, // "just clicked widget" 
@@ -178,6 +183,22 @@ window.wp = window.wp || {};
 					return false;
 				}
 			});
+		}
+
+		/**
+		 * Set up character counter for About You field
+		 */
+		function init_about_you_character_count() {
+			$about_you = $( 'div.field_about-you textarea' );
+			if ( $about_you.length !== 0 ) {
+
+				$about_you.after('<div class="cacap-char-count-gloss">Using <span class="cacap-char-count">0</span> of ' + about_you_max_length + ' characters<span class="cacap-char-count-warning"> (additional characters will be trimmed)</span></div>'); 
+
+				$about_you_gloss = $( '.cacap-char-count-gloss' );
+
+				update_character_count_for_field( $about_you );
+				$about_you.on( 'keyup', function() { update_character_count_for_field( $about_you ); } );
+			}
 		}
 
 		/**
@@ -471,6 +492,25 @@ window.wp = window.wp || {};
 		}
 
 		/**
+		 * Update character count for the passed field
+		 */
+		function update_character_count_for_field( $field ) {
+			field_char_count = $field.val().length;
+			$about_you_gloss.find( 'span.cacap-char-count' ).html( field_char_count );
+
+			if ( field_char_count > about_you_max_length ) {
+				class_to_add = 'cacap-length-red';	
+			} else if ( field_char_count > about_you_max_length - 40 ) {
+				class_to_add = 'cacap-length-yellow';	
+			} else {
+				class_to_add = 'cacap-length-green';	
+			}
+
+			$about_you_gloss.removeClass( 'cacap-length-red cacap-length-yellow cacap-length-green' );
+			$about_you_gloss.addClass( class_to_add );
+		}
+
+		/**
 		 * Set height on draggable handles
 		 *
 		 * This is terrible but I can't figure out how to do it right
@@ -490,11 +530,12 @@ window.wp = window.wp || {};
 
 			if ( $( 'body' ).hasClass( 'profile-edit' ) ) {
 				init_sortable_widgets();
-				init_editable_widgets();
+				//init_editable_widgets();
 				init_positions_widgets();
 				init_new_widget_buttons();
 				init_exit_confirm();
 				init_widget_specialkeys();
+				init_about_you_character_count();
 				bind_widget_clicks_edit();
 				bind_widget_clicks_delete();
 				resize_drag_handles();
@@ -504,38 +545,3 @@ window.wp = window.wp || {};
 
 	wp.cacap = new CACAP();
 }(jQuery));
-
-jQuery(document).ready( function($) {
-
-	if ( $('body').hasClass('profile-edit') ) {
-		// Character count for About You
-		var $about_you = $('div.field_about-you textarea');
-		if ( $about_you.length !== 0 ) {
-			window.about_you_max_length = 350;
-			$about_you.after('<div class="cacap-char-count-gloss">Using <span class="cacap-char-count">0</span> of ' + window.about_you_max_length + ' characters<span class="cacap-char-count-warning"> (additional characters will be trimmed)</span></div>'); 
-			update_character_count_for_field( $about_you );
-			$about_you.on('keyup', function() { update_character_count_for_field( $about_you ); });
-		}
-
-		// Resize these idiotic widgets
-	} // if is profile edit
-
-	function update_character_count_for_field( $field ) {
-		var class_to_add, value_length, $gloss;
-
-		value_length = $field.val().length;
-		$gloss = $field.siblings('.cacap-char-count-gloss');
-		$gloss.find('span.cacap-char-count').html(value_length);
-
-		if ( value_length > window.about_you_max_length ) {
-			class_to_add = 'cacap-length-red';	
-		} else if ( value_length > window.about_you_max_length - 40 ) {
-			class_to_add = 'cacap-length-yellow';	
-		} else {
-			class_to_add = 'cacap-length-green';	
-		}
-
-		$gloss.removeClass( 'cacap-length-red cacap-length-yellow cacap-length-green' );
-		$gloss.addClass( class_to_add );
-	}
-},(jQuery));
