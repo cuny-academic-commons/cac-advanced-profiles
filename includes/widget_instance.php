@@ -156,6 +156,7 @@ class CACAP_Widget_Instance {
 	 * Todo: run through proper filters (not just wpautop)
 	 */
 	public function display_content() {
+		var_dump( $this->get_display_value() );
 		return wpautop( $this->widget_type->display_content_markup( $this->get_display_value() ) );
 	}
 
