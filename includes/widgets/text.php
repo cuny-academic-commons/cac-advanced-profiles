@@ -81,14 +81,14 @@ class CACAP_Widget_Text extends CACAP_Widget {
 
 	public function edit_title_markup( $value, $key ) {
 		$title = isset( $value['title'] ) ? $value['title'] : '';
-		$html  = '<article class="editable-content">' . $title . '</article>';
+		$html  = '<article class="editable-content" contenteditable="true">' . $title . '</article>';
 		$html .= '<input name="' . esc_attr( $key ) . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( $title ) . '" />';
 		return $html;
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		$html  = '<article class="editable-content">' . $value['content'] . '</article>';
-		$html .= '<input name="' . $this->css_id . '[content]" class="editable-content-stash" type="hidden" value="" />';
+		$html  = '<article class="editable-content richtext">' . $value['content'] . '</article>';
+		$html .= '<input name="' . esc_attr( $key ) . '[content]" class="editable-content-stash" type="hidden" value="' . $value['content'] . '" />';
 		return $html;
 	}
 }

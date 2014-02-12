@@ -88,7 +88,7 @@ window.wp = window.wp || {};
 		 * These are the widgets that use contentEditable.
 		 */
 		function init_editable_widgets() {
-			$('article').hallo({
+			$('article.richtext').hallo({
 				toolbar: 'halloToolbarFixed',
 				plugins: {
 					'halloformat': {},

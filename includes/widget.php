@@ -216,8 +216,8 @@ abstract class CACAP_Widget {
 
 	public function edit_title_markup( $value, $key ) {
 		if ( $this->allow_edit && $this->allow_custom_title ) {
-			$html  = '<article class="editable-content">' . $value . '</article>';
-			$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( $value ) . '" />';
+			$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $value ) ) . '</article>';
+			$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $value ) ) . '" />';
 			return $html;
 		} else {
 			return $this->display_title_markup( $value );
