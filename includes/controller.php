@@ -240,7 +240,9 @@ class CACAP_Controller {
 					continue;
 				}
 
-				if ( 0 === strpos( array_pop( explode( '-', $key ) ), 'newwidget' ) ) {
+				$key_a = explode( '-', $key );
+				$key_a_last = array_pop( $key_a );
+				if ( 0 === strpos( $key_a_last, 'newwidget' ) ) {
 					$user->create_widget_instance( array(
 						'widget_type' => $widget_type,
 						'title'       => $title,
