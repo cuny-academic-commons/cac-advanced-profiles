@@ -127,7 +127,7 @@ body.cacap, body.bp-user {
 	&:after {
 		clear: both;
 	}
-	
+
 	&:before, &:after {
 		content: " ";
 		display: table;
@@ -164,7 +164,7 @@ body.cacap, body.bp-user {
 	}
 
 	.cacap-length-red span.cacap-char-count {
-		color: #f00; 
+		color: #f00;
 	}
 
 	.cacap-length-red span.cacap-char-count-warning {
@@ -172,7 +172,7 @@ body.cacap, body.bp-user {
 	}
 
 	.cacap-length-yellow span.cacap-char-count {
-		color: yellow; 
+		color: yellow;
 	}
 
 	.cacap-hero-row {
@@ -244,9 +244,9 @@ body.cacap, body.bp-user {
 
 	.cacap-at-name {
 		font-size: .5em;
-		
+
 		.cacap-at-name-tooltip {
-			padding: 4px 6px;	
+			padding: 4px 6px;
 		}
 		.cacap-at-name-tooltip:hover .cacap-tooltip {
 			display: block;
@@ -437,10 +437,23 @@ body.cacap, body.bp-user {
 		position: relative;
 
 		& > div {
-			margin: $widget_tb_padding 0; 
+			margin: $widget_tb_padding 0;
 		}
 	}
 
+	&.currently-editing {
+		.cacap-click-to-edit.cacap-widget-section-editable {
+			border: 2px solid transparent;
+
+			&.editing {
+				border: 2px solid #dadada;
+			}
+		}
+	}
+
+	.cacap-click-to-edit.cacap-widget-section-editable {
+		border: 2px dashed #dadada;
+	}
 }
 
 body.profile-edit {
@@ -457,7 +470,7 @@ body.profile-edit {
 		.ui-helper-hidden-accessible {
 			display: none;
 		}
-		
+
 	}
 }
 
@@ -489,7 +502,7 @@ body.profile-edit {
 	padding: 10px 0;
 
 	#cacap-user-widget-new-content {
-		width: $row_width; 
+		width: $row_width;
 		margin: 0 auto;
 	}
 
@@ -534,7 +547,7 @@ body.profile-edit {
 					.cacap-has-max-tooltip {
 						display: block;
 					}
-					
+
 					a {
 						color: $link_pink;
 						cursor: default;
@@ -572,18 +585,23 @@ body.profile-edit {
 		margin-left: -$widget_lr_padding;
 		margin-right: 20px;
 		background-color: gray;
-		background-image: 
+		background-image:
 			repeating-linear-gradient(
-				45deg, 
-				transparent, 
-				transparent 5px, 
-				rgba(255,255,255,.5) 5px, 
+				45deg,
+				transparent,
+				transparent 5px,
+				rgba(255,255,255,.5) 5px,
 				rgba(255,255,255,.5) 10px
 			);
 	}
-	
+
+	.cacap-widget-title {
+		width: 28%; /* Leave space for the dashed outlines */
+	}
+
 	.cacap-click-to-edit {
-		padding: 5px 0 0 5px;
+		padding: 10px;
+		position: relative;
 
 		&:hover {
 			background: $edit_hover_color;
@@ -591,6 +609,25 @@ body.profile-edit {
 
 		&.cacap-widget-content {
 			margin-left: 330px;
+		}
+
+		&.editing {
+			margin-bottom: 50px;
+
+			.cacap-positions-inputs {
+				display: block;
+			}
+
+			.cacap-positions-static-text {
+				display: none;
+			}
+
+			.cacap-ok-cancel {
+				display: block;
+				position: absolute;
+				bottom: -40px;
+				left: 0;
+			}
 		}
 	}
 
@@ -612,19 +649,6 @@ body.profile-edit {
 	}
 
 
-	.editing {
-		.cacap-positions-inputs {
-			display: block;
-		}
-
-		.cacap-positions-static-text {
-			display: none;
-		}
-
-		.cacap-ok-cancel {
-			display: block;
-		}
-	}
 
 	.cacap-edit-content-input {
 		textarea {
@@ -656,7 +680,7 @@ body.profile-edit {
 	.cacap-widget-positions {
 		.cacap-show-on-edit > ul {
 			margin-bottom: 2em;
-			padding-left: 20px;	
+			padding-left: 20px;
 		}
 		input {
 			height: auto !important;
@@ -672,7 +696,7 @@ body.profile-edit {
 			}
 		.cacap-position-add-new-title {
 			margin-bottom: 1em;
-			
+
 			a {
 				text-decoration: none;
 				font-weight: bold;
@@ -701,7 +725,7 @@ body.profile-edit {
 	}
 }
 
-/* RSS WIDGETS    
+/* RSS WIDGETS
 /********************************************/
 
 .cacap-rss-items {
@@ -718,7 +742,7 @@ body.profile-edit {
 		color: #666;
 		font-style: italic;
 		margin-top: .5em;
-		
+
 		& > span {
 			margin-right: 30px;
 		}

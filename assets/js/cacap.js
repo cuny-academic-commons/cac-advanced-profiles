@@ -492,6 +492,9 @@ window.wp = window.wp || {};
 					$( this ).find( 'article.editable-content' ).attr( 'contenteditable', false );
 				}
 			} );
+
+			// Mark that editing is in process (for widget styling)
+			$widget_list.addClass( 'currently-editing' );
 		}
 
 		/**
@@ -500,6 +503,7 @@ window.wp = window.wp || {};
 		function unmark_currently_editing() {
 			currently_editing = '';
 			$widget_list.find( 'article.editable-content' ).attr( 'contenteditable', true );
+			$widget_list.removeClass( 'currently-editing' );
 		}
 
 		/**
