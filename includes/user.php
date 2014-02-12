@@ -37,35 +37,35 @@ class CACAP_User {
 	public function get_widget_instances( $args = array() ) {
 		$r = wp_parse_args( $args, array(
 			'context' => 'body',
-                        'omit_legacy_positions' => true,
+			'omit_legacy_positions' => true,
 		) );
 
 		if ( is_null( $this->widget_instances ) ) {
 			$this->widget_instances = array();
 
 			$widget_instance_data = $this->get_widget_instance_data();
-                        
-                        // @todo Should probably be configurable by user?
-                        $widget_types = cacap_widget_types();
 
-                        // See whether we have a Positions widget, for later reference
-                        $omit_title_college = false;
-                        if ( $r['omit_legacy_positions'] ) {
-                                foreach ( $widget_instance_data as $widget_instance_datum ) {
-                                        if ( 'positions' === $widget_instance_datum['widget_type'] ) {
-                                                $omit_title_college = true;
-                                                break;
-                                        }
-                                }
-                        }
+			// @todo Should probably be configurable by user?
+			$widget_types = cacap_widget_types();
+
+			// See whether we have a Positions widget, for later reference
+			$omit_title_college = false;
+			if ( $r['omit_legacy_positions'] ) {
+				foreach ( $widget_instance_data as $widget_instance_datum ) {
+					if ( 'positions' === $widget_instance_datum['widget_type'] ) {
+						$omit_title_college = true;
+						break;
+					}
+				}
+			}
 
 			foreach ( $widget_instance_data as $widget_instance_datum ) {
 				$key = $widget_instance_datum['key'];
 				$widget_type = $widget_instance_datum['widget_type'];
 
-                                if ( $omit_title_college && in_array( $widget_type, array( 'college', 'titlewidget' ) ) ) {
-                                        continue;
-                                }
+				if ( $omit_title_college && in_array( $widget_type, array( 'college', 'titlewidget' ) ) ) {
+					continue;
+				}
 
 				if ( $key && isset( $widget_types[ $widget_type ] ) ) {
 					$this->widget_instances[ $key ] = new CACAP_Widget_Instance( $widget_instance_datum );
