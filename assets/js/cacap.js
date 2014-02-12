@@ -398,6 +398,9 @@ window.wp = window.wp || {};
 				$new_widget_button.addClass( 'cacap-has-max' );
 			}
 
+			// Activate editable fields
+			$w.find( 'article.editable-content' ).css( 'min-height', '2em' );
+
 			// If it's a positions field, set it up
 			if ( 'positions' == wtype ) {
 				clone_add_new_position_fields( $w );

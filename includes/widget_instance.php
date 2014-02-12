@@ -160,8 +160,8 @@ class CACAP_Widget_Instance {
 	}
 
 	public function edit_title() {
-		$html  = '<span class="hide-if-no-js cacap-edit-title-text cacap-hide-on-edit">' . $this->display_title() . '</span>';
-		$html .= '<span class="hide-if-js cacap-edit-title-input cacap-show-on-edit">' . $this->widget_type->edit_title_markup( $this->value, $this->css_id ) . $this->ok_cancel_buttons() . '</span>';
+		$html  = $this->widget_type->edit_title_markup( $this->value, $this->css_id );
+		$html .= $this->ok_cancel_buttons();
 		return $html;
 	}
 
