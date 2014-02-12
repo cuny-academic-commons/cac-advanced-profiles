@@ -424,6 +424,12 @@ window.wp = window.wp || {};
 				$jcw_half = $( this ); 
 				$jcw_target = $( e.target );
 
+				// Only allow one field to be edited at a time
+				if ( currently_editing.length && $jcw_half !== currently_editing ) {
+					return;
+				}
+				mark_currently_editing();
+
 				jcw_target_is_button = $jcw_target.hasClass( 'button' );
 				if ( jcw_target_is_button ) {
 					ok_or_cancel = $jcw_target.hasClass( 'cacap-ok' ) ? 'ok' : 'cancel';
@@ -431,12 +437,6 @@ window.wp = window.wp || {};
 
 				$w = $jcw_half.closest( 'ul#cacap-widget-list li' );	
 				wid = $w.attr( 'id' );
-
-				// Only allow one field to be edited at a time
-				if ( currently_editing.length && wid !== currently_editing ) {
-					return;
-				}
-				mark_currently_editing( wid );
 
 				wtype = get_widget_type_from_class( $w.attr( 'class' ) );
 
@@ -476,12 +476,12 @@ window.wp = window.wp || {};
 		/**
 		 * Mark a widget as "currently editing"
 		 */
-		function mark_currently_editing( wid ) {
-			currently_editing = wid;
+		function mark_currently_editing() {
+			currently_editing = $jcw_half;
 
 			// Remove other contentEditables
-			$widget_list.children('li').each( function() {
-				if ( wid === this.id ) {
+			$widget_list.find('.cacap-click-to-edit').each( function() {
+				if ( $jcw_half === $( this ) ) {
 					$( this ).find( 'article.editable-content' ).attr( 'contenteditable', true );
 				} else {
 					$( this ).find( 'article.editable-content' ).attr( 'contenteditable', false );
