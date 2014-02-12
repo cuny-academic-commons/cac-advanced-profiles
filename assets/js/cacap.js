@@ -141,7 +141,8 @@ window.wp = window.wp || {};
 		function init_new_widget_buttons() {
 			new_widget_count = 0;
 
-			$( '#cacap-new-widget-types li' ).on( 'click', function() {
+			$( '#cacap-new-widget-types li' ).on( 'click', function( e ) {
+				e.preventDefault();	
 				$new_widget_button = $( this );
 				add_new_widget();
 			} );
@@ -381,14 +382,7 @@ window.wp = window.wp || {};
 			widget_order.push( wid );
 			$widget_order.val( widget_order );
 
-			// Set focus on 'title', unless it's disabled
 			$w = $( '#' + wid );
-			$wtitle = $w.find( '.cacap-widget-title' );
-			if ( 'disabled' == $wtitle.find( '.cacap-edit-input' ).attr( 'disabled' ) ) {
-				$w.find( '.cacap-widget-content' ).trigger( 'click' ).focus();	
-			} else {
-				$wtitle.trigger( 'click' ).focus();
-			}
 
 			// Add the type class
 			$w.addClass( 'cacap-widget-' + wtype );
@@ -400,7 +394,11 @@ window.wp = window.wp || {};
 			}
 
 			// Activate editable fields
-			$w.find( 'article.editable-content' ).css( 'min-height', '2em' );
+			$w.find( 'article.editable-content' ).css( 'min-height', '2em' ).attr( 'contenteditable', 'true' );
+
+			// Add section IDs
+			$w.find( '.cacap-widget-title' ).attr( 'id', wid + '-title' );
+			$w.find( '.cacap-widget-content' ).attr( 'id', wid + '-content' );
 
 			// If it's a positions field, set it up
 			if ( 'positions' == wtype ) {
@@ -408,8 +406,6 @@ window.wp = window.wp || {};
 			}
 
 			resize_drag_handles();
-
-			return false;
 		}
 
 		/**
@@ -419,6 +415,7 @@ window.wp = window.wp || {};
 		 * new items being dynamically added to the DOM
 		 */
 		function bind_widget_clicks_edit() {
+
 			$widget_list.on( 'click', '.cacap-click-to-edit', function( e ) {
 				e.preventDefault();
 
