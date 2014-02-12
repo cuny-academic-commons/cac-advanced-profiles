@@ -9,6 +9,7 @@ window.wp = window.wp || {};
 			currently_editing = '',
 			exit_confirm,
 			field_char_count,
+			jcw_id,
 			jcw_target_is_button,
 			keypress_code,
 			new_widget_count,
@@ -423,12 +424,16 @@ window.wp = window.wp || {};
 
 				$jcw_half = $( this ); 
 				$jcw_target = $( e.target );
+				jcw_id = $jcw_half.attr( 'id' );
 
 				// Only allow one field to be edited at a time
-				if ( currently_editing.length && $jcw_half !== currently_editing ) {
+				if ( currently_editing.length && jcw_id !== currently_editing ) {
 					return;
 				}
-				mark_currently_editing();
+				
+				if ( ! currently_editing.length ) {
+					mark_currently_editing( jcw_id );
+				}
 
 				jcw_target_is_button = $jcw_target.hasClass( 'button' );
 				if ( jcw_target_is_button ) {
@@ -461,7 +466,7 @@ window.wp = window.wp || {};
 						break;
 				}
 
-				resize_drag_handles();
+				resize_drag_handles(); 
 			} );
 		}
 
@@ -476,12 +481,12 @@ window.wp = window.wp || {};
 		/**
 		 * Mark a widget as "currently editing"
 		 */
-		function mark_currently_editing() {
-			currently_editing = $jcw_half;
+		function mark_currently_editing( jcw_id ) {
+			currently_editing = jcw_id;
 
 			// Remove other contentEditables
 			$widget_list.find('.cacap-click-to-edit').each( function() {
-				if ( $jcw_half === $( this ) ) {
+				if ( currently_editing === this.id ) {
 					$( this ).find( 'article.editable-content' ).attr( 'contenteditable', true );
 				} else {
 					$( this ).find( 'article.editable-content' ).attr( 'contenteditable', false );
