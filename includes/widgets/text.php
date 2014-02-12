@@ -85,8 +85,8 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		$content = isset( $value['content'] ) ? $value['content'] : '';
-		return $content;
-//		return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $content ) . '</textarea>';
+		$html  = '<article class="editable-content">' . $value['content'] . '</article>';
+		$html .= '<input name="' . $this->css_id . '[content]" class="editable-content-stash" type="hidden" value="" />';
+		return $html;
 	}
 }
