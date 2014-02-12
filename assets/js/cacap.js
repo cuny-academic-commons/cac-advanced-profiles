@@ -441,6 +441,8 @@ window.wp = window.wp || {};
 
 						break;
 				}
+
+				resize_drag_handles();
 			} );
 		}
 
