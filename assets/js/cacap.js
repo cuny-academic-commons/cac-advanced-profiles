@@ -89,9 +89,10 @@ window.wp = window.wp || {};
 		 */
 		function init_editable_widgets() {
 			$('article').hallo({
-				toolbarPositionAbove: true,
+				toolbar: 'halloToolbarFixed',
 				plugins: {
 					'halloformat': {},
+					'hallolink': {},
 					'hallojustify': {},
 					'hallolists': {},
 					'halloheadings': {}
