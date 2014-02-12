@@ -287,7 +287,7 @@ class CACAP_Controller {
 	public function hide_college_field( $has_profile ) {
 		global $profile_template;
 
-		if ( bp_is_profile_edit() ) {
+		if ( bp_is_user_profile_edit() ) {
 			foreach ( $profile_template->groups[0]->fields as $pf_key => $pf ) {
 				if ( 'College' == $pf->name ) {
 					unset( $profile_template->groups[0]->fields[ $pf_key ] );
