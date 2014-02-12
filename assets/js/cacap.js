@@ -435,7 +435,7 @@ window.wp = window.wp || {};
 					default :
 						if ( jcw_target_is_button ) {
 							process_okcancel();
-						} else if ( $jcw_target.hasClass( 'editable-content' ) ) {
+						} else if ( $jcw_target.closest( 'article' ).hasClass( 'editable-content' ) ) {
 							toggle_editable();	
 						}
 
