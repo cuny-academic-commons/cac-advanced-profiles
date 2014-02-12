@@ -6,7 +6,7 @@ window.wp = window.wp || {};
 		var self = this,
 			about_you_max_length = 350,
 			class_to_add,
-			edit_toggles = {},
+			currently_editing = '',
 			exit_confirm,
 			field_char_count,
 			jcw_target_is_button,
@@ -220,6 +220,10 @@ window.wp = window.wp || {};
 
 			// Remove editing class
 			$jcw_half.removeClass( 'editing' );
+
+			// Remove currently_editing toggle
+			unmark_currently_editing();
+
 			resize_drag_handles();
 		}
 
@@ -235,6 +239,11 @@ window.wp = window.wp || {};
 
 			// Remove editing class
 			$jcw_half.removeClass( 'editing' );
+			 
+			// Remove currently_editing toggle
+			unmark_currently_editing();
+
+			resize_drag_handles();
 		}
 
 		/**
@@ -419,6 +428,13 @@ window.wp = window.wp || {};
 
 				$w = $jcw_half.closest( 'ul#cacap-widget-list li' );	
 				wid = $w.attr( 'id' );
+
+				// Only allow one field to be edited at a time
+				if ( currently_editing.length && wid !== currently_editing ) {
+					return;
+				}
+				mark_currently_editing( wid );
+
 				wtype = get_widget_type_from_class( $w.attr( 'class' ) );
 
 				switch ( wtype ) {
@@ -452,6 +468,30 @@ window.wp = window.wp || {};
 				delete_widget();
 				return false;
 			} );
+		}
+
+		/**
+		 * Mark a widget as "currently editing"
+		 */
+		function mark_currently_editing( wid ) {
+			currently_editing = wid;
+
+			// Remove other contentEditables
+			$widget_list.children('li').each( function() {
+				if ( wid === this.id ) {
+					$( this ).find( 'article.editable-content' ).attr( 'contenteditable', true );
+				} else {
+					$( this ).find( 'article.editable-content' ).attr( 'contenteditable', false );
+				}
+			} );
+		}
+
+		/**
+		 * Unmark as "currently editing"
+		 */
+		function unmark_currently_editing() {
+			currently_editing = '';
+			$widget_list.find( 'article.editable-content' ).attr( 'contenteditable', true );
 		}
 
 		/**
