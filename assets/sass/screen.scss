@@ -764,12 +764,37 @@ body.profile-edit {
 
 /* Hallo */
 
-b {
-	font-weight: bold;
-}
+.cacap-widget-content,
+#cacap-widget-list {
+	article {
+		b {
+			font-weight: bold;
+		}
 
-i {
-	font-style: italic;
+		i {
+			font-style: italic;
+		}
+
+		ol, ul {
+			margin-left: 40px;
+		}
+
+		ol {
+			list-style-type: decimal;
+		}
+
+		ul {
+			list-style-type: disc;
+		}
+	}
+
+	/* Exceptions for positions widget */
+	.cacap-widget-positions article {
+		ol, ul {
+			margin-left: 0;
+			list-style-type: none;
+		}
+	}
 }
 
 .hallotoolbar {
