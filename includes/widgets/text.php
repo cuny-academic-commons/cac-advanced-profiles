@@ -88,7 +88,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 
 	public function edit_content_markup( $value, $key ) {
 		$html  = '<article class="editable-content richtext">' . $value['content'] . '</article>';
-		$html .= '<input name="' . esc_attr( $key ) . '[content]" class="editable-content-stash" type="hidden" value="' . $value['content'] . '" />';
+		$html .= '<input name="' . esc_attr( $key ) . '[content]" class="editable-content-stash" type="hidden" value="' . esc_attr( $value['content'] ) . '" />';
 		return $html;
 	}
 }
