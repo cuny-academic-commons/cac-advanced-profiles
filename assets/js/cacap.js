@@ -230,6 +230,23 @@ window.wp = window.wp || {};
 		}
 
 		/**
+		 * Process the click of an OK or Cancel button on an RSS widget
+		 */
+		function process_okcancel_rss() {
+			if ( 'cancel' === ok_or_cancel ) {
+				$jcw_half.find( 'input.cacap-edit-input' ).val( widget_value_cache[ wid ] );
+			}
+
+			// Remove editing class
+			$jcw_half.removeClass( 'editing' );
+
+			// Remove currently_editing toggle
+			unmark_currently_editing();
+
+			resize_drag_handles();
+		}
+
+		/**
 		 * Process the click of an OK or Cancel button in a Positions widget.
 		 */
 		function process_okcancel_positions() {
@@ -254,6 +271,17 @@ window.wp = window.wp || {};
 		function toggle_editable() {
 			// Cache the current value of the widget, in case of Cancel
 			widget_value_cache[ wid ] = $jcw_target.html();
+
+			// Add the 'editing' class
+			$jcw_half.addClass( 'editing' );
+		}
+
+		/**
+		 * Toggle editable widget RSS areas (when clicked).
+		 */
+		function toggle_editable_rss() {
+			// Cache the current value of the widget, in case of Cancel
+			widget_value_cache[ wid ] = $jcw_half.find( 'input.cacap-edit-input' ).val();
 
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
@@ -451,6 +479,14 @@ window.wp = window.wp || {};
 							toggle_editable_positions();	
 						}
 
+						break;
+
+					case 'rss' :
+						if ( jcw_target_is_button ) {
+							process_okcancel_rss();
+						} else {
+							toggle_editable_rss();	
+						}
 						break;
 
 					default :
