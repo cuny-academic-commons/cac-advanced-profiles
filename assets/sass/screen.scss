@@ -804,8 +804,8 @@ body.profile-edit {
 
 /* Hallo */
 
-.cacap-widget-content,
-#cacap-widget-list {
+body.cacap .cacap-widget-content,
+body.cacap #cacap-widget-list {
 	b {
 		font-weight: bold;
 	}
@@ -824,6 +824,18 @@ body.profile-edit {
 
 	ul {
 		list-style-type: disc;
+	}
+
+	h1 {
+		font-size: 2em;
+	}
+
+	h2 {
+		font-size: 1.6em;
+	}
+
+	h3 {
+		font-size: 1.2em;
 	}
 
 	/* Exceptions for positions widget */
