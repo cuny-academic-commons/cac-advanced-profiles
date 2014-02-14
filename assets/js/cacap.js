@@ -468,6 +468,10 @@ window.wp = window.wp || {};
 
 				// Only allow one field to be edited at a time
 				if ( currently_editing.length && jcw_id !== currently_editing ) {
+					$( '#' + currently_editing ).addClass( 'warn' );
+					setTimeout( function() {
+						$( '#' + currently_editing ).removeClass( 'warn' );
+					}, 800 );
 					return;
 				}
 				

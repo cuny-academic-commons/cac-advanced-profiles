@@ -603,6 +603,13 @@ body.profile-edit {
 		padding: 10px;
 		position: relative;
 
+		-webkit-transition: background-color .3s ease-in-out;
+		-moz-transition: background-color .3s ease-in-out;
+		-o-transition: background-color .3s ease-in-out;
+		-mz-transition: background-color .3s ease-in-out;
+		transition: background-color .3s ease-in-out;
+		background-color: transparent; 
+
 		&:hover {
 			background: $edit_hover_color;
 		}
@@ -627,6 +634,15 @@ body.profile-edit {
 				position: absolute;
 				bottom: -40px;
 				left: 0;
+			}
+			
+			&.warn {
+				 -webkit-transition: background-color .3s ease-in-out;
+				 -moz-transition: background-color .3s ease-in-out;
+				 -o-transition: background-color .3s ease-in-out;
+				 -mz-transition: background-color .3s ease-in-out;
+				 transition: background-color .3s ease-in-out;
+				 background-color: #F57171; 
 			}
 		}
 	}
