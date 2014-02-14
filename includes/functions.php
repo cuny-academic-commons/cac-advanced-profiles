@@ -37,6 +37,7 @@ function cacap_widget_types( $args = array() ) {
 		'rss'                => 'CACAP_Widget_RSS',
 		'college'            => 'CACAP_Widget_College',
 		'titlewidget'        => 'CACAP_Widget_Title',
+		'twitter'            => 'CACAP_Widget_Twitter',
 	);
 
 	$widgets = array();

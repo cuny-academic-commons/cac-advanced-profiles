@@ -233,8 +233,23 @@ window.wp = window.wp || {};
 		 * Process the click of an OK or Cancel button on an RSS widget
 		 */
 		function process_okcancel_rss() {
-			if ( 'cancel' === ok_or_cancel ) {
-				$jcw_half.find( 'input.cacap-edit-input' ).val( widget_value_cache[ wid ] );
+			// The title side is a normal editable field
+			if ( $jcw_target.closest( '.cacap-widget-section-editable' ).hasClass( 'cacap-widget-title' ) ) {
+				if ( 'ok' === ok_or_cancel ) {
+					// Copy new content to hidden input
+					$jcw_half.find( '.editable-content-stash' ).val( $jcw_half.find( '.editable-content' ).html() );
+				} else {
+					// Replace the edited content with the cached value
+					$jcw_half.find( '.editable-content' ).html( widget_value_cache[ wid ] );
+				}
+
+			// The content side is an input field
+			} else {
+				if ( 'ok' === ok_or_cancel ) {
+					// nothing to do?
+				} else {
+					$jcw_half.find( 'input.cacap-edit-input' ).val( widget_value_cache[ wid ] );
+				}
 			}
 
 			// Remove editing class
@@ -482,6 +497,7 @@ window.wp = window.wp || {};
 						break;
 
 					case 'rss' :
+					case 'twitter' :
 						if ( jcw_target_is_button ) {
 							process_okcancel_rss();
 						} else {
