@@ -9,6 +9,7 @@ window.wp = window.wp || {};
 			currently_editing = '',
 			exit_confirm,
 			field_char_count,
+			hallo_top,
 			jcw_id,
 			jcw_target_is_button,
 			keypress_code,
@@ -29,6 +30,7 @@ window.wp = window.wp || {};
 			$about_you_gloss,
 			$current_position,
 			$current_field,
+			$hallo_toolbar,
 			$jcw_half, // "just clicked widget" 
 			$jcw_target,
 			$new_widget_button,
@@ -223,6 +225,10 @@ window.wp = window.wp || {};
 			// Remove editing class
 			$jcw_half.removeClass( 'editing' );
 
+			$jcw_half.find( '.richtext' ).css( 'padding-top', '0' );
+			$hallo_toolbar.css( 'top', ( hallo_top - 40 ) + 'px' );
+			$jcw_half.removeClass( 'hallo-adjusted' );
+
 			// Remove currently_editing toggle
 			unmark_currently_editing();
 
@@ -273,7 +279,7 @@ window.wp = window.wp || {};
 
 			// Remove editing class
 			$jcw_half.removeClass( 'editing' );
-			 
+
 			// Remove currently_editing toggle
 			unmark_currently_editing();
 
@@ -289,6 +295,26 @@ window.wp = window.wp || {};
 
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
+
+			// Gah. We have to wait for hallo to render its toolbar
+			if ( ! $jcw_half.hasClass( 'hallo-adjusted' ) ) {
+				setTimeout( function() {
+					// Get the active element in the list - hallo creates new
+					// toolbars for each element :-/
+					$hallo_toolbar = null;
+					$( '.hallotoolbar' ).each( function() {
+						if ( 'block' == $( this ).css( 'display' ) ) {
+							$hallo_toolbar = $( this );
+						}
+					} );
+					hallo_top = parseInt( $hallo_toolbar.css( 'top' ) );
+					$hallo_toolbar.css( 'top', ( hallo_top + 40 ) + 'px' );
+
+					$jcw_half.find( '.richtext' ).css( 'padding-top', '40px' );
+
+					$jcw_half.addClass( 'hallo-adjusted' );
+				}, 20 );
+			}
 		}
 
 		/**
