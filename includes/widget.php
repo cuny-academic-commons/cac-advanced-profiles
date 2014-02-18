@@ -204,7 +204,7 @@ abstract class CACAP_Widget {
 //		$value = xprofile_filter_kses( $value );
 
 		if ( function_exists( 'cpfb_filter_link_profile_data' ) ) {
-			$value = cpfb_filter_link_profile_data( $value );
+//			$value = cpfb_filter_link_profile_data( $value );
 		}
 
 		if ( function_exists( 'cpfb_add_brackets' ) ) {
