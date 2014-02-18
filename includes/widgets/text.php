@@ -33,6 +33,9 @@ class CACAP_Widget_Text extends CACAP_Widget {
 			return false;
 		}
 
+		// Sanitize
+		$r['content'] = cacap_sanitize_content( $r['content'] );
+
 		$meta_value = array(
 			'title' => $r['title'],
 			'content' => $r['content'],
