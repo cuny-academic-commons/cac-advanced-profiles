@@ -608,7 +608,7 @@ body.profile-edit {
 		-o-transition: background-color .3s ease-in-out;
 		-mz-transition: background-color .3s ease-in-out;
 		transition: background-color .3s ease-in-out;
-		background-color: transparent; 
+		background-color: transparent;
 
 		&:hover {
 			background: $edit_hover_color;
@@ -635,14 +635,14 @@ body.profile-edit {
 				bottom: -40px;
 				left: 0;
 			}
-			
+
 			&.warn {
 				 -webkit-transition: background-color .3s ease-in-out;
 				 -moz-transition: background-color .3s ease-in-out;
 				 -o-transition: background-color .3s ease-in-out;
 				 -mz-transition: background-color .3s ease-in-out;
 				 transition: background-color .3s ease-in-out;
-				 background-color: #F57171; 
+				 background-color: #F57171;
 			}
 		}
 	}
@@ -845,6 +845,10 @@ body.cacap #cacap-widget-list {
 			list-style-type: none;
 		}
 	}
+}
+
+article.inEditMode {
+	margin-top: 40px;
 }
 
 .hallotoolbar {
