@@ -7,6 +7,7 @@ window.wp = window.wp || {};
 			about_you_max_length = 350,
 			class_to_add,
 			currently_editing = '',
+			currently_editing_position,
 			exit_confirm,
 			field_char_count,
 			hallo_top,
@@ -30,6 +31,7 @@ window.wp = window.wp || {};
 			$about_you_gloss,
 			$current_position,
 			$current_field,
+			$currently_editing,
 			$hallo_toolbar,
 			$jcw_half, // "just clicked widget" 
 			$jcw_target,
@@ -501,9 +503,15 @@ window.wp = window.wp || {};
 
 				// Only allow one field to be edited at a time
 				if ( currently_editing.length && jcw_id !== currently_editing ) {
-					$( '#' + currently_editing ).addClass( 'warn' );
+					$currently_editing = $( '#' + currently_editing );
+
+					// Offset for the header
+					currently_editing_position = $currently_editing.offset();
+					$.scrollTo( (currently_editing_position.top - 230) + 'px', 500 );
+
+					$currently_editing.addClass( 'warn' );
 					setTimeout( function() {
-						$( '#' + currently_editing ).removeClass( 'warn' );
+						$currently_editing.removeClass( 'warn' );
 					}, 800 );
 					return;
 				}
