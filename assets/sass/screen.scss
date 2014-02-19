@@ -13,6 +13,7 @@ $button_text_color: #1d1d1d;
 $button_blue: #2BA6CB;
 $link_pink: #ff4466;
 $activity_color: #ffeaa6;
+$light_gray: #dadada;
 
 $font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -446,13 +447,13 @@ body.cacap, body.bp-user {
 			border: 2px solid transparent;
 
 			&.editing {
-				border: 2px solid #dadada;
+				border: 2px solid $light_gray;
 			}
 		}
 	}
 
 	.cacap-click-to-edit.cacap-widget-section-editable {
-		border: 2px dashed #dadada;
+		border: 2px dashed $light_gray;
 	}
 }
 
@@ -628,19 +629,47 @@ body.profile-edit {
 
 			.cacap-positions-inputs {
 				display: block;
+				overflow: hidden;
 
 				ul {
-					margin-bottom: 1em;
+					margin-bottom: 15px;
 					margin-left: 30px;
-					border: 1px solid #eaeaea;
-					border-radius: 3px;
-					padding: 8px 10px;
+					padding: 5px 0;
 
 					.cacap-position-drag-handle {
 						width: 20px;
-						height: 100%;
+						height: 110px;
 						float: left;
-						background-color: #eaeaea;
+						margin-right: 8px;
+						background-color: $light_gray;
+						cursor: pointer;
+					}
+
+					li {
+						margin-bottom: 14px;
+						border: 1px solid $light_gray;
+						box-shadow: -2px 2px 4px 1px #aaa;
+						position: relative;
+					}
+
+					li.ui-state-highlight {
+						outline: 1px dashed $light_gray;
+						box-shadow: none;
+						height: 110px;
+					}
+
+					table.cacap-position {
+						height: 100px;
+						margin: 5px 0;
+						width: 100px; /* Total hack to make it not break to next line - I hate CSS */
+
+						tr td {
+							padding: 3px;
+
+							select, input {
+								width: 300px;
+							}
+						}
 					}
 				}
 			}
@@ -684,8 +713,6 @@ body.profile-edit {
 		display: none;
 	}
 
-
-
 	.cacap-edit-content-input {
 		textarea {
 			width: 100%;
@@ -723,26 +750,18 @@ body.profile-edit {
 			margin-top: .5em;
 			width: 300px;
 		}
-		.cacap-position-add-new {
-			background: #ddd;
-			padding: 10px 20px;
-		}
-			.cacap-position-add-new .hide-if-js {
-				display: none;
-			}
-		.cacap-position-add-new-title {
-			margin-bottom: 1em;
 
-			a {
-				text-decoration: none;
-				font-weight: bold;
-			}
-		}
 		a.cacap-delete-position {
 			text-decoration: none;
-			color: #f00;
 			font-weight: bold;
 			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 1px 2px 3px;
+			border: 1px solid $light_gray;
+			color: #aaa;
+			line-height: 1ex;
+			font-size: 14px;
 		}
 	}
 }

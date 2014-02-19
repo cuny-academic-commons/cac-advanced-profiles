@@ -40,6 +40,7 @@ window.wp = window.wp || {};
 			$position_field,
 			$position_label,
 			$positions_fields,
+			$positions_static_text_field,
 			$positions_widget,
 			$positions_widget_inputs,
 			$positions_widget_static_text,
@@ -120,6 +121,8 @@ window.wp = window.wp || {};
 
 				// Initialize autocomplete for existing widget
 				positions_autocomplete_setup( $positions_widget );	
+
+				positions_sortable_setup( $positions_widget );
 			}
 
 			$widget_list.on( 'click', '.cacap-add-position', function() {
@@ -333,7 +336,6 @@ window.wp = window.wp || {};
 		 * Toggle editable positions widget area (when clicked).
 		 */
 		function toggle_editable_positions() {
-
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
 		}
@@ -352,8 +354,9 @@ window.wp = window.wp || {};
 		function transition_positions_to_static_text() {
 			positions = [];
 
+			$positions_widget = $('.cacap-widget-positions');
 			$positions_widget_inputs = $positions_widget.find( '.cacap-positions-positions' );
-			$positions_widget_inputs.find( 'ul.cacap-position' ).each( function( index ) {
+			$positions_widget_inputs.find( '.cacap-position' ).each( function( index ) {
 				$current_position = $( this );
 
 				if ( 'new' !== $current_position.attr( 'id' ).split( '-' ).pop() ) {
@@ -380,11 +383,17 @@ window.wp = window.wp || {};
 				}
 			}
 
+			$positions_static_text_field = $positions_widget.find( '.cacap-positions-static-text' );
+			if ( ! $positions_static_text_field.length ) {
+				$positions_widget.find( '.cacap-widget-content' ).append( '<div class="cacap-positions-static-text"></div>' );
+				$positions_static_text_field = $positions_widget.find( '.cacap-positions-static-text' );
+			}
+
 			if ( positions_static_text.length ) {
 				positions_static_text = '<ul class="cacap-positions-list">' + positions_static_text + '</ul>';
 			}
 
-			$( '.cacap-positions-static-text' ).html( positions_static_text );
+			$positions_static_text_field.html( positions_static_text );
 		}
 
 		/**
@@ -392,15 +401,15 @@ window.wp = window.wp || {};
 		 */
 		function clone_add_new_position_fields() {
 			// Find and unhide
-			$positions_fields = $w.find( '#cacap-position-new' ).clone().removeClass( 'hide-if-js' );
+			$positions_fields = $w.find( '.cacap-position-new' ).children( 'li' ).clone();
 			
 			// Swap 'new' with proper iterator
 			// Subtract 1 for the prototype, but readd for new field
-			positions_count = $w.find( 'ul' ).length;
+			positions_count = $w.find( '.cacap-position' ).length;
 			position_id = 'cacap-position-' + positions_count;
 
 			// Swap 'id' attr
-			$positions_fields.removeAttr( 'id' ).attr( 'id', position_id );
+			$positions_fields.find('.cacap-position').removeAttr( 'id' ).attr( 'id', position_id );
 
 			// Swap 'for' attr
 			$positions_fields.find( 'label' ).each( function() {
@@ -639,6 +648,23 @@ window.wp = window.wp || {};
 				});
 
 				// @todo Title?
+			}
+		}
+
+		/**
+		 * Set up sortable for Positions widget
+		 */
+		function positions_sortable_setup( $widget ) {
+			if ( $widget ) {
+				$widget.find( '.cacap-positions-positions' ).sortable({
+					placeholder: 'ui-state-highlight',
+					containment: $widget,
+					axis: 'y',
+					handle: '.cacap-position-drag-handle',
+					stop: function( event, ui ) {
+						$widget_order.val($(this).sortable( 'toArray' ));
+					}
+				});
 			}
 		}
 
