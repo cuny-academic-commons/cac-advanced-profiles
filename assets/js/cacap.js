@@ -430,8 +430,9 @@ window.wp = window.wp || {};
 			// Add to the DOM
 			$( '.cacap-positions-positions' ).prepend( $positions_fields.wrap( '<li></li>' ) );
 
-			// Init autocomplete
+			// Init autocomplete and sortable
 			positions_autocomplete_setup( $w );	
+			positions_sortable_setup( $w );	
 		}
 
 		/**
@@ -660,10 +661,7 @@ window.wp = window.wp || {};
 					placeholder: 'ui-state-highlight',
 					containment: $widget,
 					axis: 'y',
-					handle: '.cacap-position-drag-handle',
-					stop: function( event, ui ) {
-						$widget_order.val($(this).sortable( 'toArray' ));
-					}
+					handle: '.cacap-position-drag-handle'
 				});
 			}
 		}
