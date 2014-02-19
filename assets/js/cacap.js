@@ -470,20 +470,19 @@ window.wp = window.wp || {};
 			$.scrollTo( ( $w.offset().top - 230 ) + 'px', 500 );
 		}
 
-		/**
-		 * Bind events related to clicking on editable widgets.
-		 *
-		 * Grouped together in order to delegate click events, due to
-		 * new items being dynamically added to the DOM
-		 */
-		function bind_widget_clicks_edit() {
-			$widget_list.on( 'mousedown', '.cacap-click-to-edit', function( e ) {
-
-				$jcw_half = $( this ); 
+		function bind_body_clicks() {
+			$( 'body' ).on( 'mousedown', function( e ) {
 				$jcw_target = $( e.target );
-				jcw_id = $jcw_half.attr( 'id' );
 
-				// Only allow one field to be edited at a time
+				$jcw_half = $jcw_target.closest( '.cacap-click-to-edit' );
+
+				if ( $jcw_half.length ) {
+					jcw_id = $jcw_half.attr( 'id' );
+				} else {
+					jcw_id = '';
+				}
+
+				// Don't let users click away from the currently_editing field
 				if ( currently_editing.length && jcw_id !== currently_editing ) {
 					$currently_editing = $( '#' + currently_editing );
 
@@ -495,11 +494,22 @@ window.wp = window.wp || {};
 					setTimeout( function() {
 						$currently_editing.removeClass( 'warn' );
 					}, 800 );
+
+					e.preventDefault();
+				}
+
+				// This is not a widget click, so we can bail
+				if ( ! jcw_id.length ) {
 					return;
 				}
-				
-				if ( ! currently_editing.length ) {
+	
+				if ( ! currently_editing.length && jcw_id.length ) {
 					mark_currently_editing( jcw_id );
+				}
+
+				// If the widget section is not marked 'editable', nothing to do
+				if ( ! $jcw_half.hasClass( 'cacap-widget-section-editable' ) ) {
+					return;
 				}
 
 				jcw_target_is_button = $jcw_target.hasClass( 'button' );
@@ -714,6 +724,7 @@ window.wp = window.wp || {};
 				init_exit_confirm();
 				init_widget_specialkeys();
 				init_about_you_character_count();
+				bind_body_clicks();
 				bind_widget_clicks_edit();
 				bind_widget_clicks_delete();
 				resize_drag_handles();
