@@ -725,7 +725,6 @@ window.wp = window.wp || {};
 				init_widget_specialkeys();
 				init_about_you_character_count();
 				bind_body_clicks();
-				bind_widget_clicks_edit();
 				bind_widget_clicks_delete();
 				resize_drag_handles();
 			}
