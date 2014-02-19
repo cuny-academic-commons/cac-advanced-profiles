@@ -619,10 +619,20 @@ body.profile-edit {
 		}
 
 		&.editing {
+			/* No yellow hover when editing */
+			&:hover {
+				background: transparent;
+			}
+
 			margin-bottom: 50px;
 
 			.cacap-positions-inputs {
 				display: block;
+
+				ul {
+					margin-bottom: 1em;
+					padding-left: 30px;
+				}
 			}
 
 			.cacap-positions-static-text {
