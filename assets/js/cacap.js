@@ -225,9 +225,11 @@ window.wp = window.wp || {};
 			// Remove editing class
 			$jcw_half.removeClass( 'editing' );
 
-			$jcw_half.find( '.richtext' ).css( 'padding-top', '0' );
-			$hallo_toolbar.css( 'top', ( hallo_top - 40 ) + 'px' );
-			$jcw_half.removeClass( 'hallo-adjusted' );
+			if ( null !== $hallo_toolbar ) {
+				$jcw_half.find( '.richtext' ).css( 'padding-top', '0' );
+				$hallo_toolbar.css( 'top', ( hallo_top - 40 ) + 'px' );
+				$jcw_half.removeClass( 'hallo-adjusted' );
+			}
 
 			// Remove currently_editing toggle
 			unmark_currently_editing();
@@ -307,12 +309,15 @@ window.wp = window.wp || {};
 							$hallo_toolbar = $( this );
 						}
 					} );
-					hallo_top = parseInt( $hallo_toolbar.css( 'top' ) );
-					$hallo_toolbar.css( 'top', ( hallo_top + 40 ) + 'px' );
 
-					$jcw_half.find( '.richtext' ).css( 'padding-top', '40px' );
+					if ( null !== $hallo_toolbar ) {
+						hallo_top = parseInt( $hallo_toolbar.css( 'top' ) );
+						$hallo_toolbar.css( 'top', ( hallo_top + 40 ) + 'px' );
 
-					$jcw_half.addClass( 'hallo-adjusted' );
+						$jcw_half.find( '.richtext' ).css( 'padding-top', '40px' );
+
+						$jcw_half.addClass( 'hallo-adjusted' );
+					}
 				}, 20 );
 			}
 		}
@@ -474,6 +479,8 @@ window.wp = window.wp || {};
 				clone_add_new_position_fields( $w );
 			}
 
+			init_editable_widgets();
+			
 			resize_drag_handles();
 		}
 
