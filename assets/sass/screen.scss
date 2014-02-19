@@ -625,6 +625,10 @@ body.profile-edit {
 				background: transparent;
 			}
 
+			&.cacap-widget-content {
+				margin-top: 80px;
+			}
+
 			margin-bottom: 50px;
 
 			.cacap-positions-inputs {
@@ -890,9 +894,15 @@ body.cacap .cacap-widget-positions article {
 	}
 }
 
-.hallotoolbar {
-	width: 300px;
-	 button {
+body.cacap .cacap-widget-content .hallotoolbar {
+	width: 100%;
+	margin-top: -80px;
+
+	i {
+		font-style: normal;
+	}
+
+	button {
 		margin-bottom: 8px;
-	 }
+	}
 }

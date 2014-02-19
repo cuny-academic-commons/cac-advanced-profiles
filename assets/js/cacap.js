@@ -94,15 +94,20 @@ window.wp = window.wp || {};
 		 * These are the widgets that use contentEditable.
 		 */
 		function init_editable_widgets() {
-			$('article.richtext').hallo({
-				toolbar: 'halloToolbarFixed',
-				plugins: {
-					'halloformat': {},
-					'hallolink': {},
-					'hallojustify': {},
-					'hallolists': {},
-					'halloheadings': {}
-				}
+			$('article.richtext').each( function() {
+				$( this ).hallo( {
+					toolbar: 'halloToolbarFixed',
+					toolbarOptions: {
+						parentElement: $(this).closest( '.cacap-click-to-edit' )
+					},
+					plugins: {
+						'halloformat': {},
+						'hallolink': {},
+						'hallojustify': {},
+						'hallolists': {},
+						'halloheadings': {}
+					}
+				} );
 			});
 		}
 
@@ -224,12 +229,6 @@ window.wp = window.wp || {};
 			// Remove editing class
 			$jcw_half.removeClass( 'editing' );
 
-			if ( null !== $hallo_toolbar ) {
-				$jcw_half.find( '.richtext' ).css( 'padding-top', '0' );
-				$hallo_toolbar.css( 'top', ( hallo_top - 40 ) + 'px' );
-				$jcw_half.removeClass( 'hallo-adjusted' );
-			}
-
 			// Remove currently_editing toggle
 			unmark_currently_editing();
 
@@ -296,29 +295,6 @@ window.wp = window.wp || {};
 
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
-
-			// Gah. We have to wait for hallo to render its toolbar
-			if ( ! $jcw_half.hasClass( 'hallo-adjusted' ) ) {
-				setTimeout( function() {
-					// Get the active element in the list - hallo creates new
-					// toolbars for each element :-/
-					$hallo_toolbar = null;
-					$( '.hallotoolbar' ).each( function() {
-						if ( 'block' == $( this ).css( 'display' ) ) {
-							$hallo_toolbar = $( this );
-						}
-					} );
-
-					if ( null !== $hallo_toolbar ) {
-						hallo_top = parseInt( $hallo_toolbar.css( 'top' ) );
-						$hallo_toolbar.css( 'top', ( hallo_top + 40 ) + 'px' );
-
-						$jcw_half.find( '.richtext' ).css( 'padding-top', '40px' );
-
-						$jcw_half.addClass( 'hallo-adjusted' );
-					}
-				}, 20 );
-			}
 		}
 
 		/**
