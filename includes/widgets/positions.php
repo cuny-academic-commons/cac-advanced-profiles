@@ -247,15 +247,18 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		$markup .= '<div class="cacap-position-add-new-title hide-if-no-js"><a class="cacap-add-position" href="#">' . __( '&#43; Add New', 'cacap' ) . '</a></div>';
 
 		if ( ! empty( $value ) && is_array( $value ) ) {
+			$markup .= '<ul class="cacap-positions-positions">';
 			$counter = 0;
 			foreach ( $value as $position ) {
+				$markup .= '<li>';
+
 				$counter++;
 				$current_college = isset( $position['college'] ) ? $position['college'] : '';
 				$current_department = isset( $position['department'] ) ? $position['department'] : '';
 				$current_title = isset( $position['title'] ) ? $position['title'] : '';
 
 				$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-' . $counter . '">' . 'x' . '</a>';
-				$markup .= '<ul id="cacap-position-' . $counter . '">';
+				$markup .= '<ul id="cacap-position-' . $counter . '" class="cacap-position sortable">';
 
 				$markup .=   '<li>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_college">' . __( 'College', 'cacap' ) . '</label>';
@@ -278,7 +281,10 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 				$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="' . esc_attr( $key ) . '[content][' . $counter . '][title]" id="' . esc_attr( $key ) . '_title" value="' . esc_attr( $current_title ) . '" />';
 				$markup .=   '</li>';
 				$markup .= '</ul>';
+
+				$markup .= '</li>';
 			}
+			$markup .= '</ul>';
 		}
 
 		// Second, provide a blank set of fields

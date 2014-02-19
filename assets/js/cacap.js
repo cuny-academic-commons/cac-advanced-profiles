@@ -110,7 +110,7 @@ window.wp = window.wp || {};
 		 */
 		function init_positions_widgets() {
 			$positions_widget = $('.cacap-widget-positions');
-			$positions_widget_inputs = $positions_widget.find( '.cacap-positions-inputs' );
+			$positions_widget_inputs = $positions_widget.find( '.cacap-positions-positions' );
 			$positions_widget_static_text = $positions_widget.find( '.cacap-positions-static-text' );
 			if ( $positions_widget.length ) {
 				transition_positions_to_static_text();	
@@ -129,13 +129,7 @@ window.wp = window.wp || {};
 
 			// Delete a position
 			$widget_list.on( 'click', '.cacap-delete-position', function() {
-				$position_delete_button = $( this );
-
-				// Remove position based on id
-				$( '#cacap-position-' + $position_delete_button.attr( 'id' ).split( '-' ).pop() ).remove();
-
-				// Remove delete button
-				$position_delete_button.remove();
+				$( this ).parent( 'li' ).remove();
 			} );
 		}
 
@@ -358,8 +352,8 @@ window.wp = window.wp || {};
 		function transition_positions_to_static_text() {
 			positions = [];
 
-			$positions_widget_inputs = $positions_widget.find( '.cacap-positions-inputs' );
-			$positions_widget_inputs.children('ul').each( function( index ) {
+			$positions_widget_inputs = $positions_widget.find( '.cacap-positions-positions' );
+			$positions_widget_inputs.find( 'ul.cacap-position' ).each( function( index ) {
 				$current_position = $( this );
 
 				if ( 'new' !== $current_position.attr( 'id' ).split( '-' ).pop() ) {
@@ -425,7 +419,7 @@ window.wp = window.wp || {};
 			$positions_fields.find( '.cacap-delete-position' ).remove();
 
 			// Add to the DOM
-			$positions_fields.insertAfter( $w.find( '.cacap-position-add-new-title' ) );
+			$( '.cacap-positions-positions' ).prepend( $positions_fields.wrap( '<li></li>' ) );
 
 			// Init autocomplete
 			positions_autocomplete_setup( $w );	
