@@ -804,8 +804,7 @@ body.profile-edit {
 
 /* Hallo */
 
-body.cacap .cacap-widget-content,
-body.cacap #cacap-widget-list {
+body.cacap .cacap-widget-content {
 	b {
 		font-weight: bold;
 	}
@@ -844,6 +843,12 @@ body.cacap #cacap-widget-list {
 			margin-left: 0;
 			list-style-type: none;
 		}
+	}
+}
+
+body.cacap .cacap-widget-positions .cacap-widget-content {
+	ul {
+		list-style-type: none;
 	}
 }
 
