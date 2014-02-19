@@ -118,6 +118,7 @@ function cacap_sanitize_content( $content ) {
 		'h2' => array(),
 		'h3' => array(),
 		'i' => array(),
+		'li' => array(),
 		'p' => array(),
 		'ol' => array(),
 		'ul' => array(),
