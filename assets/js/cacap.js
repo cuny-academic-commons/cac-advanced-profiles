@@ -477,9 +477,7 @@ window.wp = window.wp || {};
 		 * new items being dynamically added to the DOM
 		 */
 		function bind_widget_clicks_edit() {
-
-			$widget_list.on( 'click', '.cacap-click-to-edit', function( e ) {
-				e.preventDefault();
+			$widget_list.on( 'mousedown', '.cacap-click-to-edit', function( e ) {
 
 				$jcw_half = $( this ); 
 				$jcw_target = $( e.target );
