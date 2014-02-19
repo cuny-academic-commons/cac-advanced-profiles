@@ -484,6 +484,9 @@ window.wp = window.wp || {};
 			init_editable_widgets();
 			
 			resize_drag_handles();
+
+			// Offset for the header
+			$.scrollTo( ( $w.offset().top - 230 ) + 'px', 500 );
 		}
 
 		/**
