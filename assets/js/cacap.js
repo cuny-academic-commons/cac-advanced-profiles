@@ -433,6 +433,7 @@ window.wp = window.wp || {};
 			// Init autocomplete and sortable
 			positions_autocomplete_setup( $w );	
 			positions_sortable_setup( $w );	
+			reindex_positions_fields();
 		}
 
 		/**
@@ -661,9 +662,37 @@ window.wp = window.wp || {};
 					placeholder: 'ui-state-highlight',
 					containment: $widget,
 					axis: 'y',
-					handle: '.cacap-position-drag-handle'
+					handle: '.cacap-position-drag-handle',
+					stop: function( event, ui ) {
+						reindex_positions_fields();
+					}
 				});
 			}
+		}
+
+		/**
+		 * Re-index positions fields
+		 */
+		function reindex_positions_fields() {
+			var c = 1;
+			$positions_widget.find( '.cacap-position' ).each( function() {
+				if ( 'cacap-position-add-new' !== this.id ) {
+					// Swap id for table and delete button
+					// Not really necessary, but just for consistency
+					this.id = 'cacap-position-' + c;
+					$( this ).siblings( '.cacap-delete-position').attr( 'id', 'cacap-delete-position-' + c );
+
+					// Swap out names - this is the part that's required
+					// to make the form work
+					$( this ).find( 'input,select' ).each( function() {
+						console.log( $( this ).attr( 'name' ).replace( /(\[content\]\[)([0-9]+)\]/, '$1' + c + ']' ) );
+						$( this ).attr( 'name', $( this ).attr( 'name' ).replace( /(\[content\]\[)([0-9]+)\]/, '$1' + c + ']' ) );
+					} );
+
+					c++;
+				}
+
+			} );
 		}
 
 		/**

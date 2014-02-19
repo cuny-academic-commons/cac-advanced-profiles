@@ -62,6 +62,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		}
 
 		$submitted_positions = ! empty( $r['content'] ) ? $r['content'] : array();
+		ksort( $submitted_positions );
 		$new_positions = array();
 
 		// Parse the submitted positions and fetch the term ids
