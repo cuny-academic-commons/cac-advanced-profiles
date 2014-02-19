@@ -896,7 +896,8 @@ body.cacap .cacap-widget-positions article {
 
 body.cacap .cacap-widget-content .hallotoolbar {
 	width: 100%;
-	margin-top: -80px;
+	position: absolute;
+	top: -45px;
 
 	i {
 		font-style: normal;
