@@ -62,6 +62,10 @@ window.wp = window.wp || {};
 		 * Set up the sticky header.
 		 */
 		function init_stickyheader() {
+			if ( $( 'body' ).hasClass( 'short-header' ) ) {
+				return;
+			}
+
 			window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
 
 			if ( window_height < $(document).height() - 200 ) {

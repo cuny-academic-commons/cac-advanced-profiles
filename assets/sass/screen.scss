@@ -139,6 +139,12 @@ body.cacap, body.bp-user {
 	}
 }
 
+body.short-header {
+	#cacap-header {
+		height: 40px;
+	}
+}
+
 #cacap-header {
 	background: transparent url('../images/black_linen_v2.png');
 	padding: 0 10px 30px;

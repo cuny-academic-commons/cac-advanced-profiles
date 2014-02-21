@@ -124,3 +124,19 @@ function cacap_sanitize_content( $content ) {
 		'ul' => array(),
 	) );
 }
+
+function cacap_is_commons_profile() {
+	if ( bp_is_user() ) {
+		if ( ! empty( $_GET['commons-profile'] ) && 1 == $_GET['commons-profile'] ) {
+			return true;
+		}
+
+		if ( ! bp_is_profile_component() ) {
+			return true;
+		}
+	}
+
+	return false;
+
+	return bp_is_user() && ( empty( $_GET['commons-profile'] ) || 1 != $_GET['commons-profile'] || ! bp_is_profile_component()) ;
+}

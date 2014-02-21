@@ -193,6 +193,10 @@ class CACAP_Controller {
 			$classes[] = 'cacap';
 		}
 
+		if ( cacap_is_commons_profile() ) {
+			$classes[] = 'short-header';
+		}
+
 		return $classes;
 	}
 
