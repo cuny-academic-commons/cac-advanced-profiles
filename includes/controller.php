@@ -8,7 +8,7 @@ class CACAP_Controller {
 		add_filter( 'bp_located_template', array( $this, 'filter_top_level_template' ) );
 		add_filter( 'bp_get_template_stack', array( $this, 'filter_template_stack' ) );
 		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 100 );
 		add_filter( 'body_class', array( $this, 'body_class' ) );
 
 		// Filter buttons
@@ -266,6 +266,7 @@ class CACAP_Controller {
 	public function filter_send_public_message_button( $button ) {
 		if ( bp_is_user_profile() ) {
 			$button['link_text'] = __( 'Mention', 'cacap' );
+			$button['link_href'] = wp_nonce_url( bp_loggedin_user_domain() . bp_get_activity_slug() . '/?r=' . bp_get_displayed_user_mentionname() );
 		}
 
 		return $button;

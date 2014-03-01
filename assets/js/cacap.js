@@ -4,6 +4,14 @@ jQuery(document).ready( function($) {
 	bodyclass = bodyclass.replace( /no-js/,'js' );
 	document.body.className = bodyclass;
 
+	/* @mention Compose Scrolling */
+	if ( jq.query.get('r') && jq('textarea#whats-new').length ) {
+		jq.scrollTo( jq('textarea#whats-new'), 500, {
+			offset:-625,
+			easing:'easeOutQuad'
+		} );
+	}
+
 	/**
 	 * Deciding whether to snap the header. Logic:
 	 *
