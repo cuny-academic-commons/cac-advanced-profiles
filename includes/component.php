@@ -26,6 +26,8 @@ class CAC_Advanced_Profiles extends BP_Component {
 
 		$this->includes();
 		$this->setup_controller();
+
+		do_action( 'cacap_init' );
 	}
 
 	public function setup_controller() {
@@ -44,6 +46,7 @@ class CAC_Advanced_Profiles extends BP_Component {
 		require( $this->includes_dir . 'widget.php' );
 		require( $this->includes_dir . 'default-widgets.php' );
 		require( $this->includes_dir . 'widget_instance.php' );
+		require( $this->includes_dir . 'vital.php' );
 	}
 
 	public function get_user( $user_id ) {

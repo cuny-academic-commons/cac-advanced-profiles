@@ -3,47 +3,14 @@
 <?php if ( ! cacap_is_commons_profile() ) : ?>
 	<div class="cacap-row">
 		<dl id="cacap-vitals">
-			<?php
-			buddypress()->social_media_profiles->setup_user_sm_fields();
+		<?php foreach ( cacap_vitals() as $vital ) : ?>
+			<dt class="<?php echo esc_attr( $vital->css_class ) ?>"><?php echo esc_html( $vital->title ) ?></dt>
 
-			$user_sm_fields = buddypress()->social_media_profiles->user_sm_fields;
-			$user_sm_fields_html = '';
+			<?php /* Don't escape content, because it may contain HTML */ ?>
+			<dd class="<?php echo esc_attr( $vital->css_class ) ?>"><?php echo $vital->content ?></dt>
+		<?php endforeach ?>
 
-			foreach ( (array) $user_sm_fields as $field ) {
-				$user_sm_fields_html .= $field['html'];
-			}
-			?>
-
-			<?php if ( $user_sm_fields_html ) : ?>
-				<dt class="cacap-vitals-contact">Follow me Online</dt>
-				<dd class="cacap-vitals-contact"><?php echo $user_sm_fields_html ?></dd>
-				<div clear="both"> </div>
-			<?php endif ?>
-
-			<?php
-			$contact_info = array();
-
-			if ( cacap_field_is_visible_for_user( 'Phone' ) ) {
-				$phone = xprofile_get_field_data( 'Phone', bp_displayed_user_id() );
-				if ( $phone ) {
-					$contact_info[] = $phone;
-				}
-			}
-
-			if ( cacap_field_is_visible_for_user( 'Email Address' ) ) {
-				$email = xprofile_get_field_data( 'Email Address', bp_displayed_user_id() );
-				if ( $email ) {
-					$contact_info[] = $email;
-				}
-			}
-
-			$contact_info = implode( ' &middot; ', $contact_info );
-			?>
-
-			<?php if ( $contact_info ) : ?>
-				<dt><?php _e( 'Contact', 'cacap' ) ?></dt>
-				<dd><?php echo $contact_info ?></dd>
-			<?php endif ?>
+			<div clear="both"> </div>
 
 			<?php if ( cacap_field_is_visible_for_user( 'Website' ) ) : ?>
 				<?php $website = xprofile_get_field_data( 'Website', bp_displayed_user_id() ) ?>
