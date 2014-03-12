@@ -1,21 +1,24 @@
 <?php
 
-class CACAP_Widget_Text extends CACAP_Widget {
+/**
+ * Twitter widget
+ */
+class CACAP_Widget_Twitter extends CACAP_Widget {
 	public function __construct() {
 		parent::init( array(
-			'name' => __( 'Free Entry', 'cacap' ),
-			'slug' => 'text',
+			'name' => __( 'Twitter', 'cacap' ),
+			'slug' => 'twitter',
 			'allow_custom_title' => true,
 			'allow_multiple' => true,
 		) );
 	}
 
 	/**
-	 * Saves instance of Text widget for user
+	 * Saves instance of Twitter widget for user
 	 *
-	 * Overrides the parent method, because on the default schema, Text
+	 * Overrides the parent method, because on the default schema, Twitter
 	 * widgets are not stored in xprofile data tables (since users can
-	 * create arbitrary Text widgets, making it impossible to map onto
+	 * create arbitrary Twitter widgets, making it impossible to map onto
 	 * xprofile fields)
 	 *
 	 * @since 1.0
@@ -32,9 +35,6 @@ class CACAP_Widget_Text extends CACAP_Widget {
 		if ( ! $r['user_id'] || ! $r['title'] ) {
 			return false;
 		}
-
-		// Sanitize
-		$r['content'] = cacap_sanitize_content( $r['content'] );
 
 		$meta_value = array(
 			'title' => $r['title'],
@@ -82,16 +82,41 @@ class CACAP_Widget_Text extends CACAP_Widget {
 		return esc_html( $value['title'] );
 	}
 
+	/**
+	 * Todo: needs mucho caching
+	 */
+	public function display_content_markup( $value ) {
+		$config = array(
+			'class' => 'twitter-timeline',
+			'data-dnt' => 'true',
+			'href' => 'https://twitter.com/' . $value,
+			'data-widget-id' => '434125814427172864',
+			'data-screen-name' => $value,
+		);
+
+		$atts = '';
+		foreach ( $config as $k => $v ) {
+			$atts .= $k . '="' . esc_attr( $v ) . '" ';
+		}
+
+		$html  = '<a ' . $atts . '>';
+		$html .= sprintf( __( 'Tweets by @%s', 'cacap' ), esc_attr( $value ) );
+		$html .= '</a>';
+		$html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+
+		return $html;
+	}
+
 	public function edit_title_markup( $value, $key ) {
-		$title = isset( $value['title'] ) ? $value['title'] : '';
-		$html  = '<article class="editable-content" contenteditable="true">' . $title . '</article>';
-		$html .= '<input name="' . esc_attr( $key ) . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( $title ) . '" />';
+		$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $value['title'] ) ) . '</article>';
+		$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $value['title'] ) ) . '" />';
 		return $html;
 	}
 
 	public function edit_content_markup( $value, $key ) {
-		$html  = '<article class="editable-content richtext">' . $value['content'] . '</article>';
-		$html .= '<input name="' . esc_attr( $key ) . '[content]" class="editable-content-stash" type="hidden" value="' . esc_attr( $value['content'] ) . '" />';
+		$content = isset( $value['content'] ) ? $value['content'] : '';
+		$html  = '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]" value="' . esc_attr( $content ) . '" />';
+		$html .= '<p class="description">' . __( 'Enter your Twitter username.', 'cacap' ) . '</p>';
 		return $html;
 	}
 }

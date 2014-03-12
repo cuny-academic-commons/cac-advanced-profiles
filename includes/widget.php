@@ -90,6 +90,9 @@ abstract class CACAP_Widget {
 			) );
 		}
 
+		// Sanitize data
+		$r['content'] = cacap_sanitize_content( $r['content'] );
+
 		if ( xprofile_set_field_data( $field_id, absint( $r['user_id'] ), $r['content'] ) ) {
 			return CACAP_Widget_Instance::format_instance( array(
 				'user_id' => $r['user_id'],
@@ -201,10 +204,10 @@ abstract class CACAP_Widget {
 		$value = force_balance_tags( $value );
 		$value = make_clickable( $value );
 		$value = convert_smilies( $value );
-		$value = xprofile_filter_kses( $value );
+//		$value = xprofile_filter_kses( $value );
 
 		if ( function_exists( 'cpfb_filter_link_profile_data' ) ) {
-			$value = cpfb_filter_link_profile_data( $value );
+//			$value = cpfb_filter_link_profile_data( $value );
 		}
 
 		if ( function_exists( 'cpfb_add_brackets' ) ) {
@@ -215,9 +218,10 @@ abstract class CACAP_Widget {
 	}
 
 	public function edit_title_markup( $value, $key ) {
-		if ( $this->allow_edit ) {
-			$disabled = $this->allow_custom_title ? '' : 'disabled="disabled" ';
-			return '<input class="cacap-edit-input" name="' . esc_attr( $key ) . '[title]" value="' . esc_attr( $this->name ) . '" ' . $disabled . '/>';
+		if ( $this->allow_edit && $this->allow_custom_title ) {
+			$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $value ) ) . '</article>';
+			$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $value ) ) . '" />';
+			return $html;
 		} else {
 			return $this->display_title_markup( $value );
 		}
@@ -225,7 +229,9 @@ abstract class CACAP_Widget {
 
 	public function edit_content_markup( $value, $key ) {
 		if ( $this->allow_edit ) {
-			return '<textarea class="cacap-edit-input" name="' . esc_attr( $key ) . '[content]">' . esc_attr( $value ) . '</textarea>';
+			$html  = '<article class="editable-content richtext">' . $value . '</article>';
+			$html .= '<input name="' . $key . '[content]" class="editable-content-stash" type="hidden" value="' . esc_html( $value ) . '" />';
+			return $html;
 		} else {
 			return $this->display_content_markup( $value );
 		}

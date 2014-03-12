@@ -22,6 +22,11 @@ class CACAP_Controller {
                 // Hack - don't call it "Title Widget" if you can help it
                 add_filter( 'bp_get_the_profile_field_name', array( $this, 'rename_title_widget' ) );
 
+		// Hack - Remove BP's xprofile filters on HTML
+		remove_filter( 'xprofile_data_value_before_save', 'xprofile_sanitize_data_value_before_save', 1, 2 );
+		remove_filter( 'xprofile_filtered_data_value_before_save', 'trim', 2 );
+		remove_filter( 'xprofile_get_field_data', 'wp_filter_kses', 1 );
+
 		add_action( 'xprofile_updated_profile', array( $this, 'save_profile_data' ) );
 
 		// AJAX handlers
@@ -142,6 +147,8 @@ class CACAP_Controller {
 			$v = $this->get_version_string();
 			wp_enqueue_style( 'cac-bp-css', get_stylesheet_directory_uri() . '/style.css', $v );
 			wp_enqueue_style( 'cacap-css', CACAP_PLUGIN_URL . '/assets/css/screen.css', array( 'cac-bp-css' ), $v );
+			wp_enqueue_style( 'cacap-jquery-ui', CACAP_PLUGIN_URL . '/lib/smoothness/jquery-ui-1.10.3.custom.css', array( 'cac-bp-css' ), $v );
+			wp_enqueue_style( 'cacap-font-awesome', CACAP_PLUGIN_URL . '/lib/font-awesome/css/font-awesome.css', array( 'cac-bp-css' ), $v );
 		}
 	}
 
@@ -151,6 +158,9 @@ class CACAP_Controller {
 		wp_register_script( 'cacap-autogrow', CACAP_PLUGIN_URL . '/assets/js/autogrow.min.js', array( 'jquery' ), $v );
 		wp_register_script( 'cacap-waypoints', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints.min.js', array( 'jquery' ), $v );
 		wp_register_script( 'cacap-waypoints-sticky', CACAP_PLUGIN_URL . '/lib/jquery.waypoints/waypoints-sticky.min.js', array( 'jquery', 'cacap-waypoints' ), $v );
+		wp_register_script( 'cacap-rangy', CACAP_PLUGIN_URL . '/lib/rangy/rangy-core.js', array( 'jquery' ), $v );
+		wp_register_script( 'cacap-hallo', CACAP_PLUGIN_URL . '/lib/hallo/hallo.js', array( 'jquery', 'jquery-ui-widget', 'jquery-ui-dialog', 'cacap-rangy' ), $v );
+		wp_register_script( 'cacap-scrollto', CACAP_PLUGIN_URL . '/lib/jquery.scrollTo/jquery.scrollTo.min.js', array( 'jquery' ), $v );
 
 		$deps = array(
 			'jquery',
@@ -158,10 +168,13 @@ class CACAP_Controller {
 			'cacap-waypoints-sticky',
 		);
 
-		if ( bp_is_profile_edit() ) {
+		if ( bp_is_user_profile_edit() ) {
 			$deps[] = 'jquery-ui-sortable';
 			$deps[] = 'jquery-ui-autocomplete';
 			$deps[] = 'cacap-autogrow';
+			$deps[] = 'cacap-scrollto';
+			wp_enqueue_script( 'cacap-rangy' );
+			wp_enqueue_script( 'cacap-hallo' );
 		}
 
 		wp_enqueue_script(
@@ -178,6 +191,10 @@ class CACAP_Controller {
 	public function body_class( $classes ) {
 		if ( bp_is_user_profile() ) {
 			$classes[] = 'cacap';
+		}
+
+		if ( cacap_is_commons_profile() ) {
+			$classes[] = 'short-header';
 		}
 
 		return $classes;
@@ -229,7 +246,9 @@ class CACAP_Controller {
 					continue;
 				}
 
-				if ( 0 === strpos( array_pop( explode( '-', $key ) ), 'newwidget' ) ) {
+				$key_a = explode( '-', $key );
+				$key_a_last = array_pop( $key_a );
+				if ( 0 === strpos( $key_a_last, 'newwidget' ) ) {
 					$user->create_widget_instance( array(
 						'widget_type' => $widget_type,
 						'title'       => $title,
@@ -274,7 +293,7 @@ class CACAP_Controller {
 	public function hide_college_field( $has_profile ) {
 		global $profile_template;
 
-		if ( bp_is_profile_edit() ) {
+		if ( bp_is_user_profile_edit() ) {
 			foreach ( $profile_template->groups[0]->fields as $pf_key => $pf ) {
 				if ( 'College' == $pf->name ) {
 					unset( $profile_template->groups[0]->fields[ $pf_key ] );

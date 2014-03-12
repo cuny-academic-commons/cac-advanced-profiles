@@ -5,7 +5,7 @@
 <?php else : ?>
 	<div id="cacap-user-widgets">
 		<?php foreach ( cacap_user_widget_instances() as $widget_instance ) : ?>
-			<div class="cacap-row cacap-widget">
+			<div class="cacap-row cacap-widget cacap-widget-<?php echo esc_attr( $widget_instance->widget_type->slug ) ?>">
 				<div class="cacap-widget-title"><?php echo $widget_instance->display_title() ?></div>
 				<div class="cacap-widget-content"><?php echo $widget_instance->display_content() ?></div>
 			</div>

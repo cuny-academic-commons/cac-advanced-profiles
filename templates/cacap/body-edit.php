@@ -40,8 +40,8 @@
 				<?php $wi_prototype = new CACAP_Widget_Instance( array( 'widget_type' => $widget_type, 'key' => 'newwidgetkey' ) ) ?>
 				<div id="cacap-widget-prototype-<?php echo esc_attr( $widget_type->slug ) ?>">
 					<div class="cacap-drag-handle"></div>
-					<div class="cacap-widget-title cacap-click-to-edit"><?php echo $wi_prototype->edit_title() ?></div>
-					<div class="cacap-widget-content cacap-click-to-edit"><?php echo $wi_prototype->edit_content() ?></div>
+					<div class="cacap-widget-title <?php if ( $widget_type->allow_custom_title ) : ?>cacap-widget-section-editable <?php endif ?>cacap-click-to-edit"><?php echo $wi_prototype->edit_title() ?></div>
+					<div class="cacap-widget-content cacap-widget-section-editable cacap-click-to-edit"><?php echo $wi_prototype->edit_content() ?></div>
 					<input type="hidden" value="<?php echo esc_attr( $wi_prototype->widget_type->slug ) ?>" name="<?php echo esc_attr( $wi_prototype->css_id ) ?>[widget_type]" />
 					<a href="#" class="cacap-widget-remove button confirm"><?php _e( 'Remove', 'cacap' ) ?></a>
 				</div>
@@ -58,8 +58,8 @@
 
 			<li id="cacap-widget-<?php echo esc_attr( $widget_instance->css_id ) ?>" class="cacap-widget-<?php echo esc_attr( $widget_instance->widget_type->slug ) ?>">
 				<div class="cacap-drag-handle"></div>
-				<div class="cacap-widget-title cacap-click-to-edit"><?php echo $widget_instance->edit_title() ?></div>
-				<div class="cacap-widget-content cacap-click-to-edit"><?php echo $widget_instance->edit_content() ?></div>
+				<div class="cacap-widget-title <?php if ( $widget_instance->widget_type->allow_custom_title ) : ?>cacap-widget-section-editable <?php endif ?>cacap-click-to-edit" id="<?php echo esc_attr( $widget_instance->css_id ) ?>-title"><?php echo $widget_instance->edit_title() ?></div>
+				<div class="cacap-widget-content cacap-widget-section-editable cacap-click-to-edit" id="<?php echo esc_attr( $widget_instance->css_id ) ?>-content"><?php echo $widget_instance->edit_content() ?></div>
 				<input type="hidden" value="<?php echo esc_attr( $widget_instance->widget_type->slug ) ?>" name="<?php echo esc_attr( $widget_instance->css_id ) ?>[widget_type]" />
 
 				<a href="#" class="cacap-widget-remove button confirm"><?php _e( 'Remove', 'cacap' ) ?></a>

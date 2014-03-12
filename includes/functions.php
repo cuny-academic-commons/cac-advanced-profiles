@@ -37,6 +37,7 @@ function cacap_widget_types( $args = array() ) {
 		'rss'                => 'CACAP_Widget_RSS',
 		'college'            => 'CACAP_Widget_College',
 		'titlewidget'        => 'CACAP_Widget_Title',
+		'twitter'            => 'CACAP_Widget_Twitter',
 	);
 
 	$widgets = array();
@@ -100,4 +101,42 @@ function cacap_field_is_visible_for_user( $field_id = 0, $displayed_user_id = 0,
 	$hidden_fields_for_user = bp_xprofile_get_hidden_fields_for_user( $displayed_user_id, $current_user_id );
 
 	return ! in_array( $field_id, $hidden_fields_for_user );
+}
+
+function cacap_sanitize_content( $content ) {
+	return wp_kses( $content, array(
+		'a' => array(
+			'href' => array(),
+			'rel' => array(),
+		),
+		'b' => array(),
+		'br' => array(),
+		'div' => array(
+			'align' => array(),
+		),
+		'h1' => array(),
+		'h2' => array(),
+		'h3' => array(),
+		'i' => array(),
+		'li' => array(),
+		'p' => array(),
+		'ol' => array(),
+		'ul' => array(),
+	) );
+}
+
+function cacap_is_commons_profile() {
+	if ( bp_is_user() ) {
+		if ( ! empty( $_GET['commons-profile'] ) && 1 == $_GET['commons-profile'] ) {
+			return true;
+		}
+
+		if ( ! bp_is_profile_component() ) {
+			return true;
+		}
+	}
+
+	return false;
+
+	return bp_is_user() && ( empty( $_GET['commons-profile'] ) || 1 != $_GET['commons-profile'] || ! bp_is_profile_component()) ;
 }

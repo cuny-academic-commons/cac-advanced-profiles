@@ -62,6 +62,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		}
 
 		$submitted_positions = ! empty( $r['content'] ) ? $r['content'] : array();
+		ksort( $submitted_positions );
 		$new_positions = array();
 
 		// Parse the submitted positions and fetch the term ids
@@ -241,24 +242,32 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 	}
 
 	public function edit_content_markup( $value = '', $key = 'cacap-positions' ) {
-		$markup = '';
+		$markup = '<div class="cacap-positions-inputs">';
 
 		// First, show existing fields
 		$markup .= '<div class="cacap-position-add-new-title hide-if-no-js"><a class="cacap-add-position" href="#">' . __( '&#43; Add New', 'cacap' ) . '</a></div>';
 
+		$markup .= '<ul class="cacap-positions-positions">';
 		if ( ! empty( $value ) && is_array( $value ) ) {
 			$counter = 0;
 			foreach ( $value as $position ) {
+				$markup .= '<li>';
+
 				$counter++;
 				$current_college = isset( $position['college'] ) ? $position['college'] : '';
 				$current_department = isset( $position['department'] ) ? $position['department'] : '';
 				$current_title = isset( $position['title'] ) ? $position['title'] : '';
 
+				$markup .= '<div class="hide-if-no-js cacap-position-drag-handle"></div>';
 				$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-' . $counter . '">' . 'x' . '</a>';
-				$markup .= '<ul id="cacap-position-' . $counter . '">';
+				$markup .= '<table id="cacap-position-' . $counter . '" class="cacap-position">';
 
-				$markup .=   '<li>';
+				$markup .=   '<tr>';
+				$markup .=     '<td>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_college">' . __( 'College', 'cacap' ) . '</label>';
+				$markup .=     '</td>';
+
+				$markup .=     '<td>';
 				$markup .=     '<select name="' . esc_attr( $key ) . '[content][' . $counter . '][college]" id="' . esc_attr( $key ) . '_college" class="cacap-position-field-college">';
 
 				foreach ( $this->colleges as $college ) {
@@ -266,30 +275,51 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 				}
 
 				$markup .=     '</select>';
-				$markup .=   '</li>';
+				$markup .=     '</td>';
+				$markup .=   '</tr>';
 
-				$markup .=   '<li>';
+				$markup .=   '<tr>';
+				$markup .=     '<td>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_department">' . __( 'Department', 'cacap' ) . '</label>';
-				$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="' . esc_attr( $key ) . '[content][' . $counter . '][department]" id="' . esc_attr( $key ) . '_department" value="' . esc_attr( $current_department ) . '" />';
-				$markup .=   '</li>';
+				$markup .=     '</td>';
 
-				$markup .=   '<li>';
+				$markup .=     '<td>';
+				$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="' . esc_attr( $key ) . '[content][' . $counter . '][department]" id="' . esc_attr( $key ) . '_department" value="' . esc_attr( $current_department ) . '" />';
+				$markup .=     '</td>';
+				$markup .=   '</tr>';
+
+				$markup .=   '<tr>';
+				$markup .=     '<td>';
 				$markup .=     '<label for="' . esc_attr( $key ) . '_title">' . __( 'Title', 'cacap' ) . '</label>';
+				$markup .=     '</td>';
+
+				$markup .=     '<td>';
 				$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="' . esc_attr( $key ) . '[content][' . $counter . '][title]" id="' . esc_attr( $key ) . '_title" value="' . esc_attr( $current_title ) . '" />';
-				$markup .=   '</li>';
-				$markup .= '</ul>';
+				$markup .=     '</td>';
+				$markup .=   '</tr>';
+				$markup .= '</table>';
+
+				$markup .= '</li>';
 			}
 		}
+		$markup .= '</ul>';
 
 		// Second, provide a blank set of fields
 		// When JS is enabled, this'll be hidden and used to clone new
 		// position fields. Otherwise, it'll be used for position entry
 
-		$markup .= '<ul id="cacap-position-new" class="cacap-position-add-new hide-if-js">';
-		$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-new">' . 'x' . '</a>';
+		$markup .= '<ul class="cacap-position-new hide-if-js"><li>';
 
-		$markup .=   '<li>';
+		$markup .= '<div class="hide-if-no-js cacap-position-drag-handle"></div>';
+		$markup .= '<a href="#" class="hide-if-no-js cacap-delete-position confirm" id="cacap-delete-position-new">' . 'x' . '</a>';
+		$markup .= '<table class="cacap-position" id="cacap-position-add-new">';
+
+		$markup .=   '<tr>';
+		$markup .=     '<td>';
 		$markup .=     '<label for="cacap-position-new-college">' . __( 'College', 'cacap' ) . '</label>';
+		$markup .=     '</td>';
+
+		$markup .=     '<td>';
 		$markup .=     '<select class="cacap-position-field-college" name="newwidgetkey[content][new][college]" id="cacap-position-new-college">';
 
 		foreach ( $this->colleges as $college ) {
@@ -297,18 +327,33 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		}
 
 		$markup .=     '</select>';
-		$markup .=   '</li>';
+		$markup .=     '</td>';
+		$markup .=   '</tr>';
 
-		$markup .=   '<li>';
+		$markup .=   '<tr>';
+		$markup .=     '<td>';
 		$markup .=     '<label for="cacap-position-new-department">' . __( 'Department', 'cacap' ) . '</label>';
-		$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="newwidgetkey[content][new][department]" id="cacap-position-new-department" val="" />';
-		$markup .=   '</li>';
+		$markup .=     '</td>';
 
-		$markup .=   '<li>';
+		$markup .=     '<td>';
+		$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="newwidgetkey[content][new][department]" id="cacap-position-new-department" val="" />';
+		$markup .=     '</td>';
+		$markup .=   '</tr>';
+
+		$markup .=   '<tr>';
+		$markup .=     '<td>';
 		$markup .=     '<label for="cacap-position-new-title">' . __( 'Title', 'cacap' ) . '</label>';
+		$markup .=     '</td>';
+
+		$markup .=     '<td>';
 		$markup .=     '<input class="cacap-edit-input cacap-position-field-title" name="newwidgetkey[content][new][title]" id="cacap-position-new-title" val="" />';
-		$markup .=   '</li>';
-		$markup .= '</ul>';
+		$markup .=     '</td>';
+		$markup .=   '</tr>';
+		$markup .= '</table>';
+
+		$markup .= '</li></ul><!-- /#cacap-position-new -->';
+
+		$markup .= '</div><!-- /.cacap-positions-inputs -->';
 
 		return $markup;
 	}

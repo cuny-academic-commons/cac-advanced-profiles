@@ -13,6 +13,7 @@ $button_text_color: #1d1d1d;
 $button_blue: #2BA6CB;
 $link_pink: #ff4466;
 $activity_color: #ffeaa6;
+$light_gray: #dadada;
 
 $font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -127,7 +128,7 @@ body.cacap, body.bp-user {
 	&:after {
 		clear: both;
 	}
-	
+
 	&:before, &:after {
 		content: " ";
 		display: table;
@@ -135,6 +136,12 @@ body.cacap, body.bp-user {
 
 	&.cacap-row-edit-button {
 		padding: 15px 0 0 0;
+	}
+}
+
+body.short-header {
+	#cacap-header {
+		height: 40px;
 	}
 }
 
@@ -164,7 +171,7 @@ body.cacap, body.bp-user {
 	}
 
 	.cacap-length-red span.cacap-char-count {
-		color: #f00; 
+		color: #f00;
 	}
 
 	.cacap-length-red span.cacap-char-count-warning {
@@ -172,7 +179,7 @@ body.cacap, body.bp-user {
 	}
 
 	.cacap-length-yellow span.cacap-char-count {
-		color: yellow; 
+		color: yellow;
 	}
 
 	.cacap-hero-row {
@@ -244,9 +251,9 @@ body.cacap, body.bp-user {
 
 	.cacap-at-name {
 		font-size: .5em;
-		
+
 		.cacap-at-name-tooltip {
-			padding: 4px 6px;	
+			padding: 4px 6px;
 		}
 		.cacap-at-name-tooltip:hover .cacap-tooltip {
 			display: block;
@@ -427,6 +434,7 @@ body.cacap, body.bp-user {
 
 .cacap-widget-content {
 	padding-left: $col_width_onethird;
+	min-height: 1.5em;
 }
 
 #cacap-widget-list {
@@ -436,10 +444,23 @@ body.cacap, body.bp-user {
 		position: relative;
 
 		& > div {
-			margin: $widget_tb_padding 0; 
+			margin: $widget_tb_padding 0;
 		}
 	}
 
+	&.currently-editing {
+		.cacap-click-to-edit.cacap-widget-section-editable {
+			border: 2px solid transparent;
+
+			&.editing {
+				border: 2px solid $light_gray;
+			}
+		}
+	}
+
+	.cacap-click-to-edit.cacap-widget-section-editable {
+		border: 2px dashed $light_gray;
+	}
 }
 
 body.profile-edit {
@@ -456,7 +477,7 @@ body.profile-edit {
 		.ui-helper-hidden-accessible {
 			display: none;
 		}
-		
+
 	}
 }
 
@@ -488,7 +509,7 @@ body.profile-edit {
 	padding: 10px 0;
 
 	#cacap-user-widget-new-content {
-		width: $row_width; 
+		width: $row_width;
 		margin: 0 auto;
 	}
 
@@ -533,7 +554,7 @@ body.profile-edit {
 					.cacap-has-max-tooltip {
 						display: block;
 					}
-					
+
 					a {
 						color: $link_pink;
 						cursor: default;
@@ -571,34 +592,155 @@ body.profile-edit {
 		margin-left: -$widget_lr_padding;
 		margin-right: 20px;
 		background-color: gray;
-		background-image: 
+		background-image:
 			repeating-linear-gradient(
-				45deg, 
-				transparent, 
-				transparent 5px, 
-				rgba(255,255,255,.5) 5px, 
+				45deg,
+				transparent,
+				transparent 5px,
+				rgba(255,255,255,.5) 5px,
 				rgba(255,255,255,.5) 10px
 			);
 	}
-	
-	.cacap-click-to-edit {
-		padding: 5px 0 0 5px;
 
-		&:hover {
+	.cacap-widget-title {
+		width: 28%; /* Leave space for the dashed outlines */
+	}
+
+	.cacap-click-to-edit {
+		padding: 0;
+		position: relative;
+
+		-webkit-transition: background-color .3s ease-in-out;
+		-moz-transition: background-color .3s ease-in-out;
+		-o-transition: background-color .3s ease-in-out;
+		-mz-transition: background-color .3s ease-in-out;
+		transition: background-color .3s ease-in-out;
+		background-color: transparent;
+
+		&.cacap-widget-section-editable:hover {
 			background: $edit_hover_color;
 		}
 
 		&.cacap-widget-content {
 			margin-left: 330px;
 		}
+
+		&.editing {
+			padding: 10px;
+
+			/* No yellow hover when editing */
+			&:hover {
+				background: transparent;
+			}
+
+			&.cacap-widget-content {
+				margin-top: 80px;
+			}
+
+			margin-bottom: 50px;
+
+			article.editable-content {
+				padding: 0;
+			}
+
+			.cacap-positions-inputs {
+				display: block;
+				overflow: hidden;
+
+				.cacap-position-add-new-title {
+					margin-bottom: 10px;
+				}
+
+				ul {
+					margin-bottom: 15px;
+					margin-left: 30px;
+					padding: 5px 0;
+
+					.cacap-position-drag-handle {
+						width: 20px;
+						height: 110px;
+						float: left;
+						margin-right: 8px;
+						background-color: $light_gray;
+						cursor: pointer;
+					}
+
+					li {
+						margin-bottom: 14px;
+						border: 1px solid $light_gray;
+						box-shadow: -2px 2px 4px 1px #aaa;
+						position: relative;
+					}
+
+					li.ui-state-highlight {
+						outline: 1px dashed $light_gray;
+						box-shadow: none;
+						height: 110px;
+					}
+
+					table.cacap-position {
+						height: 100px;
+						margin: 5px 0;
+						width: 100px; /* Total hack to make it not break to next line - I hate CSS */
+
+						tr td {
+							padding: 3px;
+
+							select, input {
+								width: 300px;
+							}
+						}
+					}
+				}
+			}
+
+			.cacap-positions-static-text {
+				display: none;
+			}
+
+			.cacap-ok-cancel {
+				display: block;
+				position: absolute;
+				bottom: -40px;
+				left: 0;
+			}
+
+			&.warn {
+				 -webkit-transition: background-color .3s ease-in-out;
+				 -moz-transition: background-color .3s ease-in-out;
+				 -o-transition: background-color .3s ease-in-out;
+				 -mz-transition: background-color .3s ease-in-out;
+				 transition: background-color .3s ease-in-out;
+				 background-color: #F57171;
+			}
+		}
+	}
+
+	/* Overrides for padding rules relating to contentEditable */
+	.cacap-widget-rss,
+	.cacap-widget-twitter,
+	.cacap-widget-positions {
+		.cacap-click-to-edit {
+			padding: 10px;
+		}
 	}
 
 	.cacap-ok-cancel {
+		display: none;
 		.button {
 			padding: 5px 10px;
 			font-size: 12px;
 			margin: 5px 5px 0 0;
 		}
+	}
+
+	article.editable-content {
+		min-height: 2em;
+		padding: 10px;
+	}
+
+	.cacap-positions-inputs {
+		display: none;
 	}
 
 	.cacap-edit-content-input {
@@ -631,33 +773,25 @@ body.profile-edit {
 	.cacap-widget-positions {
 		.cacap-show-on-edit > ul {
 			margin-bottom: 2em;
-			padding-left: 20px;	
+			padding-left: 20px;
 		}
 		input {
 			height: auto !important;
 			margin-top: .5em;
 			width: 300px;
 		}
-		.cacap-position-add-new {
-			background: #ddd;
-			padding: 10px 20px;
-		}
-			.cacap-position-add-new .hide-if-js {
-				display: none;
-			}
-		.cacap-position-add-new-title {
-			margin-bottom: 1em;
-			
-			a {
-				text-decoration: none;
-				font-weight: bold;
-			}
-		}
+
 		a.cacap-delete-position {
 			text-decoration: none;
-			color: #f00;
 			font-weight: bold;
 			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 1px 2px 3px;
+			border: 1px solid $light_gray;
+			color: #aaa;
+			line-height: 1ex;
+			font-size: 14px;
 		}
 	}
 }
@@ -676,7 +810,7 @@ body.profile-edit {
 	}
 }
 
-/* RSS WIDGETS    
+/* RSS WIDGETS
 /********************************************/
 
 .cacap-rss-items {
@@ -693,7 +827,7 @@ body.profile-edit {
 		color: #666;
 		font-style: italic;
 		margin-top: .5em;
-		
+
 		& > span {
 			margin-right: 30px;
 		}
@@ -734,5 +868,64 @@ body.profile-edit {
 		background-color: #e6e6e6;
 		padding: 8px;
 		margin-top: 0;
+	}
+}
+
+/* Hallo */
+
+body.cacap .cacap-widget-content {
+	b {
+		font-weight: bold;
+	}
+
+	i {
+		font-style: italic;
+	}
+
+	ol, ul {
+		margin-left: 40px;
+	}
+
+	ol {
+		list-style-type: decimal;
+	}
+
+	ul {
+		list-style-type: disc;
+	}
+
+	h1 {
+		font-size: 2em;
+	}
+
+	h2 {
+		font-size: 1.6em;
+	}
+
+	h3 {
+		font-size: 1.2em;
+	}
+}
+
+/* Exceptions for the positions widget */
+body.cacap .cacap-widget-positions .cacap-widget-content,
+body.cacap .cacap-widget-positions article {
+	ol, ul {
+		margin-left: 0;
+		list-style-type: none;
+	}
+}
+
+body.cacap .cacap-widget-content .hallotoolbar {
+	width: 100%;
+	position: absolute;
+	top: -45px;
+
+	i {
+		font-style: normal;
+	}
+
+	button {
+		margin-bottom: 8px;
 	}
 }
