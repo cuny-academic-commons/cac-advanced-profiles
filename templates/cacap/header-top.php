@@ -36,9 +36,17 @@
 				</div>
 			<?php endif ?>
 
-			<?php bp_add_friend_button( bp_displayed_user_id() ) ?>
-			<?php bp_send_private_message_button( bp_displayed_user_id() ) ?>
-			<?php bp_send_public_message_button( bp_displayed_user_id() ) ?>
+			<?php if ( bp_is_active( 'friends' ) ) : ?>
+				<?php bp_add_friend_button( bp_displayed_user_id() ) ?>
+			<?php endif ?>
+
+			<?php if ( bp_is_active( 'messages' ) ) : ?>
+				<?php bp_send_private_message_button( bp_displayed_user_id() ) ?>
+			<?php endif ?>
+
+			<?php if ( bp_is_active( 'activity' ) ) : ?>
+				<?php bp_send_public_message_button( bp_displayed_user_id() ) ?>
+			<?php endif ?>
 		</div>
 	</div>
 
