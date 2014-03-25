@@ -8,31 +8,8 @@
 	 * we'll run through the profile loop twice
 	 */
 	$cols = array(
-		1 => array(
-			'Full Name',
-			'College',
-			'Role',
-			'Twitter',
-			'IM',
-			'LinkedIn Profile Link',
-			'Flickr ID ',
-			'YouTube ID ',
-			'Github',
-			'Vimeo',
-		),
-		2 => array(
-			'Brief Descriptor',
-			'About You',
-			'Phone',
-			'Email Address',
-			'Website',
-			'Blog',
-			'Facebook Profile Link',
-			'Delicious ID',
-			'Skype ID',
-			'FriendFeed ID',
-			'academia.edu Profile URL',
-		),
+		1 => array(),
+		2 => array(),
 	);
 
 	$cols = apply_filters( 'cacap_header_edit_columns', $cols );

@@ -7,7 +7,10 @@
 			<dt class="<?php echo esc_attr( $vital->css_class ) ?>"><?php echo esc_html( $vital->title ) ?></dt>
 
 			<?php /* Don't escape content, because it may contain HTML */ ?>
-			<dd class="<?php echo esc_attr( $vital->css_class ) ?>"><?php echo $vital->content ?></dt>
+			<dd class="<?php echo esc_attr( $vital->css_class ) ?>"><?php echo $vital->content ?></dd>
+
+			<div class="cleardiv"></div>
+
 		<?php endforeach ?>
 		</dl>
 	</div>
