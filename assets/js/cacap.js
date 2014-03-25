@@ -622,9 +622,11 @@ window.wp = window.wp || {};
 		function positions_autocomplete_setup( $widget ) {
 			if ( $widget ) {
 				var autocomplete_ep = ajaxurl + '?action=cacap_position_suggest';
-				$widget.find('.cacap-position-field-department').autocomplete({
-					source: autocomplete_ep + '&field=department',
-					minLength: 2
+				$widget.find('.cacap-position-field-autocomplete').each( function() {
+					$(this).autocomplete({
+						source: autocomplete_ep + '&field=' + $(this).data( 'field-type' ),
+						minLength: 2
+					});
 				});
 
 				// @todo Title?
