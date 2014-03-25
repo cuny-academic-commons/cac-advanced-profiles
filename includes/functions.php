@@ -52,7 +52,7 @@ function cacap_widget_types( $args = array() ) {
 		}
 	}
 
-	return $widgets;
+	return apply_filters( 'cacap_widget_types', $widgets, $r );
 }
 
 function cacap_html_gen() {

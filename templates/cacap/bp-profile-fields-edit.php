@@ -35,6 +35,8 @@
 		),
 	);
 
+	$cols = apply_filters( 'cacap_header_edit_columns', $cols );
+
 	global $profile_template;
 
 	$profile_template->group_count = 2;
