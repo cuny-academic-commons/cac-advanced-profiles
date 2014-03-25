@@ -235,8 +235,6 @@ window.wp = window.wp || {};
 
 			// Remove currently_editing toggle
 			unmark_currently_editing();
-
-			resize_drag_handles();
 		}
 
 		/**
@@ -267,8 +265,6 @@ window.wp = window.wp || {};
 
 			// Remove currently_editing toggle
 			unmark_currently_editing();
-
-			resize_drag_handles();
 		}
 
 		/**
@@ -286,8 +282,6 @@ window.wp = window.wp || {};
 
 			// Remove currently_editing toggle
 			unmark_currently_editing();
-
-			resize_drag_handles();
 		}
 
 		/**
@@ -467,8 +461,6 @@ window.wp = window.wp || {};
 			}
 
 			init_editable_widgets();
-			
-			resize_drag_handles();
 
 			// Offset for the header
 			$.scrollTo( ( $w.offset().top - 230 ) + 'px', 500 );
@@ -555,8 +547,6 @@ window.wp = window.wp || {};
 
 						break;
 				}
-
-				resize_drag_handles(); 
 			} );
 		}
 
@@ -702,17 +692,6 @@ window.wp = window.wp || {};
 			$about_you_gloss.addClass( class_to_add );
 		}
 
-		/**
-		 * Set height on draggable handles
-		 *
-		 * This is terrible but I can't figure out how to do it right
-		 */
-		function resize_drag_handles() {
-			$( '.cacap-drag-handle' ).each( function( k, v ) {
-				$(v).css( 'height','0' ).css( 'height', $(v).parent().css( 'height' ) );	
-			} );
-		}
-
 		// Init methods to run after document is ready
 		$( document ).ready( function() {
 			init_bodyclass();		
@@ -730,7 +709,6 @@ window.wp = window.wp || {};
 				init_about_you_character_count();
 				bind_body_clicks();
 				bind_widget_clicks_delete();
-				resize_drag_handles();
 			}
 		});
 	}

@@ -588,8 +588,10 @@ body.profile-edit {
 
 #cacap-edit {
 	.cacap-drag-handle {
+		position: absolute;
+		top: 0;
 		width: 20px;
-		float: left;
+		height: 100%;
 		cursor: pointer;
 		margin-top: 0;
 		margin-bottom: 0;
@@ -608,6 +610,7 @@ body.profile-edit {
 
 	.cacap-widget-title {
 		width: 28%; /* Leave space for the dashed outlines */
+		margin-left: 20px; /* Leave space for absolutely-positioned drag handle */
 	}
 
 	.cacap-click-to-edit {
