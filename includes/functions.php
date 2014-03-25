@@ -40,8 +40,14 @@ function cacap_widget_types( $args = array() ) {
 		'twitter'            => 'CACAP_Widget_Twitter',
 	);
 
+	$types = apply_filters( 'cacap_widget_types', $types, $r );
+
 	$widgets = array();
 	foreach ( $types as $type => $class ) {
+		if ( ! class_exists( $class ) ) {
+			continue;
+		}
+
 		$widgets[ $type ] = new $class;
 	}
 
@@ -52,7 +58,7 @@ function cacap_widget_types( $args = array() ) {
 		}
 	}
 
-	return apply_filters( 'cacap_widget_types', $widgets, $r );
+	return $widgets;
 }
 
 function cacap_html_gen() {
