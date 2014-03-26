@@ -480,7 +480,8 @@ window.wp = window.wp || {};
 				}
 
 				// Don't let users click away from the currently_editing field
-				if ( currently_editing.length && jcw_id !== currently_editing ) {
+				// Special exception for autocomplete
+				if ( currently_editing.length && jcw_id !== currently_editing && ! $jcw_target.closest( '.ui-autocomplete' ).length ) {
 					$currently_editing = $( '#' + currently_editing );
 
 					// Offset for the header
