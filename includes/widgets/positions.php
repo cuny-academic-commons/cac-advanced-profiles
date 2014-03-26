@@ -283,13 +283,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		$markup .=     '</td>';
 
 		$markup .=     '<td>';
-		$markup .=     '<select class="cacap-position-field-college" name="newwidgetkey[content][new][college]" id="cacap-position-new-college">';
-
-		foreach ( $this->colleges as $college ) {
-			$markup .= '<option value="' . esc_attr( $college ) . '">' . esc_attr( $college ) . '</option>';
-		}
-
-		$markup .=     '</select>';
+		$markup .=     '<input data-field-type="college" class="cacap-edit-input cacap-position-field-autocomplete cacap-position-field-college" name="newwidgetkey[content][new][college]" id="cacap-position-new-college" val="" />';
 		$markup .=     '</td>';
 		$markup .=   '</tr>';
 
@@ -299,7 +293,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 		$markup .=     '</td>';
 
 		$markup .=     '<td>';
-		$markup .=     '<input class="cacap-edit-input cacap-position-field-department" name="newwidgetkey[content][new][department]" id="cacap-position-new-department" val="" />';
+		$markup .=     '<input data-field-type="department" class="cacap-edit-input cacap-position-field-autocomplete cacap-position-field-department" name="newwidgetkey[content][new][department]" id="cacap-position-new-department" val="" />';
 		$markup .=     '</td>';
 		$markup .=   '</tr>';
 
