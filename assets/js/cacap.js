@@ -137,6 +137,7 @@ window.wp = window.wp || {};
 			$widget_list.on( 'click', '.cacap-add-position', function() {
 				$w = $( this ).closest( '.cacap-widget-positions' );
 				clone_add_new_position_fields();
+				return false;
 			} );
 
 			// Delete a position
