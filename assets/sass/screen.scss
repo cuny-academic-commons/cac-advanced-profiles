@@ -673,8 +673,8 @@ body.profile-edit {
 
 					.cacap-position-drag-handle {
 						width: 20px;
-						height: 110px;
-						float: left;
+						height: 100%;
+						position: absolute;
 						margin-right: 8px;
 						background-color: $light_gray;
 						cursor: pointer;
@@ -695,7 +695,7 @@ body.profile-edit {
 
 					table.cacap-position {
 						height: 100px;
-						margin: 5px 0;
+						margin: 5px 0 0 40px;
 						width: 100px; /* Total hack to make it not break to next line - I hate CSS */
 
 						tr td {
