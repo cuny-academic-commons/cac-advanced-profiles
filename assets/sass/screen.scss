@@ -600,7 +600,7 @@ body.profile-edit {
 		top: 0;
 		width: 20px;
 		height: 100%;
-		cursor: pointer;
+		cursor: move;
 		margin-top: 0;
 		margin-bottom: 0;
 		margin-left: -$widget_lr_padding;
@@ -676,8 +676,16 @@ body.profile-edit {
 						height: 100%;
 						position: absolute;
 						margin-right: 8px;
-						background-color: $light_gray;
-						cursor: pointer;
+						background-color: gray;
+						background-image:
+							repeating-linear-gradient(
+								45deg,
+								transparent,
+								transparent 5px,
+								rgba(255,255,255,.5) 5px,
+								rgba(255,255,255,.5) 10px
+							);
+						cursor: move;
 					}
 
 					li {
