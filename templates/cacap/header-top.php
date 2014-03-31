@@ -53,7 +53,10 @@
 	</div>
 
 	<?php if ( bp_is_user_profile_edit() ) : ?>
-		<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
+		<div class="cacap-edit-buttons">
+			<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
+			<a href="<?php echo bp_displayed_user_domain() ?>" class="cacap-edit-cancel button"><?php _e( 'Cancel', 'cacap' ) ?></a>
+		</div>
 	<?php endif ?>
 </div>
 <div style="clear:both"> </div>
