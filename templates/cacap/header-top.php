@@ -52,10 +52,14 @@
 		</div>
 	</div>
 
-	<?php if ( bp_is_user_profile_edit() ) : ?>
+	<?php if ( bp_is_my_profile() ) : ?>
 		<div class="cacap-edit-buttons">
+		<?php if ( bp_is_user_profile_edit() ) : ?>
 			<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
 			<a href="<?php echo bp_displayed_user_domain() ?>" class="cacap-edit-cancel button"><?php _e( 'Cancel', 'cacap' ) ?></a>
+		<?php else : ?>
+			<a href="<?php echo bp_displayed_user_domain() ?>/profile/edit/" class="cacap-edit-button button"><?php _e( 'Edit', 'cacap' ) ?></a>
+		<?php endif ?>
 		</div>
 	<?php endif ?>
 </div>

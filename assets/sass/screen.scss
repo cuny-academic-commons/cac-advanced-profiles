@@ -165,7 +165,7 @@ body.short-header {
 	}
 }
 
-#cacap-header {
+body.cacap #cacap-header {
 	background: transparent url('../images/black_linen_v2.png');
 	padding: 0 10px 30px;
 	box-shadow: 0 12px 12px -6px #000;
@@ -251,6 +251,14 @@ body.short-header {
 				height: 80px;
 				width: 80px;
 				float: right;
+			}
+
+			.cacap-edit-buttons {
+				clear: both;
+				position: relative;
+				width: 940px;
+				margin: 0 auto;
+				padding-top: 20px;
 			}
 		}
 	}
@@ -503,17 +511,6 @@ body.profile-edit {
 			display: none;
 		}
 
-	}
-
-	#cacap-header .cacap-hero-row.stuck {
-		.cacap-edit-buttons {
-			clear: both;
-			position: relative;
-			width: 940px;
-			margin: 0 auto;
-			padding-top: 20px;
-
-		}
 	}
 }
 
