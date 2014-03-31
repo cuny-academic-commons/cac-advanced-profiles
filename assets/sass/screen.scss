@@ -169,7 +169,18 @@ body.short-header {
 	}
 }
 
-body.cacap #cacap-header {
+// Need the body.cacap leader to override other styles
+body.cacap #cacap-header .cacap-hero-row.stuck {
+	.cacap-edit-buttons {
+		clear: both;
+		position: relative;
+		width: 940px;
+		margin: 0 auto;
+		padding-top: 20px;
+	}
+}
+
+#cacap-header {
 	background: transparent url('../images/black_linen_v2.png');
 	padding: 0 10px 30px;
 	box-shadow: 0 12px 12px -6px #000;
@@ -255,14 +266,6 @@ body.cacap #cacap-header {
 				height: 80px;
 				width: 80px;
 				float: right;
-			}
-
-			.cacap-edit-buttons {
-				clear: both;
-				position: relative;
-				width: 940px;
-				margin: 0 auto;
-				padding-top: 20px;
 			}
 		}
 	}
