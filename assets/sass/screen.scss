@@ -504,6 +504,17 @@ body.profile-edit {
 		}
 
 	}
+
+	#cacap-header .cacap-hero-row.stuck {
+		.cacap-edit-buttons {
+			clear: both;
+			position: relative;
+			width: 940px;
+			margin: 0 auto;
+			padding-top: 20px;
+
+		}
+	}
 }
 
 .deprecated-para {
