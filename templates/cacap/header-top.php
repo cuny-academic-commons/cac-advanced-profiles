@@ -47,6 +47,8 @@
 			<?php if ( bp_is_active( 'activity' ) ) : ?>
 				<?php bp_send_public_message_button( bp_displayed_user_id() ) ?>
 			<?php endif ?>
+
+			<?php do_action( 'cacap_avatar_actions' ) ?>
 		</div>
 	</div>
 
