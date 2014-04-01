@@ -134,6 +134,43 @@ body.cacap #cacap-header .cacap-hero-row .cacap-edit-buttons {
 	}
 }
 
+// Repeated because I hate CSS
+body.cacap .cacap-edit-buttons {
+	position: absolute;
+	bottom: 20px;
+	text-align: right;
+	width: 100%;
+
+	.button {
+		background: -moz-linear-gradient(top, #ffffff 0%, #ededed 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, #ffffff 0%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, #ffffff 0%,#ededed 100%); /* Opera11.10+ */
+		background: -ms-linear-gradient(top, #ffffff 0%,#ededed 100%); /* IE10+ */
+		border: 1px solid #ccc;
+		box-shadow: none;
+		border-radius: 3px;
+		color: #1d1d1d;
+		font-size: 12px;
+		font-weight: normal;
+		padding: 4px 10px;
+		line-height: 1.35em;
+	}
+}
+
+body.cacap .cacap-edit-buttons.cacap-edit-buttons-bottom {
+	position: relative;
+	bottom: auto;
+	width: 940px;
+	margin: 2em auto 0 auto;
+	color: #777;
+}
+
+.cacap-edit-buttons input,
+.cacap-edit-buttons a.button {
+	color: #1d1d1d;
+}
+
 div.cleardiv {
 	padding: 0;
 	margin: 0;

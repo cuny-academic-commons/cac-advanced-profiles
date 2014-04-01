@@ -69,7 +69,17 @@
 	</div>
 
 	<input type="hidden" name="cacap-widget-order" id="cacap-widget-order" value="<?php echo cacap_widget_order() ?>" />
-	<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
+
+	<?php if ( bp_is_my_profile() ) : ?>
+		<div class="cacap-edit-buttons cacap-edit-buttons-bottom">
+		<?php if ( bp_is_user_profile_edit() ) : ?>
+			<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
+			<a href="<?php echo bp_displayed_user_domain() ?>" class="cacap-edit-cancel button"><?php _e( 'Cancel', 'cacap' ) ?></a>
+		<?php else : ?>
+			<a href="<?php echo bp_displayed_user_domain() ?>/profile/edit/" class="cacap-edit-button button"><?php _e( 'Edit', 'cacap' ) ?></a>
+		<?php endif ?>
+		</div>
+	<?php endif ?>
 </div>
 
 
