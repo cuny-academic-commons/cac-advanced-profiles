@@ -1,5 +1,6 @@
 <?php bp_get_template_part( 'cacap/header-top' ) ?>
 
+<?php if ( ! cacap_is_commons_profile() ) : ?>
 <div class="cacap-row">
 	<dl id="cacap-vitals">
 		<?php
@@ -69,4 +70,4 @@
 		<?php endif ?>
 	</dl>
 </div>
-
+<?php endif ?>

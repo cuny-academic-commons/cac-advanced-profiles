@@ -24,18 +24,20 @@ jQuery(document).ready( function($) {
 	 *
 	 * This sucks
 	 */
-	var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-	var document_height = $(document).height();
-	var admin_bar_height = 45;
-	var snap_point = 50;
-	var full_hero_height = $('.cacap-hero-row').height();
-	var savings = full_hero_height - 110;
-	var left_to_show = document_height - snap_point - savings;
-	if ( left_to_show - 100 > window_height ) {
-		$('.cacap-hero-row').waypoint('sticky', {
-			offset: snap_point,
-			wrapper: '<div class="cacap-hero-row-sticky" />' 
-		});
+	if ( ! $( 'body' ).hasClass( 'short-header' ) ) {
+		var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+		var document_height = $(document).height();
+		var admin_bar_height = 45;
+		var snap_point = 50;
+		var full_hero_height = $('.cacap-hero-row').height();
+		var savings = full_hero_height - 110;
+		var left_to_show = document_height - snap_point - savings;
+		if ( left_to_show - 100 > window_height ) {
+			$('.cacap-hero-row').waypoint('sticky', {
+				offset: snap_point,
+				wrapper: '<div class="cacap-hero-row-sticky" />'
+			});
+		}
 	}
 
 	if ( $('body').hasClass('profile-edit') ) {

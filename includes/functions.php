@@ -101,3 +101,17 @@ function cacap_field_is_visible_for_user( $field_id = 0, $displayed_user_id = 0,
 
 	return ! in_array( $field_id, $hidden_fields_for_user );
 }
+
+function cacap_is_commons_profile() {
+	if ( bp_is_user() ) {
+		if ( ! empty( $_GET['commons-profile'] ) && 1 == $_GET['commons-profile'] ) {
+			return true;
+		}
+
+		if ( ! bp_is_profile_component() ) {
+			return true;
+		}
+	}
+
+	return false;
+}
