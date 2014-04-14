@@ -255,8 +255,6 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 	}
 
 	.cacap-hero-row {
-		border-bottom: 1px solid $header_primary_text_color;
-		padding-bottom: 40px;
 		position: relative;
 
 		& > div > div {
@@ -273,6 +271,21 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 		}
 
 		&.stuck {
+			position: fixed;
+			background: transparent url('../images/black_linen_v2.png');
+			width: 100%;
+			padding: 35px 0 10px 10px;
+			margin-left: -20px;
+			border-bottom: none;
+			top: 0;
+			z-index: 1000;
+
+			.cacap-sticky-dummy {
+				width: 940px;
+				margin: 0px auto;
+			}
+		}
+		&.stuck2 {
 			background: transparent url('../images/black_linen_v2.png');
 			width: 100%;
 			position: fixed;
@@ -309,7 +322,6 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 
 	.cacap-hero-row-sticky {
 		padding-top: 0;
-		height: 70px !important;
 		width: 100% !important;
 	}
 
@@ -352,6 +364,15 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 
 	}
 
+	.cacap-avatar-buttons-row {
+		padding-top: 10px;
+	}
+
+	.cacap-avatar-buttons {
+		float: right;
+		width: 130px;
+	}
+
 	.activity {
 		color: $activity_color;
 		font-size: 0.8rem;
@@ -359,6 +380,10 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 
 	.cacap-edit-submit {
 		color: $button_text_color;
+	}
+
+	.cacap-vitals-row {
+		border-top: 1px solid $header_primary_text_color;
 	}
 
 	#cacap-vitals {

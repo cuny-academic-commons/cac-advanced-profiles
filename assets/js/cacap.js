@@ -70,9 +70,9 @@ window.wp = window.wp || {};
 
 			if ( window_height < $(document).height() - 200 ) {
 				$('.cacap-hero-row').waypoint('sticky', {
-					offset: 40,
-					wrapper: '<div class="cacap-hero-row-sticky" />' 
-				});
+					offset: 10,
+					wrapper: '<div class="cacap-hero-row-sticky" />'
+				} );
 			}
 		}
 
