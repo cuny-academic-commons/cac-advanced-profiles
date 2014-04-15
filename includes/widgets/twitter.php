@@ -36,6 +36,21 @@ class CACAP_Widget_Twitter extends CACAP_Widget {
 			return false;
 		}
 
+		// Sanitize Twitter handle
+		$url_pattern = '|twitter\.com/([^/]+)/?|';
+		preg_match( $url_pattern, $r['content'], $url_matches );
+
+		$at_pattern = '|^@(.+)$|';
+		preg_match( $at_pattern, $r['content'], $at_matches );
+
+		if ( ! empty( $url_matches[1] ) ) {
+			$r['content'] = $url_matches[1];
+		}
+
+		if ( ! empty( $at_matches[1] ) ) {
+			$r['content'] = $at_matches[1];
+		}
+
 		$meta_value = array(
 			'title' => $r['title'],
 			'content' => $r['content'],
