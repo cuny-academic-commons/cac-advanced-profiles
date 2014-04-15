@@ -146,3 +146,20 @@ function cacap_is_commons_profile() {
 
 	return bp_is_user() && ( empty( $_GET['commons-profile'] ) || 1 != $_GET['commons-profile'] || ! bp_is_profile_component()) ;
 }
+
+/**
+ * URL for "public portfolio"
+ */
+function cacap_get_public_portfolio_url( $user_id ) {
+	$url = trailingslashit( bp_core_get_user_domain( $user_id ) . buddypress()->profile->slug );
+	return apply_filters( 'cacap_get_public_portfolio_url', $url, $user_id );
+}
+
+/**
+ * URL for "commons portfolio"
+ */
+function cacap_get_commons_profile_url( $user_id ) {
+	$url = trailingslashit( bp_core_get_user_domain( $user_id ) . buddypress()->profile->slug );
+	$url = add_query_arg( 'commons-profile', '1', $url );
+	return apply_filters( 'cacap_get_commons_profile_url', $url, $user_id );
+}
