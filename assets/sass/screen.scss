@@ -256,6 +256,7 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 
 	.cacap-hero-row {
 		position: relative;
+		padding-bottom: 50px;
 
 		& > div > div {
 			float: left;
@@ -283,6 +284,16 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 			.cacap-sticky-dummy {
 				width: 940px;
 				margin: 0px auto;
+			}
+
+			.activity {
+				display: none;
+			}
+
+			.cacap-avatar img.avatar {
+				height: 80px;
+				width: 80px;
+				float: right;
 			}
 		}
 		&.stuck2 {
