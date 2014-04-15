@@ -84,8 +84,7 @@ window.wp = window.wp || {};
 
 			$widget_list.sortable({
 				placeholder: 'ui-state-highlight',
-				containment: $( '#cacap-body' ),
-				axis: 'y',
+				containment: $( '.cacap-widgets-edit' ),
 				handle: '.cacap-drag-handle',
 				stop: function( event, ui ) {
 					$widget_order.val($(this).sortable( 'toArray' ));
