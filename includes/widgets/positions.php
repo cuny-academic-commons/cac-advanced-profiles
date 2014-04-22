@@ -41,10 +41,11 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 			$new_position = array();
 
 			// Discard any incomplete entries along the way
+			// Only College is required
 			foreach ( array( 'college', 'department', 'title' ) as $type ) {
 				$new_position[ $type ] = $this->get_term_for_position( $submitted_position, $type );
 
-				if ( empty( $new_position[ $type ] ) ) {
+				if ( 'college' === $type && empty( $new_position[ $type ] ) ) {
 					continue 2;
 				}
 			}
@@ -142,7 +143,7 @@ class CACAP_Widget_Positions extends CACAP_Widget {
 			if ( empty( $term ) ) {
 				$term = wp_insert_term( $value, $tax );
 
-				if ( ! empty( $term ) ) {
+				if ( ! empty( $term ) && ! is_wp_error( $term ) ) {
 					$term_id = $term['term_id'];
 				}
 			} else {
