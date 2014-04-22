@@ -843,8 +843,14 @@ body.profile-edit {
 	.cacap-widget-rss,
 	.cacap-widget-twitter,
 	.cacap-widget-positions {
-		.cacap-click-to-edit {
+		.cacap-widget-content.cacap-click-to-edit {
 			padding: 10px;
+		}
+	}
+
+	.cacap-widget-rss {
+		.cacap-click-to-edit.editing.cacap-widget-content {
+			margin-top: 25px;
 		}
 	}
 

@@ -210,7 +210,7 @@ class CACAP_Controller {
 
 		// The widgets themselves
 		// Use the widget-order array as a list of keys to check
-		if ( ! empty( $_POST['cacap-widget-order'] ) ) {
+		if ( isset( $_POST['cacap-widget-order'] ) ) {
 			$widget_order = explode( ',', $_POST['cacap-widget-order'] );
 
 			// Trim the 'cacap-widget-' bit
