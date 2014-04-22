@@ -16,7 +16,7 @@
 
 <?php if ( bp_is_user_profile() && ! bp_is_user_profile_edit() && ( bp_is_my_profile() || current_user_can( 'bp_moderate' ) ) ) : ?>
 	<div class="cacap-row cacap-row-edit-button">
-		<a id="cacap-edit-button" class="button secondary" href="<?php echo cacap_get_commons_profile_url( bp_displayed_user_id() ) . 'edit/' ?>"><?php _e( 'Edit', 'cacap' ) ?></a>
+		<a id="cacap-edit-button" class="button secondary" href="<?php echo bp_displayed_user_domain() ?><?php echo buddypress()->profile->slug ?>/edit/"><?php _e( 'Edit', 'cacap' ) ?></a>
 	</div>
 <?php endif ?>
 
