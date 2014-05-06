@@ -52,7 +52,7 @@ class CACAP_User {
 			$omit_title_college = false;
 			if ( $r['omit_legacy_positions'] ) {
 				foreach ( $widget_instance_data as $widget_instance_datum ) {
-					if ( 'positions' === $widget_instance_datum['widget_type'] ) {
+					if ( isset( $widget_instance_datum['widget_type'] ) && 'positions' === $widget_instance_datum['widget_type'] ) {
 						$omit_title_college = true;
 						break;
 					}
@@ -61,7 +61,7 @@ class CACAP_User {
 
 			foreach ( $widget_instance_data as $widget_instance_datum ) {
 				$key = $widget_instance_datum['key'];
-				$widget_type = $widget_instance_datum['widget_type'];
+				$widget_type = isset( $widget_instance_datum['widget_type'] ) ? $widget_instance_datum['widget_type'] : '';
 
 				if ( $omit_title_college && in_array( $widget_type, array( 'college', 'titlewidget' ) ) ) {
 					continue;
