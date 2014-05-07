@@ -1,4 +1,13 @@
-<?php bp_get_template_part( 'cacap/header-top' ) ?>
+<?php
+/**
+ * Because of the way bp_locate_template() works in the admin, we have to do a
+ * check to see whether the template needs to be loaded manually
+ */
+$template = bp_get_template_part( 'cacap/header-top' );
+if ( $template ) {
+	load_template( $template );
+}
+?>
 
 <?php if ( ! cacap_is_commons_profile() ) : ?>
 	<div class="cacap-row cacap-avatar-buttons-row">

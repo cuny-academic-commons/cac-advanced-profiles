@@ -69,7 +69,13 @@ class CACAP_Admin {
 	}
 
 	public function settings_section_profile_header_public() {
-		echo 'foo';
+		add_filter( 'cacap_is_commons_profile', '__return_false' );
+		$this->set_up_displayed_user( get_current_user_id() );
+		?>
+		<?php include_once( buddypress()->cacap->path . 'templates/cacap/header.php' ) ?>
+		<?php
+		$this->tear_down_displayed_user();
+		remove_filter( 'cacap_is_commons_profile', '__return_false' );
 	}
 
 	public function settings_section_profile_header_edit() {
@@ -78,6 +84,20 @@ class CACAP_Admin {
 
 	public function settings_section_widgets() {
 		echo 'foo widgets';
+	}
+
+	protected function set_up_displayed_user( $user_id ) {
+		buddypress()->displayed_user->id = $user_id;
+		buddypress()->displayed_user->domain = bp_core_get_user_domain( bp_displayed_user_id() );
+		buddypress()->displayed_user->userdata = bp_core_get_core_userdata( bp_displayed_user_id() );
+		buddypress()->displayed_user->fullname = bp_core_get_user_displayname( bp_displayed_user_id() );
+	}
+
+	protected function tear_down_displayed_user() {
+		buddypress()->displayed_user->id = 0;
+		unset( buddypress()->displayed_user->domain );
+		unset( buddypress()->displayed_user->userdata );
+		unset( buddypress()->displayed_user->fullname );
 	}
 
 	/**
@@ -133,7 +153,7 @@ class CACAP_Admin {
 		}
 
 		if ( ! isset( $wp_settings_fields ) || !isset( $wp_settings_fields[$page] ) || !isset( $wp_settings_fields[$page][$s['id']] ) ) {
-			continue;
+			return;
 		}
 
 		echo '<table class="form-table">';

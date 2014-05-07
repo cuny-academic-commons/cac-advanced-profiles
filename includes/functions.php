@@ -132,19 +132,18 @@ function cacap_sanitize_content( $content ) {
 }
 
 function cacap_is_commons_profile() {
+	$retval = false;
 	if ( bp_is_user() ) {
 		if ( ! empty( $_GET['commons-profile'] ) && 1 == $_GET['commons-profile'] ) {
-			return true;
+			$retval = true;
 		}
 
 		if ( ! bp_is_profile_component() ) {
-			return true;
+			$retval = true;
 		}
 	}
 
-	return false;
-
-	return bp_is_user() && ( empty( $_GET['commons-profile'] ) || 1 != $_GET['commons-profile'] || ! bp_is_profile_component()) ;
+	return apply_filters( 'cacap_is_commons_profile', $retval );
 }
 
 /**
