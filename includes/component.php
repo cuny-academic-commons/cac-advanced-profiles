@@ -47,6 +47,10 @@ class CAC_Advanced_Profiles extends BP_Component {
 		require( $this->includes_dir . 'default-widgets.php' );
 		require( $this->includes_dir . 'widget_instance.php' );
 		require( $this->includes_dir . 'vital.php' );
+
+		if ( is_admin() && current_user_can( 'bp_moderate' ) ) {
+			require( $this->includes_dir . 'admin/admin.php' );
+		}
 	}
 
 	public function get_user( $user_id ) {
