@@ -33,3 +33,5 @@
 		</dl>
 	</div>
 <?php endif ?>
+
+<?php do_action( 'cacap_after_header' ) ?>
