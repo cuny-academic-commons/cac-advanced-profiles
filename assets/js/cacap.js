@@ -479,9 +479,7 @@ window.wp = window.wp || {};
 					jcw_id = '';
 				}
 
-				// Don't let users click away from the currently_editing field
-				// Special exception for autocomplete
-				if ( currently_editing.length && jcw_id !== currently_editing && ! $jcw_target.closest( '.ui-autocomplete' ).length ) {
+				if ( currently_editing.length && jcw_id !== currently_editing && ! $jcw_target.closest( '.ui-autocomplete' ).length && ! $jcw_target.closest( '.hallolink-dialog' ).length ) {
 					$currently_editing = $( '#' + currently_editing );
 
 					// Offset for the header
