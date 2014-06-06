@@ -56,6 +56,9 @@
 			process_vital_remove( e );
 		} );
 
+		// Hide the inner-label
+		$drop_target.find( '.cacap-inner-label' ).hide();
+
 		// Only vitals can have multiples
 		if ( $drop_target.attr( 'id' ) !== 'cacap-vitals' ) {
 			if ( 1 < $drop_target.find( 'li' ).length ) {
@@ -72,7 +75,12 @@
 		e.preventDefault();
 
 		$removed_field = $( e.target ).closest( '.cacap-droppable li' );
-		
+	
+		// If this is the last item removed, restore the inner-label
+		if ( 1 === $removed_field.closest( '.cacap-droppable' ).find( 'li' ).length ) {
+			$removed_field.closest( '.cacap-droppable' ).find( '.cacap-inner-label' ).show();
+		}
+	
 		// Not sure why this failsafe is necessary, but sometimes the
 		// event double-fires
 		if ( $removed_field.length ) {

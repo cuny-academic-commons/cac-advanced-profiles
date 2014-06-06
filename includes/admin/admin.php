@@ -74,11 +74,6 @@ class CACAP_Admin {
 		?>
 		<p><?php esc_html_e( 'Drag items from Available Fields to the Header section below to arrange the profile header.', 'cacap' ) ?></p>
 
-		<h4 class="cacap-section-header"><?php esc_html_e( 'Available Fields', 'cacap' ) ?></h4>
-		<div class="cacap-available-fields">
-			<?php $this->available_fields_markup(); ?>
-		</div>
-
 		<h4 class="cacap-section-header"><?php esc_html_e( 'Header', 'cacap' ) ?></h4>
 		<div class="cacap-header">
 			<div class="cacap-row">
@@ -111,6 +106,13 @@ class CACAP_Admin {
 			</div>
 
 		</div>
+
+		<h4 class="cacap-section-header"><?php esc_html_e( 'Available Fields', 'cacap' ) ?></h4>
+		<div class="cacap-available-fields">
+			<?php $this->available_fields_markup(); ?>
+		</div>
+
+
 		<?php
 	}
 
