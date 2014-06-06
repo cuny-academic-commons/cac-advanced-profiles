@@ -110,7 +110,30 @@ class CACAP_Vital {
  * @return array Array of CACAP_Vital objects.
  */
 function cacap_vitals() {
-	$vitals = apply_filters( 'cacap_vitals', array() );
+	$vitals = array();
+
+	$fields = cacap_get_header_fields();
+
+	if ( ! empty( $fields['vitals'] ) ) {
+		foreach ( $fields['vitals'] as $saved_vital_key => $saved_vital ) {
+			if ( ! cacap_field_is_visible_for_user( $saved_vital ) ) {
+				continue;
+			}
+
+			$user_data = xprofile_get_field_data( $saved_vital, bp_displayed_user_id() );
+			if ( ! empty( $user_data ) ) {
+				$bp_field = new BP_XProfile_Field( $saved_vital );
+				$vitals[] = new CACAP_Vital( array(
+					'id' => 'vital-' . intval( $bp_field->id ),
+					'title' => $bp_field->name,
+					'content' => $user_data,
+					'position' => $saved_vital_key * 10,
+				) );
+			}
+		}
+	}
+
+	$vitals = apply_filters( 'cacap_vitals', $vitals );
 
 	// Remove any invalid items
 	foreach ( $vitals as $k => $v ) {
