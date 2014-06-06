@@ -162,3 +162,30 @@ function cacap_get_commons_profile_url( $user_id ) {
 	$url = add_query_arg( 'commons-profile', '1', $url );
 	return apply_filters( 'cacap_get_commons_profile_url', $url, $user_id );
 }
+
+/**
+ * Get the header fields, as stored in the DB.
+ */
+function cacap_get_header_fields() {
+	return bp_get_option( 'cacap_header_fields' );
+}
+
+/**
+ * Get the profile field ID corresponding to the Brief Descriptor area.
+ */
+function cacap_get_brief_descriptor_field() {
+	$fields = cacap_get_header_fields();
+
+	$bd_field = isset( $fields['brief_descriptor'] ) ? intval( $fields['brief_descriptor'] ) : 0;
+	return $bd_field;
+}
+
+/**
+ * Get the profile field ID corresponding to the About You area.
+ */
+function cacap_get_about_you_field() {
+	$fields = cacap_get_header_fields();
+
+	$ay_field = isset( $fields['about_you'] ) ? intval( $fields['about_you'] ) : 0;
+	return $ay_field;
+}

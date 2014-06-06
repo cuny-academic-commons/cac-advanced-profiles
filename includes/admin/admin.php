@@ -16,13 +16,15 @@ class CACAP_Admin {
 	}
 
 	public function add_menus() {
-		add_users_page(
+		$page = add_users_page(
 			__( 'CAC Advanced Profiles', 'cacap' ),
 			__( 'CAC Advanced Profiles', 'cacap' ),
 			'bp_moderate',
 			'cacap-admin',
 			array( $this, 'admin_menu' )
 		);
+
+		add_action( 'admin_print_scripts-' . $page, array( $this, 'enqueue_assets' ) );
 	}
 
 	public function configure_settings_sections() {
@@ -69,13 +71,45 @@ class CACAP_Admin {
 	}
 
 	public function settings_section_profile_header_public() {
-		add_filter( 'cacap_is_commons_profile', '__return_false' );
-		$this->set_up_displayed_user( get_current_user_id() );
 		?>
-		<?php include_once( buddypress()->cacap->path . 'templates/cacap/header.php' ) ?>
+		<p><?php esc_html_e( 'Select where you would like your BuddyPress profiles to appear on member headers.', 'cacap' ) ?></p>
+
+		<div class="cacap-available-fields">
+			<?php $this->available_fields_markup(); ?>
+		</div>
+
+		<div class="cacap-header">
+			<div class="cacap-row">
+				<div class="cacap-hero">
+					<h1><?php esc_html_e( 'User Name', 'cacap' ) ?></h1>
+
+					<p class="cacap-instructions"><?php esc_html_e( 'The "Brief Descriptor" field is a one-sentence heading that appears directly below the user&#8217;s name.', 'cacap' ) ?></p>
+					<h4 id="cacap-brief-descriptor" class="cacap-droppable">
+						<p class="cacap-inner-label"><?php esc_html_e( 'Brief Descriptor', 'cacap' ) ?></p>
+					</h4>
+
+					<p class="cacap-instructions"><?php esc_html_e( 'The "About You" field is a summary (300 characters or less) of a user&#8217;s work and interests.', 'cacap' ) ?></p>
+					<div id="cacap-about-you" class="cacap-droppable">
+						<p class="cacap-inner-label"><?php esc_html_e( 'About You', 'cacap' ) ?></p>
+					</div>
+				</div>
+
+				<div class="cacap-avatar">
+					<img src="<?php echo apply_filters( 'bp_core_default_avatar_user', bp_core_avatar_default( 'local' ) ) ?>" />
+				</div>
+			</div>
+
+			<div style="clear:both;"></div>
+
+			<div class="cacap-row cacap-row-vitals">
+				<p class="cacap-instructions"><?php esc_html_e( 'Fields in the "Vitals" area will be displayed in individual rows in the bottom half of the profile header.', 'cacap' ) ?></p>
+				<ul id="cacap-vitals" class="cacap-droppable">
+					<p class="cacap-inner-label"><?php esc_html_e( 'Vitals', 'cacap' ) ?></p>
+				</ul>
+			</div>
+
+		</div>
 		<?php
-		$this->tear_down_displayed_user();
-		remove_filter( 'cacap_is_commons_profile', '__return_false' );
 	}
 
 	public function settings_section_profile_header_edit() {
@@ -84,6 +118,40 @@ class CACAP_Admin {
 
 	public function settings_section_widgets() {
 		echo 'foo widgets';
+	}
+
+	public function available_fields_markup() {
+		$groups = BP_XProfile_Group::get( array(
+			'hide_empty_groups' => true,
+			'hide_empty_fields' => false,
+			'fetch_fields' => true,
+			'fetch_field_data' => false,
+		) );
+
+		// Put into a flat list
+		$fields = array();
+		foreach ( $groups as $group ) {
+			$fields = array_merge( $group->fields, $fields );
+		}
+
+		$in_use = array( 1 );
+
+		$field_lis = array();
+		foreach ( $fields as $field ) {
+			$in_use_class = in_array( $field->id, $in_use ) ? 'in-use' : '';
+
+			$field_lis[] = sprintf(
+				'<li class="%s" id="%s">%s</li>',
+				$in_use_class,
+				'available-field-' . intval( $field->id ),
+				esc_html( $field->name )
+			);
+		}
+
+		echo '<ul id="available-fields">';
+		echo implode( '', $field_lis );
+		echo '</ul>';
+		echo '<div style="clear:both;"></div>';
 	}
 
 	protected function set_up_displayed_user( $user_id ) {
@@ -159,6 +227,22 @@ class CACAP_Admin {
 		echo '<table class="form-table">';
 		do_settings_fields( $page, $s['id'] );
 		echo '</table>';
+	}
+
+	/**
+	 * Enqueue JS and CSS assets.
+	 */
+	public function enqueue_assets() {
+		wp_enqueue_style( 'cacap-admin', CACAP_PLUGIN_URL . '/assets/css/admin.css' );
+
+		wp_register_script( 'cacap-columnizer', CACAP_PLUGIN_URL . '/lib/jquery.columnizer/jquery.columnizer.js', array( 'jquery' ) );
+
+		wp_enqueue_script( 'cacap-admin', CACAP_PLUGIN_URL . '/assets/js/admin.js', array(
+			'jquery-ui-droppable',
+			'jquery-ui-draggable',
+			'jquery-ui-sortable',
+			'cacap-columnizer',
+		) );
 	}
 }
 add_action( bp_core_admin_hook(), array( 'CACAP_Admin', 'init' ) );
