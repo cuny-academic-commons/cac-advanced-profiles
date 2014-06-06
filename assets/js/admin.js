@@ -29,6 +29,11 @@
 		$( '#cacap-form-cacap-profile-header-public' ).submit( function( e ) {
 			process_form_submit_header_public( e );
 		} );
+
+		// Bind the x-to-remove click
+		$( '.remove-vital' ).on( 'click', function( e ) {
+			process_vital_remove( e );
+		} );
 	} );
 
 	function process_vital_add( event, ui ) {
@@ -57,7 +62,7 @@
 		} );
 
 		// Hide the inner-label
-		$drop_target.find( '.cacap-inner-label' ).hide();
+		$drop_target.addClass( 'not-empty' ).removeClass( 'empty' );
 
 		// Only vitals can have multiples
 		if ( $drop_target.attr( 'id' ) !== 'cacap-vitals' ) {
@@ -78,7 +83,7 @@
 	
 		// If this is the last item removed, restore the inner-label
 		if ( 1 === $removed_field.closest( '.cacap-droppable' ).find( 'li' ).length ) {
-			$removed_field.closest( '.cacap-droppable' ).find( '.cacap-inner-label' ).show();
+			$removed_field.closest( '.cacap-droppable' ).addClass( 'empty' ).removeClass( 'not-empty' );
 		}
 	
 		// Not sure why this failsafe is necessary, but sometimes the

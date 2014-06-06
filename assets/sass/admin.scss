@@ -48,6 +48,12 @@ h4.cacap-section-header {
 		float: left;
 }
 
+.not-empty {
+	.cacap-inner-label {
+		display: none;
+	}
+}
+
 p.cacap-instructions {
 	font-style: italic;
 	color: #666;

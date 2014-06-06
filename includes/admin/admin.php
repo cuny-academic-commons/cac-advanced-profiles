@@ -78,7 +78,45 @@ class CACAP_Admin {
 		<?php
 	}
 
+	protected function used_field_markup( $field_id ) {
+		$field_object = new BP_XProfile_Field( $field_id );
+		$field_markup = sprintf(
+			'<li data-field-id="%s" id="%s"><a href="#" class="remove-vital">x</a>%s</li>',
+			intval( $field_object->id ),
+			'vital-field-' . intval( $field_object->id ),
+			esc_html( $field_object->name )
+		);
+
+		return $field_markup;
+	}
+
 	public function settings_section_profile_header_public() {
+		$fields = cacap_get_header_fields();
+
+		$bd_field = ! empty( $fields['brief_descriptor'] ) ? intval( $fields['brief_descriptor'] ) : 0;
+		$ay_field = ! empty( $fields['about_you'] ) ? intval( $fields['about_you'] ) : 0;
+		$vital_fields = ! empty( $fields['vitals'] ) ? $fields['vitals'] : array();
+
+		$bd_class = $ay_class = $vitals_class = 'empty';
+		$bd_field_markup = $ay_field_markup = $vital_fields_markup = '';
+
+		if ( ! empty( $bd_field ) ) {
+			$bd_class = 'not-empty';
+			$bd_field_markup = $this->used_field_markup( $bd_field );
+		}
+
+		if ( ! empty( $ay_field ) ) {
+			$ay_class = 'not-empty';
+			$ay_field_markup = $this->used_field_markup( $ay_field );
+		}
+
+		if ( ! empty( $vital_fields ) ) {
+			$vital_class = 'not-empty';
+			foreach ( $vital_fields as $vf ) {
+				$vital_fields_markup .= $this->used_field_markup( $vf );
+			}
+		}
+
 		?>
 
 		<p><?php esc_html_e( 'Drag items from Available Fields to the Header section below to arrange the profile header.', 'cacap' ) ?></p>
@@ -90,13 +128,15 @@ class CACAP_Admin {
 					<h1><?php esc_html_e( 'User Name', 'cacap' ) ?></h1>
 
 					<p class="cacap-instructions"><?php esc_html_e( 'The "Brief Descriptor" field is a one-sentence heading that appears directly below the user&#8217;s name.', 'cacap' ) ?></p>
-					<h4 id="cacap-brief-descriptor" class="cacap-droppable">
+					<h4 id="cacap-brief-descriptor" class="cacap-droppable <?php echo $bd_class ?>">
 						<p class="cacap-inner-label"><?php esc_html_e( 'Brief Descriptor', 'cacap' ) ?></p>
+						<?php echo $bd_field_markup; ?>
 					</h4>
 
 					<p class="cacap-instructions"><?php esc_html_e( 'The "About You" field is a summary (300 characters or less) of a user&#8217;s work and interests.', 'cacap' ) ?></p>
-					<div id="cacap-about-you" class="cacap-droppable">
+					<div id="cacap-about-you" class="cacap-droppable <?php echo $ay_class ?>">
 						<p class="cacap-inner-label"><?php esc_html_e( 'About You', 'cacap' ) ?></p>
+						<?php echo $ay_field_markup; ?>
 					</div>
 				</div>
 
@@ -109,8 +149,9 @@ class CACAP_Admin {
 
 			<div class="cacap-row cacap-row-vitals">
 				<p class="cacap-instructions"><?php esc_html_e( 'Fields in the "Vitals" area will be displayed in individual rows in the bottom half of the profile header.', 'cacap' ) ?></p>
-				<ul id="cacap-vitals" class="cacap-droppable">
+				<ul id="cacap-vitals" class="cacap-droppable <?php echo $vital_class; ?>">
 					<p class="cacap-inner-label"><?php esc_html_e( 'Vitals', 'cacap' ) ?></p>
+					<?php echo $vital_fields_markup; ?>
 				</ul>
 			</div>
 
