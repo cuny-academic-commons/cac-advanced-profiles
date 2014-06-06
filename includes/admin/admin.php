@@ -62,10 +62,10 @@ class CACAP_Admin {
 		}
 
 		?>
-		<div class="wrap">
+		<div class="wrap cacap-admin">
 			<h2><?php esc_html_e( 'CAC Advanced Profiles', 'cacap' ) ?></h2>
 
-			<?php $this->admin_tabs() ?>
+			<?php $this->admin_tabs( $current_section ) ?>
 
 			<form id="cacap-form-<?php echo esc_attr( $current_section ) ?>" method="post" action="">
 				<?php settings_fields( 'cacap-admin' ) ?>
@@ -248,7 +248,7 @@ class CACAP_Admin {
 
 		// Loop through tabs and build navigation
 		foreach ( array_values( $tabs ) as $tab_data ) {
-			$is_current = (bool) ( $tab_data['name'] == $active_tab );
+			$is_current = $active_tab === ( substr( $tab_data['href'], 0 - ( strlen( $active_tab ) ) ) );
 			$tab_class  = $is_current ? $active_class : $idle_class;
 			$tabs_html .= '<a href="' . esc_url( $tab_data['href'] ) . '" class="' . esc_attr( $tab_class ) . '">' . esc_html( $tab_data['name'] ) . '</a>';
 		}
