@@ -16,6 +16,10 @@ class CACAP_Admin {
 	}
 
 	public function add_menus() {
+		if ( ! empty( $_POST['cacap-saved-values-header-public'] ) ) {
+			$this->process_save_header_public();
+		}
+
 		$page = add_users_page(
 			__( 'CAC Advanced Profiles', 'cacap' ),
 			__( 'CAC Advanced Profiles', 'cacap' ),
@@ -63,15 +67,20 @@ class CACAP_Admin {
 
 			<?php $this->admin_tabs() ?>
 
-			<?php settings_fields( 'cacap-admin' ) ?>
-			<?php $this->do_settings_section( 'cacap-admin', $current_section ) ?>
-			<?php submit_button() ?>
+			<form id="cacap-form-<?php echo esc_attr( $current_section ) ?>" method="post" action="">
+				<?php settings_fields( 'cacap-admin' ) ?>
+				<?php $this->do_settings_section( 'cacap-admin', $current_section ) ?>
+				<?php submit_button( null, 'primary', 'submit', true, array(
+					'id' => 'cacap-header-submit',
+				) ) ?>
+			</form>
 		</div>
 		<?php
 	}
 
 	public function settings_section_profile_header_public() {
 		?>
+
 		<p><?php esc_html_e( 'Drag items from Available Fields to the Header section below to arrange the profile header.', 'cacap' ) ?></p>
 
 		<h4 class="cacap-section-header"><?php esc_html_e( 'Header', 'cacap' ) ?></h4>
@@ -145,7 +154,8 @@ class CACAP_Admin {
 			$in_use_class = in_array( $field->id, $in_use ) ? 'in-use' : '';
 
 			$field_lis[] = sprintf(
-				'<li class="%s" id="%s">%s</li>',
+				'<li data-field-id="%s" class="%s" id="%s">%s</li>',
+				intval( $field->id ),
 				$in_use_class,
 				'available-field-' . intval( $field->id ),
 				esc_html( $field->name )
@@ -231,6 +241,20 @@ class CACAP_Admin {
 		echo '<table class="form-table">';
 		do_settings_fields( $page, $s['id'] );
 		echo '</table>';
+	}
+
+	public function process_save_header_public() {
+		check_admin_referer( 'cacap-admin-options' );
+
+		$saved_values = json_decode( stripslashes( $_POST['cacap-saved-values-header-public'] ) );
+
+		$values = array(
+			'brief_descriptor' => $saved_values->brief_descriptor,
+			'about_you' => $saved_values->about_you,
+			'vitals' => $saved_values->vitals,
+		);
+
+		bp_update_option( 'cacap_header_fields', $values );
 	}
 
 	/**
