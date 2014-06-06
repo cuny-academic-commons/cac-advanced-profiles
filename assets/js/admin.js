@@ -23,7 +23,8 @@
 			accept: '#available-fields li',
 			drop: function( event, ui ) {
 				process_vital_add( event, ui );
-			}
+			},
+			hoverClass: 'drop-hover'
 		} );
 	
 		$( '#cacap-form-cacap-profile-header-public' ).submit( function( e ) {

@@ -37,6 +37,11 @@ h4.cacap-section-header {
 	clear: both;
 }
 
+.cacap-droppable.drop-hover {
+	border: 1px dashed #aaa;
+	background: #ccc;
+}
+
 #available-fields, .cacap-droppable {
 	li {
 		list-style-type: none;
@@ -52,6 +57,11 @@ h4.cacap-section-header {
 
 #available-fields li {
 		float: left;
+		cursor: move;
+}
+
+.ui-sortable {
+	cursor: move;
 }
 
 .not-empty {
