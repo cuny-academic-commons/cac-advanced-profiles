@@ -78,19 +78,7 @@ class CACAP_Admin {
 		<?php
 	}
 
-	protected function used_field_markup( $field_id ) {
-		$field_object = new BP_XProfile_Field( $field_id );
-		$field_markup = sprintf(
-			'<li data-field-id="%s" id="%s"><a href="#" class="remove-vital">x</a>%s</li>',
-			intval( $field_object->id ),
-			'vital-field-' . intval( $field_object->id ),
-			esc_html( $field_object->name )
-		);
-
-		return $field_markup;
-	}
-
-	protected function field_order_markup( $field_id ) {
+	protected function field_markup( $field_id ) {
 		$field_object = new BP_XProfile_Field( $field_id );
 		$field_markup = sprintf(
 			'<li data-field-id="%s" id="%s">%s</li>',
@@ -114,18 +102,18 @@ class CACAP_Admin {
 
 		if ( ! empty( $bd_field ) ) {
 			$bd_class = 'not-empty';
-			$bd_field_markup = $this->used_field_markup( $bd_field );
+			$bd_field_markup = $this->field_markup( $bd_field );
 		}
 
 		if ( ! empty( $ay_field ) ) {
 			$ay_class = 'not-empty';
-			$ay_field_markup = $this->used_field_markup( $ay_field );
+			$ay_field_markup = $this->field_markup( $ay_field );
 		}
 
 		if ( ! empty( $vital_fields ) ) {
 			$vital_class = 'not-empty';
 			foreach ( $vital_fields as $vf ) {
-				$vital_fields_markup .= $this->used_field_markup( $vf );
+				$vital_fields_markup .= $this->field_markup( $vf );
 			}
 		}
 
@@ -190,7 +178,7 @@ class CACAP_Admin {
 			<div id="cacap-profile-edit-column-left">
 				<ul>
 				<?php foreach ( $fields['left'] as $field_id ) : ?>
-					<?php echo $this->field_order_markup( $field_id ) ?>
+					<?php echo $this->field_markup( $field_id ) ?>
 				<?php endforeach; ?>
 				</ul>
 			</div>
@@ -198,7 +186,7 @@ class CACAP_Admin {
 			<div id="cacap-profile-edit-column-right">
 				<ul>
 				<?php foreach ( $fields['right'] as $field_id ) : ?>
-					<?php echo $this->field_order_markup( $field_id ) ?>
+					<?php echo $this->field_markup( $field_id ) ?>
 				<?php endforeach; ?>
 				</ul>
 			</div>
@@ -231,12 +219,13 @@ class CACAP_Admin {
 
 		$field_lis = array();
 		foreach ( $fields as $field ) {
-			$in_use_class = in_array( $field->id, $in_use ) ? 'in-use' : '';
+			if ( in_array( $field->id, $in_use ) ) {
+				continue;
+			}
 
 			$field_lis[] = sprintf(
-				'<li data-field-id="%s" class="%s" id="%s">%s</li>',
+				'<li data-field-id="%s" id="%s">%s</li>',
 				intval( $field->id ),
-				$in_use_class,
 				'available-field-' . intval( $field->id ),
 				esc_html( $field->name )
 			);
