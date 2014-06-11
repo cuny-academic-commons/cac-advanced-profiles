@@ -140,13 +140,13 @@ class CACAP_Admin {
 					<h1><?php esc_html_e( 'User Name', 'cacap' ) ?></h1>
 
 					<p class="cacap-instructions"><?php esc_html_e( 'The "Brief Descriptor" field is a one-sentence heading that appears directly below the user&#8217;s name. (One field only.)', 'cacap' ) ?></p>
-					<h4 id="cacap-brief-descriptor" class="cacap-droppable <?php echo $bd_class ?>">
+					<h4 id="cacap-brief-descriptor" class="cacap-droppable cacap-sortable cacap-single <?php echo $bd_class ?>">
 						<p class="cacap-inner-label"><?php esc_html_e( 'Brief Descriptor', 'cacap' ) ?></p>
 						<?php echo $bd_field_markup; ?>
 					</h4>
 
 					<p class="cacap-instructions"><?php esc_html_e( 'The "About You" field is a summary (300 characters or less) of a user&#8217;s work and interests. (One field only.)', 'cacap' ) ?></p>
-					<div id="cacap-about-you" class="cacap-droppable <?php echo $ay_class ?>">
+					<div id="cacap-about-you" class="cacap-droppable cacap-sortable cacap-single <?php echo $ay_class ?>">
 						<p class="cacap-inner-label"><?php esc_html_e( 'About You', 'cacap' ) ?></p>
 						<?php echo $ay_field_markup; ?>
 					</div>
@@ -161,7 +161,7 @@ class CACAP_Admin {
 
 			<div class="cacap-row cacap-row-vitals">
 				<p class="cacap-instructions"><?php esc_html_e( 'Fields in the "Vitals" area will be displayed in individual rows in the bottom half of the profile header. (Supports multiple fields.)', 'cacap' ) ?></p>
-				<ul id="cacap-vitals" class="cacap-droppable <?php echo $vital_class; ?>">
+				<ul id="cacap-vitals" class="cacap-droppable cacap-sortable <?php echo $vital_class; ?>">
 					<p class="cacap-inner-label"><?php esc_html_e( 'Vitals', 'cacap' ) ?></p>
 					<?php echo $vital_fields_markup; ?>
 				</ul>
@@ -242,24 +242,10 @@ class CACAP_Admin {
 			);
 		}
 
-		echo '<ul id="available-fields">';
+		echo '<ul id="available-fields" class="cacap-sortable">';
 		echo implode( '', $field_lis );
 		echo '</ul>';
 		echo '<div style="clear:both;"></div>';
-	}
-
-	protected function set_up_displayed_user( $user_id ) {
-		buddypress()->displayed_user->id = $user_id;
-		buddypress()->displayed_user->domain = bp_core_get_user_domain( bp_displayed_user_id() );
-		buddypress()->displayed_user->userdata = bp_core_get_core_userdata( bp_displayed_user_id() );
-		buddypress()->displayed_user->fullname = bp_core_get_user_displayname( bp_displayed_user_id() );
-	}
-
-	protected function tear_down_displayed_user() {
-		buddypress()->displayed_user->id = 0;
-		unset( buddypress()->displayed_user->domain );
-		unset( buddypress()->displayed_user->userdata );
-		unset( buddypress()->displayed_user->fullname );
 	}
 
 	/**

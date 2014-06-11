@@ -43,6 +43,7 @@ h4.cacap-section-header {
 }
 
 #available-fields, .cacap-droppable, .cacap-profile-edit-columns > div > ul {
+	min-height: 47px;
 	li {
 		list-style-type: none;
 		width: 350px;
