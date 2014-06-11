@@ -2,6 +2,7 @@
 	var $available_fields,
 		$drop_target,
 		$processing_fields,
+		edit_col,
 		saved_values = {};
 
 	$( document ).ready( function() {
@@ -17,6 +18,10 @@
 
 		$( '#cacap-form-cacap-profile-header-public' ).submit( function( e ) {
 			process_form_submit_header_public( e );
+		} );
+
+		$( '#cacap-form-cacap-profile-header-edit' ).submit( function( e ) {
+			process_form_submit_header_edit( e );
 		} );
 
 		/* Set up the Profile Header (Edit) section */
@@ -38,7 +43,7 @@
 	}
 
 	/**
-	 * Process Submit for Header tab.
+	 * Process Submit for Header (Public) tab.
 	 */
 	function process_form_submit_header_public( event ) {
 		// Brief Descriptor
@@ -68,4 +73,31 @@
 		$( event.target ).append( '<input type="hidden" name="cacap-saved-values-header-public" id="cacap-saved-values" value="" />' );
 		$( '#cacap-saved-values' ).val( JSON.stringify( saved_values ) );
 	}
+
+	/**
+	 * Process Submit for Header (Edit) tab.
+	 */
+	function process_form_submit_header_edit( event ) {
+		for ( var i = 0; i <= 1; i++ ) {
+			if ( i == 0 ) {
+				edit_col = 'left';
+			} else {
+				edit_col = 'right';
+			}
+
+			saved_values = [];
+
+			$processing_fields = $( '#cacap-profile-edit-column-' + edit_col + ' > ul > li' );
+			if ( $processing_fields.length ) {
+				$processing_fields.each( function( k, v ) {
+					saved_values.push( $( v ).data( 'field-id' ) );
+				} );
+			}
+
+			// Convert to json and send along with the payload
+			$( event.target ).append( '<input type="hidden" name="cacap-saved-values-header-edit-' + edit_col + '" id="cacap-saved-values-' + edit_col + '" value="" />' );
+			$( '#cacap-saved-values-' + edit_col ).val( JSON.stringify( saved_values ) );
+		}
+	}
+
 })( jQuery );

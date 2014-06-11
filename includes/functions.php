@@ -190,8 +190,8 @@ function cacap_get_header_fields( $type = 'public' ) {
 		);
 
 		$flat_order = array_merge(
-			$edit_fields['left'],
-			$edit_fields['right']
+			$edit_order['left'],
+			$edit_order['right']
 		);
 
 		// Any fields not explicitly saved in the order must be added

@@ -20,6 +20,10 @@ class CACAP_Admin {
 			$this->process_save_header_public();
 		}
 
+		if ( ! empty( $_POST['cacap-saved-values-header-edit-left'] ) && ! empty( $_POST['cacap-saved-values-header-edit-right'] ) ) {
+			$this->process_save_header_edit();
+		}
+
 		$page = add_users_page(
 			__( 'CAC Advanced Profiles', 'cacap' ),
 			__( 'CAC Advanced Profiles', 'cacap' ),
@@ -312,6 +316,19 @@ class CACAP_Admin {
 		bp_update_option( 'cacap_header_fields', $values );
 	}
 
+	public function process_save_header_edit() {
+		check_admin_referer( 'cacap-admin-options' );
+
+		$left_values = json_decode( stripslashes( $_POST['cacap-saved-values-header-edit-left'] ) );
+		$right_values = json_decode( stripslashes( $_POST['cacap-saved-values-header-edit-right'] ) );
+
+		$values = array(
+			'left' => $left_values,
+			'right' => $right_values,
+		);
+
+		bp_update_option( 'cacap_header_fields_edit', $values );
+	}
 	/**
 	 * Enqueue JS and CSS assets.
 	 */
