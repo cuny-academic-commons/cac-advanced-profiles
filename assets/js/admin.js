@@ -6,9 +6,15 @@
 		$removed_field,
 		cloned_available_field,
 		cloned_available_field_id,
+		cloned_edit_field,
+		cloned_edit_field_id,
+		col_from,
+		col_to,
+		edit_uis = [],
 		saved_values = {};
 
 	$( document ).ready( function() {
+		/* Set up the Profile Header (Public) section */
 		$available_fields = $( '#available-fields' );
 
 		$( '#available-fields li' ).draggable( {
@@ -26,7 +32,7 @@
 			},
 			hoverClass: 'drop-hover'
 		} );
-	
+
 		$( '#cacap-form-cacap-profile-header-public' ).submit( function( e ) {
 			process_form_submit_header_public( e );
 		} );
@@ -35,7 +41,17 @@
 		$( '.remove-vital' ).on( 'click', function( e ) {
 			process_vital_remove( e );
 		} );
+
+		/* Set up the Profile Header (Edit) section */
+		edit_ui_init();
 	} );
+
+	function edit_ui_init() {
+		// Sort within columns
+		$( '.cacap-profile-edit-columns > div > ul' ).sortable( {
+			connectWith: '.cacap-profile-edit-columns > div > ul'
+		} );
+	}
 
 	function process_vital_add( event, ui ) {
 		$drop_target = $( event.target );
@@ -51,7 +67,7 @@
 
 		$cacap_vitals = $( '#cacap-vitals' );
 		$cacap_vitals.sortable( {
-			items: 'li:not(.cacap-inner-label)'	
+			items: 'li:not(.cacap-inner-label)'
 		} );
 
 		// Hide the original
@@ -81,12 +97,12 @@
 		e.preventDefault();
 
 		$removed_field = $( e.target ).closest( '.cacap-droppable li' );
-	
+
 		// If this is the last item removed, restore the inner-label
 		if ( 1 === $removed_field.closest( '.cacap-droppable' ).find( 'li' ).length ) {
 			$removed_field.closest( '.cacap-droppable' ).addClass( 'empty' ).removeClass( 'not-empty' );
 		}
-	
+
 		// Not sure why this failsafe is necessary, but sometimes the
 		// event double-fires
 		if ( $removed_field.length ) {
@@ -109,21 +125,21 @@
 	function process_form_submit_header_public( event ) {
 		// Brief Descriptor
 		saved_values.brief_descriptor = '';
-		$processing_fields = $( '#cacap-brief-descriptor' ).children( 'li' ); 
+		$processing_fields = $( '#cacap-brief-descriptor' ).children( 'li' );
 		if ( $processing_fields.length ) {
 			saved_values.brief_descriptor = $processing_fields.data( 'field-id' )
 		}
 
 		// About You
 		saved_values.about_you = '';
-		$processing_fields = $( '#cacap-about-you' ).children( 'li' ); 
+		$processing_fields = $( '#cacap-about-you' ).children( 'li' );
 		if ( $processing_fields.length ) {
 			saved_values.about_you = $processing_fields.data( 'field-id' )
 		}
 
 		// Vitals
 		saved_values.vitals = [];
-		$processing_fields = $( '#cacap-vitals' ).children( 'li' ); 
+		$processing_fields = $( '#cacap-vitals' ).children( 'li' );
 		if ( $processing_fields.length ) {
 			$processing_fields.each( function( k, v ) {
 				saved_values.vitals.push( $( v ).data( 'field-id' ) );

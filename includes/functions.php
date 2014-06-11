@@ -166,8 +166,64 @@ function cacap_get_commons_profile_url( $user_id ) {
 /**
  * Get the header fields, as stored in the DB.
  */
-function cacap_get_header_fields() {
-	return bp_get_option( 'cacap_header_fields' );
+function cacap_get_header_fields( $type = 'public' ) {
+	$fields = bp_get_option( 'cacap_header_fields' );
+
+	if ( 'edit' === $type ) {
+		$edit_fields = array(
+			'left' => array(),
+			'right' => array(),
+		);
+
+		$edit_order = bp_get_option( 'cacap_header_fields_edit' );
+
+		if ( empty( $edit_order ) ) {
+			$edit_order = array();
+		}
+
+		// Make sure that they match (all edit fields are in fact in
+		// the saved fields, and all saved fields are in the edit order
+		$flat_saved = array_merge(
+			array( $fields['brief_descriptor'] ),
+			array( $fields['about_you'] ),
+			$fields['vitals']
+		);
+
+		$flat_order = array_merge(
+			$edit_fields['left'],
+			$edit_fields['right']
+		);
+
+		// Any fields not explicitly saved in the order must be added
+		// to the end of one or other column
+		$missing_from_order = array_diff( $flat_saved, $flat_order );
+		foreach ( $missing_from_order as $mfo ) {
+			if ( count( $edit_order['left'] ) <= count( $edit_order['right'] ) ) {
+				$side = 'left';
+			} else {
+				$side = 'right';
+			}
+
+			$edit_order[ $side ][] = $mfo;
+		}
+
+		// Remove items that are in the edit order but not in the saved
+		// field for some reason (shouldn't happen)
+		$missing_from_saved = array_diff( $flat_order, $flat_saved );
+		foreach ( $missing_from_saved as $mfs ) {
+			foreach ( array( 'left', 'right' ) as $side ) {
+				$mfs_key = array_key( $mfs, $edit_order[ $side ] );
+				if ( false !== $mfs_key ) {
+					unset( $edit_order[ $side ][ $mfs_key ] );
+					$edit_order[ $side ] = array_values( $edit_order[ $side ] );
+				}
+			}
+		}
+
+		$fields = $edit_order;
+	}
+
+	return $fields;
 }
 
 /**

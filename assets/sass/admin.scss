@@ -42,7 +42,7 @@ h4.cacap-section-header {
 	background: #ccc;
 }
 
-#available-fields, .cacap-droppable {
+#available-fields, .cacap-droppable, .cacap-profile-edit-columns > div > ul {
 	li {
 		list-style-type: none;
 		width: 350px;
@@ -103,4 +103,14 @@ a.remove-vital {
 	text-decoration: none;
 	color: #f00;
 	margin: 4px 8px;
+}
+
+.cacap-profile-edit-columns {
+	clear: both;
+
+	& > div {
+		float: left;
+		width: 400px;
+		margin-right: 20px;
+	}
 }

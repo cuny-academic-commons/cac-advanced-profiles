@@ -34,14 +34,14 @@ class CACAP_Admin {
 	public function configure_settings_sections() {
 		add_settings_section(
 			'cacap-profile-header-public',
-			__( 'Profile Header - Public', 'cacap' ),
+			__( 'Profile Header (Public)', 'cacap' ),
 			array( $this, 'settings_section_profile_header_public' ),
 			'cacap-admin'
 		);
 
 		add_settings_section(
 			'cacap-profile-header-edit',
-			__( 'Profile Header - Edit', 'cacap' ),
+			__( 'Profile Header (Edit Mode)', 'cacap' ),
 			array( $this, 'settings_section_profile_header_edit' ),
 			'cacap-admin'
 		);
@@ -82,6 +82,18 @@ class CACAP_Admin {
 		$field_object = new BP_XProfile_Field( $field_id );
 		$field_markup = sprintf(
 			'<li data-field-id="%s" id="%s"><a href="#" class="remove-vital">x</a>%s</li>',
+			intval( $field_object->id ),
+			'vital-field-' . intval( $field_object->id ),
+			esc_html( $field_object->name )
+		);
+
+		return $field_markup;
+	}
+
+	protected function field_order_markup( $field_id ) {
+		$field_object = new BP_XProfile_Field( $field_id );
+		$field_markup = sprintf(
+			'<li data-field-id="%s" id="%s">%s</li>',
 			intval( $field_object->id ),
 			'vital-field-' . intval( $field_object->id ),
 			esc_html( $field_object->name )
@@ -162,12 +174,39 @@ class CACAP_Admin {
 			<?php $this->available_fields_markup(); ?>
 		</div>
 
-
 		<?php
 	}
 
 	public function settings_section_profile_header_edit() {
-		echo 'foo edit';
+		$fields = cacap_get_header_fields( 'edit' );
+
+		?>
+
+		<p><?php esc_html_e( 'When editing their profiles, users will see two columns of editable fields in their header area. Below, you can modify the arrangement of fields in these two columns.', 'cacap' ) ?></p>
+
+		<p><?php printf( __( 'The fields displayed below are those that have been selected for display on the <a href="%s">Profile Header (Public)</a> tab. To add or remove fields, visit that tab.', 'cacap' ), bp_get_admin_url( add_query_arg( array( 'page' => 'cacap-admin', 'section' => 'cacap-profile-header-public', ) ) ) ) ?></p>
+
+		<div class="cacap-profile-edit-columns">
+			<div id="cacap-profile-edit-column-left">
+				<ul>
+				<?php foreach ( $fields['left'] as $field_id ) : ?>
+					<?php echo $this->field_order_markup( $field_id ) ?>
+				<?php endforeach; ?>
+				</ul>
+			</div>
+
+			<div id="cacap-profile-edit-column-right">
+				<ul>
+				<?php foreach ( $fields['right'] as $field_id ) : ?>
+					<?php echo $this->field_order_markup( $field_id ) ?>
+				<?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+
+		<div style="clear:both;"></div>
+
+		<?php
 	}
 
 	public function settings_section_widgets() {
