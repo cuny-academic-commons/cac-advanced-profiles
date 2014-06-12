@@ -482,6 +482,9 @@ window.wp = window.wp || {};
 				// Don't let users click away from the currently_editing field
 				// Special exception for autocomplete
 				if ( currently_editing.length && jcw_id !== currently_editing && ! $jcw_target.closest( '.ui-autocomplete' ).length ) {
+					e.preventDefault();
+					e.stopPropagation();
+
 					$currently_editing = $( '#' + currently_editing );
 
 					// Offset for the header
@@ -493,7 +496,7 @@ window.wp = window.wp || {};
 						$currently_editing.removeClass( 'warn' );
 					}, 800 );
 
-					e.preventDefault();
+					return false;
 				}
 
 				// This is not a widget click, so we can bail
@@ -557,6 +560,14 @@ window.wp = window.wp || {};
 				$w = $( this ).closest( '#cacap-widget-list li' );
 				delete_widget();
 				return false;
+			} );
+		}
+
+		function bind_submit_clicks() {
+			$( '#cacap-edit-form' ).submit( function( e ) {
+				if ( currently_editing.length ) {
+					e.preventDefault();
+				}
 			} );
 		}
 
