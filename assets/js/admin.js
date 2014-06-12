@@ -25,6 +25,7 @@
 			change: function() {
 				warn_on_leave = true;
 			},
+			items: '> li',
 			receive: function( event, ui ) {
 				if ( ! process_header_field_drop( event, ui ) ) {;
 					ui.sender.sortable( 'cancel' );

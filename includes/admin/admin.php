@@ -215,11 +215,27 @@ class CACAP_Admin {
 	}
 
 	public function available_fields_markup() {
+		// Exclude items that are storage for widgets
+		// Note: This is going to be fragile. Need to store this info
+		// somewhere, maybe in xprofilemeta
+		global $wpdb, $bp;
+		$widget_types = cacap_widget_types();
+		$names = wp_list_pluck( $widget_types, 'name' );
+		foreach ( $names as &$name ) {
+			$name = $wpdb->prepare( '%s', $name );
+		}
+		$exclude_fields = $wpdb->get_col( "SELECT id FROM {$bp->profile->table_name_fields} WHERE name IN (" . implode( ',', $names ) . ")" );
+
+		if ( empty( $exclude_fields ) ) {
+			$exclude_fields = array( 0 );
+		}
+
 		$groups = BP_XProfile_Group::get( array(
 			'hide_empty_groups' => true,
 			'hide_empty_fields' => false,
 			'fetch_fields' => true,
 			'fetch_field_data' => false,
+			'exclude_fields' => $exclude_fields,
 		) );
 
 		// Put into a flat list
@@ -251,7 +267,14 @@ class CACAP_Admin {
 		}
 
 		echo '<ul id="available-fields" class="cacap-sortable">';
-		echo implode( '', $field_lis );
+		echo '<p>' . __( 'Drag fields here to disable.', 'cacap' ) . '</p>';
+
+		if ( empty( $field_lis ) ) {
+			echo '<p class="cacap-inner-label">' . __( 'All fields are in use.', 'cacap' ) . '</p>';
+		} else {
+			echo implode( '', $field_lis );
+		}
+
 		echo '</ul>';
 		echo '<div style="clear:both;"></div>';
 	}
