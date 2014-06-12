@@ -178,7 +178,10 @@ function cacap_get_header_fields( $type = 'public' ) {
 		$edit_order = bp_get_option( 'cacap_header_fields_edit' );
 
 		if ( empty( $edit_order ) ) {
-			$edit_order = array();
+			$edit_order = array(
+				'left' => array(),
+				'right' => array(),
+			);
 		}
 
 		// Make sure that they match (all edit fields are in fact in
