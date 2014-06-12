@@ -1,4 +1,20 @@
-<?php if ( bp_has_profile( 'profile_group_id=1' ) ) : ?>
+<?php
+
+$cols = cacap_get_header_fields( 'edit' );
+$cols = apply_filters( 'cacap_header_edit_columns', $cols );
+$flat_fields = array_merge( $cols['right'], $cols['left'] );
+
+global $wpdb, $bp;
+$all_fields = $wpdb->get_col( "SELECT id FROM {$bp->profile->table_name_fields}" );
+
+$profile_args = array(
+	'exclude_fields' => array_diff( $all_fields, $flat_fields ),
+	'hide_empty_fields' => false,
+);
+
+?>
+
+<?php if ( bp_has_profile( $profile_args ) ) : ?>
 	<div class="cacap-row cacap-bp-profile-fields">
 
 	<?php
@@ -7,27 +23,31 @@
 	 * We'll chop them up into two groups, sort them as defined here, then
 	 * we'll run through the profile loop twice
 	 */
+	/*
 	$cols = array(
-		1 => array(),
-		2 => array(),
-	);
+		'left' => array(),
+		'right' => array(),
+	);*/
 
-	$cols = apply_filters( 'cacap_header_edit_columns', $cols );
 
 	global $profile_template;
 
 	$profile_template->group_count = 2;
 
-	$fields = $profile_template->groups[0]->fields;
+	$fields = array();
+	foreach ( $profile_template->groups as $ptg ) {
+		$fields = array_merge( $fields, $ptg->fields );
+	}
+
 	$new_groups = array(
-		1 => new stdClass,
-		2 => new stdClass,
+		'left' => new stdClass,
+		'right' => new stdClass,
 	);
 
-	$new_groups[1]->id = 1;
-	$new_groups[1]->name = 'Base';
-	$new_groups[2]->id = 2;
-	$new_groups[2]->name = 'Base2';
+	$new_groups['left']->id = 1;
+	$new_groups['left']->name = 'Base';
+	$new_groups['right']->id = 2;
+	$new_groups['right']->name = 'Base2';
 	foreach ( $new_groups as &$new_group ) {
 		$new_group->description = '';
 		$new_group->group_order = '0';
@@ -40,10 +60,10 @@
 	foreach ( $cols as $col_no => $col_fields ) {
 		foreach ( $fields as $field ) {
 			$which_col = null;
-			if ( false !== $col_order = array_search( $field->name, $cols[1] ) ) {
-				$which_col = 1;
-			} elseif ( false !== $col_order = array_search( $field->name, $cols[2] ) ) {
-				$which_col = 2;
+			if ( false !== $col_order = array_search( $field->id, $cols['left'] ) ) {
+				$which_col = 'left';
+			} elseif ( false !== $col_order = array_search( $field->id, $cols['right'] ) ) {
+				$which_col = 'right';
 			}
 
 			if ( $which_col ) {
@@ -55,7 +75,7 @@
 
 	// Fix indexes
 	foreach ( $new_groups as &$new_group ) {
-		$new_group->fields = array_values( $new_group->fields );
+		ksort( $new_group->fields );
 	}
 
 	// replace the value in the global
