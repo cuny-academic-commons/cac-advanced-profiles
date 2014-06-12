@@ -189,6 +189,11 @@ function cacap_get_header_fields( $type = 'public' ) {
 			$fields['vitals']
 		);
 
+		// We always have to include field 1, the Full Name field
+		if ( ! in_array( '1', $flat_saved ) ) {
+			$flat_saved[] = 1;
+		}
+
 		$flat_order = array_merge(
 			$edit_order['left'],
 			$edit_order['right']
