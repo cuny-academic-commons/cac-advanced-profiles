@@ -219,11 +219,17 @@ class CACAP_Admin {
 			$fields = array_merge( $group->fields, $fields );
 		}
 
-		$in_use = array( 1 );
+		$in_use = cacap_get_header_fields();
+		$in_use_flat = array_merge(
+			array( $in_use['brief_descriptor'] ),
+			array( $in_use['about_you'] ),
+			$in_use['vitals'],
+			array( 1 )
+		);
 
 		$field_lis = array();
 		foreach ( $fields as $field ) {
-			if ( in_array( $field->id, $in_use ) ) {
+			if ( in_array( $field->id, $in_use_flat ) ) {
 				continue;
 			}
 
