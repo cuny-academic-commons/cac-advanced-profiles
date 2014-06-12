@@ -4,7 +4,9 @@
  * Twitter widget
  */
 class CACAP_Widget_Twitter extends CACAP_Widget {
+	var $default_title;
 	public function __construct() {
+		$this->default_title = __( 'Twitter', 'cacap' );
 		parent::init( array(
 			'name' => __( 'Twitter', 'cacap' ),
 			'slug' => 'twitter',
@@ -94,7 +96,12 @@ class CACAP_Widget_Twitter extends CACAP_Widget {
 	 * @return string
 	 */
 	public function display_title_markup( $value ) {
-		return esc_html( $value['title'] );
+		$title = $this->default_title;
+		if ( ! empty( $value['title'] ) ) {
+			$title = esc_html( $value['title'] );
+		}
+
+		return $title;
 	}
 
 	/**
@@ -123,8 +130,9 @@ class CACAP_Widget_Twitter extends CACAP_Widget {
 	}
 
 	public function edit_title_markup( $value, $key ) {
-		$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $value['title'] ) ) . '</article>';
-		$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $value['title'] ) ) . '" />';
+		$title = ! empty( $value['title'] ) ? $value['title'] : $this->default_title;
+		$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $title ) ) . '</article>';
+		$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $title ) ) . '" />';
 		return $html;
 	}
 
