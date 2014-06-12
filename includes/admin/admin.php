@@ -343,6 +343,10 @@ class CACAP_Admin {
 			'jquery-ui-sortable',
 			'cacap-columnizer',
 		) );
+
+		wp_localize_script( 'cacap-admin', 'CACAP_Admin', array(
+			'warn_on_leave' => __( 'You have made changes to the page.', 'cacap' ),
+		) );
 	}
 }
 add_action( bp_core_admin_hook(), array( 'CACAP_Admin', 'init' ) );

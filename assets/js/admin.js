@@ -3,11 +3,28 @@
 		$drop_target,
 		$processing_fields,
 		edit_col,
-		saved_values = {};
+		saved_values = {},
+		warn_on_leave;
 
 	$( document ).ready( function() {
+		/* Set up Warn On Leave */
+		warn_on_leave = false;
+
+		window.onbeforeunload = function() {
+			if ( warn_on_leave ) {
+				return CACAP_Admin.warn_on_leave;
+			}
+		};
+
+		$( '#cacap-header-submit' ).click( function() {
+			warn_on_leave = false;
+		} );
+
 		/* Set up the Profile Header (Public) section */
 		$( '.cacap-sortable' ).sortable( {
+			change: function() {
+				warn_on_leave = true;
+			},
 			receive: function( event, ui ) {
 				if ( ! process_header_field_drop( event, ui ) ) {;
 					ui.sender.sortable( 'cancel' );
@@ -26,6 +43,9 @@
 
 		/* Set up the Profile Header (Edit) section */
 		$( '.cacap-profile-edit-columns > div > ul' ).sortable( {
+			change: function() {
+				warn_on_leave = true;
+			},
 			connectWith: '.cacap-profile-edit-columns > div > ul'
 		} );
 	} );
