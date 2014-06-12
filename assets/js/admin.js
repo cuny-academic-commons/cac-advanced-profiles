@@ -1,5 +1,6 @@
 ( function( $ ){
 	var $available_fields,
+		$drop_source,
 		$drop_target,
 		$processing_fields,
 		edit_col,
@@ -51,8 +52,19 @@
 	} );
 
 	function process_header_field_drop( event, ui ) {
-		// Brief Description and About You can't have multiples
+		// Hide/unhide inner-label elements
+		$( '.cacap-sortable' ).each( function( k, v ) {
+			if ( 0 == $( v ).children( 'li' ).length ) {
+				console.log(v);
+				$( v ).children( '.cacap-inner-label' ).show();
+			} else {
+				$( v ).children( '.cacap-inner-label' ).hide();
+			}
+		} );
+
 		$drop_target = $( event.target );
+
+		// Brief Description and About You can't have multiples
 		if ( $drop_target.hasClass( 'cacap-single' ) ) {
 			if ( 1 < $drop_target.find( 'li' ).length ) {
 				return false;
