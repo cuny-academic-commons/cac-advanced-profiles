@@ -1,6 +1,5 @@
 ( function( $ ){
 	var $available_fields,
-		$drop_source,
 		$drop_target,
 		$processing_fields,
 		edit_col,
@@ -55,7 +54,6 @@
 		// Hide/unhide inner-label elements
 		$( '.cacap-sortable' ).each( function( k, v ) {
 			if ( 0 == $( v ).children( 'li' ).length ) {
-				console.log(v);
 				$( v ).children( '.cacap-inner-label' ).show();
 			} else {
 				$( v ).children( '.cacap-inner-label' ).hide();
