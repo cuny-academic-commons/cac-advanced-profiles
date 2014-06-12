@@ -1,7 +1,11 @@
 <?php
 
 class CACAP_Widget_RSS extends CACAP_Widget {
+	var $default_title;
+
 	public function __construct() {
+		$this->default_title = __( 'My RSS Feed', 'cacap' );
+
 		parent::init( array(
 			'name' => __( 'RSS Feed', 'cacap' ),
 			'slug' => 'rss',
@@ -76,7 +80,8 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 	 * @return string
 	 */
 	public function display_title_markup( $value ) {
-		return esc_html( $value['title'] );
+		$title = ! empty( $value['title'] ) ? $value['title'] : $this->default_title;
+		return $title;
 	}
 
 	/**
@@ -88,7 +93,7 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 	}
 
 	public function edit_title_markup( $value, $key ) {
-		$title = isset( $value['title'] ) ? $value['title'] : '';
+		$title = ! empty( $value['title'] ) ? $value['title'] : $this->default_title;
 		$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $title ) ) . '</article>';
 		$html .= '<input name="' . esc_attr( $key ) . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $title ) ) . '" />';
 
