@@ -51,6 +51,15 @@
 	} );
 
 	function process_header_field_drop( event, ui ) {
+		// Hide/unhide inner-label elements
+		$( '.cacap-sortable' ).each( function( k, v ) {
+			if ( 0 == $( v ).children( 'li' ).length ) {
+				$( v ).children( '.cacap-inner-label' ).show();
+			} else {
+				$( v ).children( '.cacap-inner-label' ).hide();
+			}
+		} );
+
 		// Brief Description and About You can't have multiples
 		$drop_target = $( event.target );
 		if ( $drop_target.hasClass( 'cacap-single' ) ) {
