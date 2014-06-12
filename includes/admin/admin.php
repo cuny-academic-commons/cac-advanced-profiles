@@ -1,6 +1,8 @@
 <?php
 
 class CACAP_Admin {
+	var $self_url;
+
 	public static function init() {
 		static $instance;
 		if ( empty( $instance ) ) {
@@ -10,6 +12,7 @@ class CACAP_Admin {
 	}
 
 	private function __construct() {
+		$this->self_url = self_admin_url( 'users.php?page=cacap-admin' );
 		$this->add_menus();
 		$this->configure_settings_sections();
 		add_action( 'admin_menu', array( $this, 'add_menus' ) );
@@ -50,12 +53,14 @@ class CACAP_Admin {
 			'cacap-admin'
 		);
 
+		/*
 		add_settings_section(
 			'cacap-widgets',
 			__( 'Widgets', 'cacap' ),
 			array( $this, 'settings_section_widgets' ),
 			'cacap-admin'
 		);
+		*/
 	}
 
 	public function admin_menu() {
@@ -68,6 +73,10 @@ class CACAP_Admin {
 		?>
 		<div class="wrap cacap-admin">
 			<h2><?php esc_html_e( 'CAC Advanced Profiles', 'cacap' ) ?></h2>
+
+			<?php if ( ! empty( $_GET['updated'] ) ) : ?>
+				<div id="message" class="updated below-h2"><p><?php esc_attr_e( 'Settings updated!', 'cacap' ) ?></p></div>
+			<?php endif; ?>
 
 			<?php $this->admin_tabs( $current_section ) ?>
 
@@ -320,6 +329,12 @@ class CACAP_Admin {
 		);
 
 		bp_update_option( 'cacap_header_fields', $values );
+
+		wp_redirect( add_query_arg( array(
+			'section' => 'cacap-profile-header-public',
+			'updated' => 1,
+		), $this->self_url ) );
+		die();
 	}
 
 	public function process_save_header_edit() {
@@ -334,6 +349,12 @@ class CACAP_Admin {
 		);
 
 		bp_update_option( 'cacap_header_fields_edit', $values );
+
+		wp_redirect( add_query_arg( array(
+			'section' => 'cacap-profile-header-edit',
+			'updated' => 1,
+		), $this->self_url ) );
+		die();
 	}
 	/**
 	 * Enqueue JS and CSS assets.
