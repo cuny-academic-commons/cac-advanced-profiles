@@ -53,12 +53,14 @@ class CACAP_Admin {
 			'cacap-admin'
 		);
 
+		/*
 		add_settings_section(
 			'cacap-widgets',
 			__( 'Widgets', 'cacap' ),
 			array( $this, 'settings_section_widgets' ),
 			'cacap-admin'
 		);
+		*/
 	}
 
 	public function admin_menu() {
