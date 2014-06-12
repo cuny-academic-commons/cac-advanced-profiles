@@ -33,7 +33,7 @@ window.wp = window.wp || {};
 			$current_field,
 			$currently_editing,
 			$hallo_toolbar,
-			$jcw_half, // "just clicked widget" 
+			$jcw_half, // "just clicked widget"
 			$jcw_target,
 			$new_widget_button,
 			$position_delete_button,
@@ -123,13 +123,13 @@ window.wp = window.wp || {};
 			$positions_widget_inputs = $positions_widget.find( '.cacap-positions-positions' );
 			$positions_widget_static_text = $positions_widget.find( '.cacap-positions-static-text' );
 			if ( $positions_widget.length ) {
-				transition_positions_to_static_text();	
+				transition_positions_to_static_text();
 
-				// Fix prototype classes 
+				// Fix prototype classes
 				$positions_widget.html( $positions_widget.html().replace( /\bnewwidgetkey\b/g, 'cacap_positions' ) );
 
 				// Initialize autocomplete for existing widget
-				positions_autocomplete_setup( $positions_widget );	
+				positions_autocomplete_setup( $positions_widget );
 
 				positions_sortable_setup( $positions_widget );
 			}
@@ -153,7 +153,7 @@ window.wp = window.wp || {};
 			new_widget_count = 0;
 
 			$( '#cacap-new-widget-types li' ).on( 'click', function( e ) {
-				e.preventDefault();	
+				e.preventDefault();
 				$new_widget_button = $( this );
 				add_new_widget();
 			} );
@@ -165,19 +165,19 @@ window.wp = window.wp || {};
 		function init_exit_confirm() {
 			exit_confirm = false;
 
-			$( '#cacap-edit-form input:not(:submit), #cacap-edit-form textarea, #cacap-edit-form select' ).change( function() { 
-				exit_confirm = true; 
-			} ); 
+			$( '#cacap-edit-form input:not(:submit), #cacap-edit-form textarea, #cacap-edit-form select' ).change( function() {
+				exit_confirm = true;
+			} );
 
-			$( '#cacap-edit-form input:submit' ).on( 'click', function() { 
-				exit_confirm = false; 
-			} ); 
+			$( '#cacap-edit-form input:submit' ).on( 'click', function() {
+				exit_confirm = false;
+			} );
 
-			window.onbeforeunload = function() { 
-				if ( exit_confirm ) { 
-					return 'Are you sure you want to leave?'; 
-				} 
-			}; 
+			window.onbeforeunload = function() {
+				if ( exit_confirm ) {
+					return 'Are you sure you want to leave?';
+				}
+			};
 		}
 
 		/**
@@ -187,13 +187,13 @@ window.wp = window.wp || {};
 			$( '#cacap-edit-form' ).on( 'keydown', 'input:not(:submit), textarea', function(e){
 				keypress_code = ( e.keyCode ? e.keyCode : e.which );
 				$current_field = $( this );
-				
+
 				// ESC
 				if ( keypress_code === 27 ) {
 					$current_field.closest( '.cacap-show-on-edit' ).find( '.cacap-cancel' ).trigger( 'click' );
 					return false;
 				}
-			
+
 				// ENTER
 				// We want to preserve Enter behavior in textareas and autocomplete
 				if ( keypress_code === 13 && 'textarea' !== this.type && ! $current_field.hasClass( 'ui-autocomplete-input' ) ) {
@@ -210,7 +210,7 @@ window.wp = window.wp || {};
 			$about_you = $( 'div.field_about-you textarea' );
 			if ( $about_you.length !== 0 ) {
 
-				$about_you.after('<div class="cacap-char-count-gloss">Using <span class="cacap-char-count">0</span> of ' + about_you_max_length + ' characters<span class="cacap-char-count-warning"> (additional characters will be trimmed)</span></div>'); 
+				$about_you.after('<div class="cacap-char-count-gloss">Using <span class="cacap-char-count">0</span> of ' + about_you_max_length + ' characters<span class="cacap-char-count-warning"> (additional characters will be trimmed)</span></div>');
 
 				$about_you_gloss = $( '.cacap-char-count-gloss' );
 
@@ -377,7 +377,7 @@ window.wp = window.wp || {};
 		function clone_add_new_position_fields() {
 			// Find and unhide
 			$positions_fields = $w.find( '.cacap-position-new' ).children( 'li' ).clone();
-			
+
 			// Swap 'new' with proper iterator
 			// Subtract 1 for the prototype, but readd for new field
 			positions_count = $w.find( '.cacap-position' ).length;
@@ -406,8 +406,8 @@ window.wp = window.wp || {};
 			$( '.cacap-positions-positions' ).prepend( $positions_fields.wrap( '<li></li>' ) );
 
 			// Init autocomplete and sortable
-			positions_autocomplete_setup( $w );	
-			positions_sortable_setup( $w );	
+			positions_autocomplete_setup( $w );
+			positions_sortable_setup( $w );
 			reindex_positions_fields();
 		}
 
@@ -500,7 +500,7 @@ window.wp = window.wp || {};
 				if ( ! jcw_id.length ) {
 					return;
 				}
-	
+
 				if ( ! currently_editing.length && jcw_id.length ) {
 					mark_currently_editing( jcw_id );
 				}
@@ -515,18 +515,18 @@ window.wp = window.wp || {};
 					ok_or_cancel = $jcw_target.hasClass( 'cacap-ok' ) ? 'ok' : 'cancel';
 				}
 
-				$w = $jcw_half.closest( 'ul#cacap-widget-list li' );	
+				$w = $jcw_half.closest( 'ul#cacap-widget-list li' );
 				wid = $w.attr( 'id' );
 
 				wtype = get_widget_type_from_class( $w.attr( 'class' ) );
 
 				switch ( wtype ) {
-					
+
 					case 'positions' :
 						if ( jcw_target_is_button ) {
 							process_okcancel_positions();
 						} else {
-							toggle_editable_positions();	
+							toggle_editable_positions();
 						}
 
 						break;
@@ -536,7 +536,7 @@ window.wp = window.wp || {};
 						if ( jcw_target_is_button ) {
 							process_okcancel_rss();
 						} else {
-							toggle_editable_rss();	
+							toggle_editable_rss();
 						}
 						break;
 
@@ -544,7 +544,7 @@ window.wp = window.wp || {};
 						if ( jcw_target_is_button ) {
 							process_okcancel();
 						} else if ( $jcw_target.closest( 'article' ).hasClass( 'editable-content' ) ) {
-							toggle_editable();	
+							toggle_editable();
 						}
 
 						break;
@@ -617,7 +617,7 @@ window.wp = window.wp || {};
 		function init_widget_order() {
 			widget_order = $widget_order.val().split( ',' );
 		}
-	
+
 		/**
 		 * Set up autocomplete for Positions widget
 		 */
@@ -685,11 +685,11 @@ window.wp = window.wp || {};
 			$about_you_gloss.find( 'span.cacap-char-count' ).html( field_char_count );
 
 			if ( field_char_count > about_you_max_length ) {
-				class_to_add = 'cacap-length-red';	
+				class_to_add = 'cacap-length-red';
 			} else if ( field_char_count > about_you_max_length - 40 ) {
-				class_to_add = 'cacap-length-yellow';	
+				class_to_add = 'cacap-length-yellow';
 			} else {
-				class_to_add = 'cacap-length-green';	
+				class_to_add = 'cacap-length-green';
 			}
 
 			$about_you_gloss.removeClass( 'cacap-length-red cacap-length-yellow cacap-length-green' );
@@ -698,7 +698,7 @@ window.wp = window.wp || {};
 
 		// Init methods to run after document is ready
 		$( document ).ready( function() {
-			init_bodyclass();		
+			init_bodyclass();
 			init_stickyheader();
 
 			$widget_list = $( '#cacap-widget-list' );
@@ -713,6 +713,7 @@ window.wp = window.wp || {};
 				init_about_you_character_count();
 				bind_body_clicks();
 				bind_widget_clicks_delete();
+				bind_submit_clicks();
 			}
 		});
 	}
