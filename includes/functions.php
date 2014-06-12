@@ -220,7 +220,7 @@ function cacap_get_header_fields( $type = 'public' ) {
 		$missing_from_saved = array_diff( $flat_order, $flat_saved );
 		foreach ( $missing_from_saved as $mfs ) {
 			foreach ( array( 'left', 'right' ) as $side ) {
-				$mfs_key = array_key( $mfs, $edit_order[ $side ] );
+				$mfs_key = array_search( $mfs, $edit_order[ $side ] );
 				if ( false !== $mfs_key ) {
 					unset( $edit_order[ $side ][ $mfs_key ] );
 					$edit_order[ $side ] = array_values( $edit_order[ $side ] );
