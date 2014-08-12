@@ -94,6 +94,10 @@ class CACAP_Controller {
 			return $template;
 		}
 
+		if ( false === (bool) apply_filters( 'cacap_do_filter_top_level_template', true ) ) {
+			return $template;
+		}
+
 		$template = $this->locate_top_level_template();
 
 		return $template;
