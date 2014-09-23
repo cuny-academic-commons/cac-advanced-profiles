@@ -482,9 +482,10 @@ window.wp = window.wp || {};
 				if ( currently_editing.length && jcw_id !== currently_editing && ! $jcw_target.closest( '.ui-autocomplete' ).length && ! $jcw_target.closest( '.hallolink-dialog' ).length ) {
 					$currently_editing = $( '#' + currently_editing );
 
+					// Scroll to the bottomish of the element
 					// Offset for the header
 					currently_editing_position = $currently_editing.offset();
-					$.scrollTo( (currently_editing_position.top - 230) + 'px', 500 );
+					$.scrollTo( (currently_editing_position.top + $currently_editing.height() - 230) + 'px', 500 );
 
 					$currently_editing.addClass( 'warn' );
 					setTimeout( function() {
