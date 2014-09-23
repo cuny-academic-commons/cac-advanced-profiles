@@ -167,15 +167,22 @@ class CACAP_Widget_Instance {
 
 	public function edit_content() {
 		$html  = $this->widget_type->edit_content_markup( $this->value, $this->css_id );
-		$html .= $this->ok_cancel_buttons();
+		$html .= $this->ok_cancel_buttons( true );
 		return $html;
 	}
 
-	public function ok_cancel_buttons() {
-		return '<div class="cacap-ok-cancel">'
-		     .   '<a href="#" class="button cacap-ok">' . __( 'OK', 'cacap' ) . '</a>'
-		     .   '<a href="#" class="button cacap-cancel">' . __( 'Cancel', 'cacap' ) . '</a>'
-		     . '</div>';
+	public function ok_cancel_buttons( $clear_formatting = false ) {
+		$button = '<div class="cacap-ok-cancel">'
+		     . '<a href="#" class="button cacap-ok">' . __( 'OK', 'cacap' ) . '</a>'
+		     . '<a href="#" class="button cacap-cancel">' . __( 'Cancel', 'cacap' ) . '</a>';
+
+		if ( $clear_formatting ) {
+			$button .= '<a href="#" class="cacap-clear-formatting">' . __( 'Clear Formatting', 'cacap' ) . '</a>';
+		}
+
+		$button .= '</div>';
+
+		return $button;
 	}
 
 	/**
