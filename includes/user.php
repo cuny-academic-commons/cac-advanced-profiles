@@ -68,8 +68,16 @@ class CACAP_User {
 				}
 
 				if ( $key && isset( $widget_types[ $widget_type ] ) ) {
-					$this->widget_instances[ $key ] = new CACAP_Widget_Instance( $widget_instance_datum );
+					$widget_instance = new CACAP_Widget_Instance( $widget_instance_datum );
 				}
+
+				// Make sure there is a value to display
+				$display_content = trim( $widget_instance->display_content() );
+				if ( empty( $display_content ) ) {
+					continue;
+				}
+
+				$this->widget_instances[ $key ] = $widget_instance;
 			}
 		}
 
