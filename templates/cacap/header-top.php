@@ -31,10 +31,15 @@
 			<div class="activity"><?php bp_last_activity( bp_displayed_user_id() ) ?></div>
 
 			<?php if ( bp_is_my_profile() ) : ?>
+
 				<div id="change-avatar-button" class="generic-button">
 					<a href="<?php echo bp_displayed_user_domain() ?>profile/change-avatar">Change Avatar</a>
 				</div>
+
 			<?php endif ?>
+
+			<?php do_action( 'cacap_below_avatar' ); ?>
+
 		</div>
 	</div>
 
