@@ -111,6 +111,7 @@ class CACAP_Widget_Instance {
 			'widget_type' => '',
 			'title' => '',
 			'content' => '',
+			'position' => '',
 		) );
 
 		$types = cacap_widget_types();
@@ -207,7 +208,7 @@ class CACAP_Widget_Instance {
 			'user_id' => 0,
 			'key' => '',
 			'widget_type' => '',
-			'position' => 50,
+			'position' => '',
 		) );
 
 		$retval = array(
