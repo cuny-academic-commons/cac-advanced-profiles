@@ -234,6 +234,7 @@ class CACAP_Controller {
 			}
 
 			// Now edit and add
+			$order_iterator = 0; 
 			foreach ( $widget_order as $key ) {
 				$title       = isset( $_POST[ $key ]['title'] ) ? $_POST[ $key ]['title'] : '';
 				$content     = isset( $_POST[ $key ]['content'] ) ? $_POST[ $key ]['content'] : '';
@@ -253,6 +254,7 @@ class CACAP_Controller {
 						'widget_type' => $widget_type,
 						'title'       => $title,
 						'content'     => $content,
+						'position'    => $order_iterator, 
 					) );
 				} else {
 					$user->save_widget_instance( array(
@@ -260,8 +262,10 @@ class CACAP_Controller {
 						'widget_type' => $widget_type,
 						'title'       => $title,
 						'content'     => $content,
+						'position'    => $order_iterator, 
 					) );
 				}
+				$order_iterator = $order_iterator + 1; 
 			}
 		}
 	}
