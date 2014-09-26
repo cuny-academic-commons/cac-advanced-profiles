@@ -22,10 +22,11 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	 */
 	public function save_instance_for_user( $args = array() ) {
 		$r = wp_parse_args( $args, array(
-			'key' => '',
-			'user_id' => 0,
-			'title' => '',
-			'content' => '',
+			'key'        => '',
+			'user_id'    => 0,
+			'title'      => '',
+			'content'    => '',
+			'position'   => '', 
 		) );
 
 		// @todo better error reporting
@@ -50,6 +51,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 				'key' => $meta_key,
 				'value' => $meta_value,
 				'widget_type' => $this->slug,
+				'position' => $r['position'],
 			) );
 		} else {
 			// do something bad
