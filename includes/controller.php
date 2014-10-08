@@ -188,6 +188,10 @@ class CACAP_Controller {
 			$v
 		);
 
+		wp_localize_script( 'cacap', 'CACAP_Strings', array(
+			'clear_formatting_confirm' => __( 'Are you sure you want to remove all formatting from this field?', 'cacap' ),
+		) );
+
 		// enqueue CAC js for commons-profile pages
 		wp_enqueue_script( 'bp-dtheme-js' );
 	}

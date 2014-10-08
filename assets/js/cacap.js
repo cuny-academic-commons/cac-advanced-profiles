@@ -226,13 +226,15 @@ window.wp = window.wp || {};
 		function init_clear_formatting() {
 			// Delegated
 			$( '.cacap-widgets-edit' ).on( 'click', 'a.cacap-clear-formatting', function( e ) {
-				$field_to_clear = $( e.target ).closest( '.cacap-widget-section-editable' ).find( '.editable-content' );
-				var field_html = $field_to_clear.html().replace( /<br>/g, "__CACAP__BR__" );
-				var new_div = document.createElement( "div" );
-				new_div.innerHTML = field_html;
-				var cleaned_text = new_div.textContent || new_div.innerText || "";
-				console.log( cleaned_text.replace( /__CACAP__BR__/g, "<br>" ) );
-				$field_to_clear.html( cleaned_text.replace( /__CACAP__BR__/g, "<br>" ) );
+				if ( confirm( CACAP_Strings.clear_formatting_confirm ) ) {
+					$field_to_clear = $( e.target ).closest( '.cacap-widget-section-editable' ).find( '.editable-content' );
+					var field_html = $field_to_clear.html().replace( /<br>/g, "__CACAP__BR__" );
+					var new_div = document.createElement( "div" );
+					new_div.innerHTML = field_html;
+					var cleaned_text = new_div.textContent || new_div.innerText || "";
+					$field_to_clear.html( cleaned_text.replace( /__CACAP__BR__/g, "<br>" ) );
+				}
+
 				return false;
 			} );
 		}
