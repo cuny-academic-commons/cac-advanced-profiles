@@ -254,6 +254,10 @@ class CACAP_Controller {
 					continue;
 				}
 
+				// Content may have converted characters from
+				// JS juggling.
+				$content = htmlspecialchars_decode( $content );
+
 				$key_a = explode( '-', $key );
 				$key_a_last = array_pop( $key_a );
 				if ( 0 === strpos( $key_a_last, 'newwidget' ) ) {
