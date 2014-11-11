@@ -256,7 +256,9 @@ class CACAP_Controller {
 
 				// Content may have converted characters from
 				// JS juggling.
-				$content = htmlspecialchars_decode( $content );
+				if ( is_scalar( $content ) ) {
+					$content = htmlspecialchars_decode( $content );
+				}
 
 				$key_a = explode( '-', $key );
 				$key_a_last = array_pop( $key_a );
