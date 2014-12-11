@@ -28,7 +28,9 @@
 				'width' => '130px',
 				'height' => '130px',
 			) ) ?>
-			<div class="activity"><?php bp_last_activity( bp_displayed_user_id() ) ?></div>
+			<?php if ( ! cacap_is_commons_profile() ) : ?>
+				<div class="activity"><?php bp_last_activity( bp_displayed_user_id() ) ?></div>
+			<?php endif; ?>
 
 			<?php if ( bp_is_my_profile() ) : ?>
 
