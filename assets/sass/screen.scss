@@ -1058,3 +1058,21 @@ body.cacap .cacap-widget-content .hallotoolbar {
 		margin-bottom: 8px;
 	}
 }
+
+/* Media queries */
+@media screen and (max-width:940px) {
+	.cacap-row {
+		min-width: 0;
+	}
+
+	#cacap-header .cacap-hero-row.stuck .cacap-sticky-dummy {
+		width: auto;
+		padding: 0 10px;
+	}
+}
+
+@media screen and (max-width:650px) {
+	#cacap-header .cacap-hero {
+		width: 50%;
+	}
+}
