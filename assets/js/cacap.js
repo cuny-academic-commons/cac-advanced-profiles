@@ -48,21 +48,21 @@ window.wp = window.wp || {};
 			$w,
 			$widget_list,
 			$widget_order,
-			$wtitle;
+			$wtitle,
 
 		/**
 		 * Set up the 'js' body class.
 		 *
 		 * BuddyPress should do this, but just in case
 		 */
-		function init_bodyclass() {
+		init_bodyclass = function() {
 			document.body.className = document.body.className.replace( /no-js/, 'js' );
-		}
+		},
 
 		/**
 		 * Set up the sticky header.
 		 */
-		function init_stickyheader() {
+		init_stickyheader = function() {
 			if ( $( 'body' ).hasClass( 'short-header' ) ) {
 				return;
 			}
@@ -75,12 +75,12 @@ window.wp = window.wp || {};
 					wrapper: '<div class="cacap-hero-row-sticky" />'
 				} );
 			}
-		}
+		},
 
 		/**
 		 * Initialize the sortable widgets.
 		 */
-		function init_sortable_widgets() {
+		init_sortable_widgets = function() {
 			$widget_order = $( '#cacap-widget-order' );
 
 			$widget_list.sortable({
@@ -91,14 +91,14 @@ window.wp = window.wp || {};
 					$widget_order.val($(this).sortable( 'toArray' ));
 				}
 			});
-		}
+		},
 
 		/**
 		 * Initialize editable widgets.
 		 *
 		 * These are the widgets that use contentEditable.
 		 */
-		function init_editable_widgets() {
+		init_editable_widgets = function() {
 			$('article.richtext').each( function() {
 				$( this ).hallo( {
 					toolbar: 'halloToolbarFixed',
@@ -114,12 +114,12 @@ window.wp = window.wp || {};
 					}
 				} );
 			});
-		}
+		},
 
 		/**
 		 * Set up initial positions widgets.
 		 */
-		function init_positions_widgets() {
+		init_positions_widgets = function() {
 			$positions_widget = $('.cacap-widget-positions');
 			$positions_widget_inputs = $positions_widget.find( '.cacap-positions-positions' );
 			$positions_widget_static_text = $positions_widget.find( '.cacap-positions-static-text' );
@@ -145,12 +145,12 @@ window.wp = window.wp || {};
 			$widget_list.on( 'click', '.cacap-delete-position', function() {
 				$( this ).parent( 'li' ).remove();
 			} );
-		}
+		},
 
 		/**
 		 * Set up the New Widget buttons
 		 */
-		function init_new_widget_buttons() {
+		init_new_widget_buttons = function() {
 			new_widget_count = 0;
 
 			$( '#cacap-new-widget-types li' ).on( 'click', function( e ) {
@@ -158,12 +158,12 @@ window.wp = window.wp || {};
 				$new_widget_button = $( this );
 				add_new_widget();
 			} );
-		}
+		},
 
 		/**
 		 * Set up the "are you sure you want to leave?" warning
 		 */
-		function init_exit_confirm() {
+		init_exit_confirm = function() {
 			exit_confirm = false;
 
 			$( '#cacap-edit-form input:not(:submit), #cacap-edit-form textarea, #cacap-edit-form select' ).change( function() {
@@ -179,12 +179,12 @@ window.wp = window.wp || {};
 					return 'Are you sure you want to leave?';
 				}
 			};
-		}
+		},
 
 		/**
 		 * [ESC] and [ENTER] have special meaning on widget edit inputs
 		 */
-		function init_widget_specialkeys() {
+		init_widget_specialkeys = function() {
 			$( '#cacap-edit-form' ).on( 'keydown', 'input:not(:submit), textarea', function(e){
 				keypress_code = ( e.keyCode ? e.keyCode : e.which );
 				$current_field = $( this );
@@ -202,12 +202,12 @@ window.wp = window.wp || {};
 					return false;
 				}
 			});
-		}
+		},
 
 		/**
 		 * Set up character counter for About You field
 		 */
-		function init_about_you_character_count() {
+		init_about_you_character_count = function() {
 			$about_you = $( 'div.field_about-you textarea' );
 			if ( $about_you.length !== 0 ) {
 
@@ -218,12 +218,12 @@ window.wp = window.wp || {};
 				update_character_count_for_field( $about_you );
 				$about_you.on( 'keyup', function() { update_character_count_for_field( $about_you ); } );
 			}
-		}
+		},
 
 		/**
 		 * Set up clear formatting buttons
 		 */
-		function init_clear_formatting() {
+		init_clear_formatting = function() {
 			// Delegated
 			$( '.cacap-widgets-edit' ).on( 'click', 'a.cacap-clear-formatting', function( e ) {
 				if ( confirm( CACAP_Strings.clear_formatting_confirm ) ) {
@@ -237,12 +237,12 @@ window.wp = window.wp || {};
 
 				return false;
 			} );
-		}
+		},
 
 		/**
 		 * Process the click of an OK or Cancel button.
 		 */
-		function process_okcancel() {
+		process_okcancel = function() {
 			if ( 'ok' === ok_or_cancel ) {
 				// Copy new content to hidden input
 				$jcw_half.find( '.editable-content-stash' ).val( $jcw_half.find( '.editable-content' ).html() );
@@ -256,12 +256,12 @@ window.wp = window.wp || {};
 
 			// Remove currently_editing toggle
 			unmark_currently_editing();
-		}
+		},
 
 		/**
 		 * Process the click of an OK or Cancel button on an RSS widget
 		 */
-		function process_okcancel_rss() {
+		process_okcancel_rss = function() {
 			// The title side is a normal editable field
 			if ( $jcw_target.closest( '.cacap-widget-section-editable' ).hasClass( 'cacap-widget-title' ) ) {
 				if ( 'ok' === ok_or_cancel ) {
@@ -286,12 +286,12 @@ window.wp = window.wp || {};
 
 			// Remove currently_editing toggle
 			unmark_currently_editing();
-		}
+		},
 
 		/**
 		 * Process the click of an OK or Cancel button in a Positions widget.
 		 */
-		function process_okcancel_positions() {
+		process_okcancel_positions = function() {
 			if ( 'ok' === ok_or_cancel ) {
 				transition_positions_to_static_text();
 			} else {
@@ -303,50 +303,50 @@ window.wp = window.wp || {};
 
 			// Remove currently_editing toggle
 			unmark_currently_editing();
-		}
+		},
 
 		/**
 		 * Toggle editable widget areas (when clicked).
 		 */
-		function toggle_editable() {
+		toggle_editable = function() {
 			// Cache the current value of the widget, in case of Cancel
 			widget_value_cache[ wid ] = $jcw_target.html();
 
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
-		}
+		},
 
 		/**
 		 * Toggle editable widget RSS areas (when clicked).
 		 */
-		function toggle_editable_rss() {
+		toggle_editable_rss = function() {
 			// Cache the current value of the widget, in case of Cancel
 			widget_value_cache[ wid ] = $jcw_half.find( 'input.cacap-edit-input' ).val();
 
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
-		}
+		},
 
 		/**
 		 * Toggle editable positions widget area (when clicked).
 		 */
-		function toggle_editable_positions() {
+		toggle_editable_positions = function() {
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
-		}
+		},
 
 		/**
 		 * Get a canonical widget_type from a widget classname.
 		 */
-		function get_widget_type_from_class( classname ) {
+		get_widget_type_from_class = function( classname ) {
 			widget_type_regex = /cacap\-widget\-([a-zA-Z0-9\-]+)/;
 			return classname.match(widget_type_regex).pop();
-		}
+		},
 
 		/**
 		 * Transition a Positions inputs widget to static text.
 		 */
-		function transition_positions_to_static_text() {
+		transition_positions_to_static_text = function() {
 			positions = [];
 
 			$positions_widget = $('.cacap-widget-positions');
@@ -389,12 +389,12 @@ window.wp = window.wp || {};
 			}
 
 			$positions_static_text_field.html( positions_static_text );
-		}
+		},
 
 		/**
 		 * Clone 'new position' fields for a new position
 		 */
-		function clone_add_new_position_fields() {
+		clone_add_new_position_fields = function() {
 			// Find and unhide
 			$positions_fields = $w.find( '.cacap-position-new' ).children( 'li' ).clone();
 
@@ -429,12 +429,12 @@ window.wp = window.wp || {};
 			positions_autocomplete_setup( $w );
 			positions_sortable_setup( $w );
 			reindex_positions_fields();
-		}
+		},
 
 		/**
 		 * Add a new widget
 		 */
-		function add_new_widget() {
+		add_new_widget = function() {
 			// Do nothing if the max has been met for this widget type
 			if ( $new_widget_button.hasClass( 'cacap-has-max' ) ) {
 				return false;
@@ -485,9 +485,9 @@ window.wp = window.wp || {};
 
 			// Offset for the header
 			$.scrollTo( ( $w.offset().top - 230 ) + 'px', 500 );
-		}
+		},
 
-		function bind_body_clicks() {
+		bind_body_clicks = function() {
 			$( 'body' ).on( 'mousedown', function( e ) {
 				$jcw_target = $( e.target );
 
@@ -569,20 +569,20 @@ window.wp = window.wp || {};
 						break;
 				}
 			} );
-		}
+		},
 
-		function bind_widget_clicks_delete() {
+		bind_widget_clicks_delete = function() {
 			$widget_list.on( 'click', '.cacap-widget-remove', function() {
 				$w = $( this ).closest( '#cacap-widget-list li' );
 				delete_widget();
 				return false;
 			} );
-		}
+		},
 
 		/**
 		 * Mark a widget as "currently editing"
 		 */
-		function mark_currently_editing( jcw_id ) {
+		mark_currently_editing = function( jcw_id ) {
 			currently_editing = jcw_id;
 
 			// Remove other contentEditables
@@ -596,21 +596,21 @@ window.wp = window.wp || {};
 
 			// Mark that editing is in process (for widget styling)
 			$widget_list.addClass( 'currently-editing' );
-		}
+		},
 
 		/**
 		 * Unmark as "currently editing"
 		 */
-		function unmark_currently_editing() {
+		unmark_currently_editing = function() {
 			currently_editing = '';
 			$widget_list.find( 'article.editable-content' ).attr( 'contenteditable', true );
 			$widget_list.removeClass( 'currently-editing' );
-		}
+		},
 
 		/**
 		 * Delete just-clicked widget
 		 */
-		function delete_widget() {
+		delete_widget = function() {
 			init_widget_order();
 			wid = $w.attr( 'id' );
 
@@ -628,19 +628,19 @@ window.wp = window.wp || {};
 
 			// Remove the widget
 			$w.remove();
-		}
+		},
 
 		/**
 		 * Init the widget order
 		 */
-		function init_widget_order() {
+		init_widget_order = function() {
 			widget_order = $widget_order.val().split( ',' );
-		}
+		},
 
 		/**
 		 * Set up autocomplete for Positions widget
 		 */
-		function positions_autocomplete_setup( $widget ) {
+		positions_autocomplete_setup = function( $widget ) {
 			if ( $widget ) {
 				var autocomplete_ep = ajaxurl + '?action=cacap_position_suggest';
 				$widget.find('.cacap-position-field-autocomplete').each( function() {
@@ -652,12 +652,12 @@ window.wp = window.wp || {};
 
 				// @todo Title?
 			}
-		}
+		},
 
 		/**
 		 * Set up sortable for Positions widget
 		 */
-		function positions_sortable_setup( $widget ) {
+		positions_sortable_setup = function( $widget ) {
 			if ( $widget ) {
 				$widget.find( '.cacap-positions-positions' ).sortable({
 					placeholder: 'ui-state-highlight',
@@ -669,12 +669,12 @@ window.wp = window.wp || {};
 					}
 				});
 			}
-		}
+		},
 
 		/**
 		 * Re-index positions fields
 		 */
-		function reindex_positions_fields() {
+		reindex_positions_fields = function() {
 			var c = 1;
 			$positions_widget.find( '.cacap-position' ).each( function() {
 				if ( 'cacap-position-add-new' !== this.id ) {
@@ -694,12 +694,12 @@ window.wp = window.wp || {};
 				}
 
 			} );
-		}
+		},
 
 		/**
 		 * Update character count for the passed field
 		 */
-		function update_character_count_for_field( $field ) {
+		update_character_count_for_field = function( $field ) {
 			field_char_count = $field.val().length;
 			$about_you_gloss.find( 'span.cacap-char-count' ).html( field_char_count );
 
