@@ -582,7 +582,7 @@ window.wp = window.wp || {};
 		 * @todo Make this more easily extensible.
 		 */
 		click_target_is_whitelisted_from_bounce: function( target ) {
-			var $jcw_target = $( target ).closest( '.cacap-click-to-edit' );
+			var $jcw_target = $( target );
 
 			return $jcw_target.closest( '.ui-autocomplete' ).length || $jcw_target.closest( '.hallolink-dialog' ).length;
 		},
