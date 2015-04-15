@@ -746,10 +746,9 @@ window.wp = window.wp || {};
 		}
 	}
 
-	$( document ).ready( function() {
-		wp.cacap = cacap;
-		wp.cacap.init();
-		console.log(wp.cacap);
-	} );
+	wp.cacap = cacap;
 
+	$( document ).ready( function() {
+		wp.cacap.init();
+	} );
 }(jQuery));
