@@ -147,8 +147,8 @@ window.wp = window.wp || {};
 
 			$( '#cacap-new-widget-types li' ).on( 'click', function( e ) {
 				e.preventDefault();
-				$new_widget_button = $( this );
-				add_new_widget();
+				self.$new_widget_button = $( this );
+				self.add_new_widget();
 			} );
 		},
 
@@ -240,7 +240,7 @@ window.wp = window.wp || {};
 				self.$jcw_half.find( '.editable-content-stash' ).val( self.$jcw_half.find( '.editable-content' ).html() );
 			} else {
 				// Replace the edited content with the cached value
-				self.$jcw_half.find( '.editable-content' ).html( self.widget_value_cache[ wid ] );
+				self.$jcw_half.find( '.editable-content' ).html( self.widget_value_cache[ self.wid ] );
 			}
 
 			// Remove editing class
@@ -261,7 +261,7 @@ window.wp = window.wp || {};
 					$jcw_half.find( '.editable-content-stash' ).val( $jcw_half.find( '.editable-content' ).html() );
 				} else {
 					// Replace the edited content with the cached value
-					$jcw_half.find( '.editable-content' ).html( widget_value_cache[ wid ] );
+					$jcw_half.find( '.editable-content' ).html( widget_value_cache[ self.wid ] );
 				}
 
 			// The content side is an input field
@@ -269,7 +269,7 @@ window.wp = window.wp || {};
 				if ( 'ok' === ok_or_cancel ) {
 					// nothing to do?
 				} else {
-					$jcw_half.find( 'input.cacap-edit-input' ).val( widget_value_cache[ wid ] );
+					$jcw_half.find( 'input.cacap-edit-input' ).val( widget_value_cache[ self.wid ] );
 				}
 			}
 
@@ -302,7 +302,7 @@ window.wp = window.wp || {};
 		 */
 		toggle_editable: function() {
 			// Cache the current value of the widget, in case of Cancel
-			self.widget_value_cache[ wid ] = self.$jcw_target.html();
+			self.widget_value_cache[ self.wid ] = self.$jcw_target.html();
 
 			// Add the 'editing' class
 			self.$jcw_half.addClass( 'editing' );
@@ -313,7 +313,7 @@ window.wp = window.wp || {};
 		 */
 		toggle_editable_rss: function() {
 			// Cache the current value of the widget, in case of Cancel
-			widget_value_cache[ wid ] = $jcw_half.find( 'input.cacap-edit-input' ).val();
+			widget_value_cache[ self.wid ] = $jcw_half.find( 'input.cacap-edit-input' ).val();
 
 			// Add the 'editing' class
 			$jcw_half.addClass( 'editing' );
@@ -428,52 +428,52 @@ window.wp = window.wp || {};
 		 */
 		add_new_widget: function() {
 			// Do nothing if the max has been met for this widget type
-			if ( $new_widget_button.hasClass( 'cacap-has-max' ) ) {
+			if ( self.$new_widget_button.hasClass( 'cacap-has-max' ) ) {
 				return false;
 			}
 
 			// Tick the counter (used to construct unique IDs)
 			new_widget_count++;
 
-			wtype = $new_widget_button.attr( 'id' ).slice( 17 );
+			wtype = self.$new_widget_button.attr( 'id' ).slice( 17 );
 
 			// Get the prototype and swap with the autoincrement
 			new_widget_prototype = $( '#cacap-widget-prototype-' + wtype ).html();
 			new_widget_prototype = new_widget_prototype.replace( /newwidgetkey/g, 'newwidget' + new_widget_count );
 
-			wid = 'cacap-widget-newwidget' + new_widget_count;
+			self.wid = 'cacap-widget-newwidget' + new_widget_count;
 
-			$widget_list.append( '<li id="' + wid + '" class="cacap-widget-' + wtype + '">' + new_widget_prototype + '</li>' );
+			self.$widget_list.append( '<li id="' + self.wid + '" class="cacap-widget-' + wtype + '">' + new_widget_prototype + '</li>' );
 
 			// Update the widget order input value
-			init_widget_order();
-			widget_order.push( wid );
-			$widget_order.val( widget_order );
+			self.init_widget_order();
+			self.widget_order.push( self.wid );
+			self.$widget_order.val( self.widget_order );
 
-			self.$w = $( '#' + wid );
+			self.$w = $( '#' + self.wid );
 
 			// Add the type class
 			self.$w.addClass( 'cacap-widget-' + wtype );
 
 			// If this widget doesn't allow multiple types, disable the
 			// button
-			if ( $new_widget_button.hasClass( 'disable-multiple' ) ) {
-				$new_widget_button.addClass( 'cacap-has-max' );
+			if ( self.$new_widget_button.hasClass( 'disable-multiple' ) ) {
+				self.$new_widget_button.addClass( 'cacap-has-max' );
 			}
 
 			// Activate editable fields
 			self.$w.find( 'article.editable-content' ).css( 'min-height', '2em' ).attr( 'contenteditable', 'true' );
 
 			// Add section IDs
-			self.$w.find( '.cacap-widget-title' ).attr( 'id', wid + '-title' );
-			self.$w.find( '.cacap-widget-content' ).attr( 'id', wid + '-content' );
+			self.$w.find( '.cacap-widget-title' ).attr( 'id', self.wid + '-title' );
+			self.$w.find( '.cacap-widget-content' ).attr( 'id', self.wid + '-content' );
 
 			// If it's a positions field, set it up
 			if ( 'positions' == wtype ) {
-				clone_add_new_position_fields( self.$w );
+				self.clone_add_new_position_fields( self.$w );
 			}
 
-			init_editable_widgets();
+			self.init_editable_widgets();
 
 			// Offset for the header
 			$.scrollTo( ( self.$w.offset().top - 230 ) + 'px', 500 );
@@ -528,7 +528,7 @@ window.wp = window.wp || {};
 				}
 
 				self.$w = self.$jcw_half.closest( 'ul#cacap-widget-list li' );
-				wid = self.$w.attr( 'id' );
+				self.wid = self.$w.attr( 'id' );
 
 				wtype = self.get_widget_type_from_class( self.$w.attr( 'class' ) );
 
@@ -619,19 +619,19 @@ window.wp = window.wp || {};
 		 * Delete just-clicked widget
 		 */
 		delete_widget: function() {
-			init_widget_order();
-			wid = self.$w.attr( 'id' );
+			self.init_widget_order();
+			self.wid = self.$w.attr( 'id' );
 
 			// Remove the widget from the widget order
-			widget_order.splice( $.inArray( wid, widget_order ), 1 );
-			$widget_order.val( widget_order );
+			self.widget_order.splice( $.inArray( self.wid, self.widget_order ), 1 );
+			self.$widget_order.val( self.widget_order );
 
 			// If the new widget button for this type is disabled
 			// due to a max number of widgets, remove that restriction
-			wtype = get_widget_type_from_class( self.$w.attr( 'class' ) );
-			$new_widget_button = $( '#cacap-new-widget-' + wtype );
-			if ( $new_widget_button.hasClass( 'disable-multiple' ) ) {
-				$new_widget_button.removeClass( 'cacap-has-max' );
+			wtype = self.get_widget_type_from_class( self.$w.attr( 'class' ) );
+			self.$new_widget_button = $( '#cacap-new-widget-' + wtype );
+			if ( self.$new_widget_button.hasClass( 'disable-multiple' ) ) {
+				self.$new_widget_button.removeClass( 'cacap-has-max' );
 			}
 
 			// Remove the widget
@@ -642,7 +642,7 @@ window.wp = window.wp || {};
 		 * Init the widget order
 		 */
 		init_widget_order: function() {
-			widget_order = $widget_order.val().split( ',' );
+			self.widget_order = self.$widget_order.val().split( ',' );
 		},
 
 		/**
@@ -673,7 +673,7 @@ window.wp = window.wp || {};
 					axis: 'y',
 					handle: '.cacap-position-drag-handle',
 					stop: function( event, ui ) {
-						reindex_positions_fields();
+						self.reindex_positions_fields();
 					}
 				});
 			}
@@ -684,7 +684,7 @@ window.wp = window.wp || {};
 		 */
 		reindex_positions_fields: function() {
 			var c = 1;
-			$positions_widget.find( '.cacap-position' ).each( function() {
+			self.$positions_widget.find( '.cacap-position' ).each( function() {
 				if ( 'cacap-position-add-new' !== this.id ) {
 					// Swap id for table and delete button
 					// Not really necessary, but just for consistency
@@ -694,7 +694,7 @@ window.wp = window.wp || {};
 					// Swap out names - this is the part that's required
 					// to make the form work
 					$( this ).find( 'input,select' ).each( function() {
-						console.log( $( this ).attr( 'name' ).replace( /(\[content\]\[)([0-9]+)\]/, '$1' + c + ']' ) );
+						//console.log( $( this ).attr( 'name' ).replace( /(\[content\]\[)([0-9]+)\]/, '$1' + c + ']' ) );
 						$( this ).attr( 'name', $( this ).attr( 'name' ).replace( /(\[content\]\[)([0-9]+)\]/, '$1' + c + ']' ) );
 					} );
 
