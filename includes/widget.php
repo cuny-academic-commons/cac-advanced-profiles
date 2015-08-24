@@ -198,12 +198,14 @@ abstract class CACAP_Widget {
 	// @todo use bp xprofile functions for formatting potential arrays, etc
 	public function display_content_markup( $value ) {
 		// Hack for now
-		$value = wptexturize( $value );
-		$value = convert_chars( $value );
-		$value = wpautop( $value );
-		$value = force_balance_tags( $value );
-		$value = make_clickable( $value );
-		$value = convert_smilies( $value );
+		add_filter( 'cacap_widget_display_markup', 'wptexturize', 2 );
+		add_filter( 'cacap_widget_display_markup', 'convert_chars', 3 );
+		add_filter( 'cacap_widget_display_markup', 'wpautop', 4 );
+		add_filter( 'cacap_widget_display_markup', 'force_balance_tags', 5 );
+		add_filter( 'cacap_widget_display_markup', 'make_clickable', 6 );
+		add_filter( 'cacap_widget_display_markup', 'convert_smilies', 7 );
+		add_filter( 'cacap_widget_display_markup', 'wptexturize', 8 );
+
 //		$value = xprofile_filter_kses( $value );
 
 		if ( function_exists( 'cpfb_filter_link_profile_data' ) ) {
@@ -211,10 +213,13 @@ abstract class CACAP_Widget {
 		}
 
 		if ( function_exists( 'cpfb_add_brackets' ) ) {
-			$value = cpfb_add_brackets( $value );
+			add_filter( 'cacap_widget_display_markup', 'cpfb_add_brackets', 9 );
 		}
 
-		return $value;
+		// Use this action to unhook stuff.
+		do_action( 'cacap_widget_pre_display_markup', $this );
+
+		return apply_filters( 'cacap_widget_display_markup', $value );
 	}
 
 	public function edit_title_markup( $value, $key ) {
