@@ -26,6 +26,8 @@ class CACAP_Controller {
 		remove_filter( 'xprofile_data_value_before_save', 'xprofile_sanitize_data_value_before_save', 1, 2 );
 		remove_filter( 'xprofile_filtered_data_value_before_save', 'trim', 2 );
 		remove_filter( 'xprofile_get_field_data', 'wp_filter_kses', 1 );
+		remove_filter( 'bp_get_the_profile_field_value', 'esc_html', 8 );
+		remove_filter( 'bp_get_the_profile_field_value', 'wp_filter_kses', 8 );
 
 		add_action( 'xprofile_updated_profile', array( $this, 'save_profile_data' ) );
 
