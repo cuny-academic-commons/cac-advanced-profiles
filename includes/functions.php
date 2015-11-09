@@ -142,6 +142,11 @@ function cacap_is_commons_profile() {
 		if ( ! bp_is_profile_component() ) {
 			$retval = true;
 		}
+
+		// Change Avatar, etc.
+		if ( bp_is_profile_component() && bp_current_action() ) {
+			$retval = true;
+		}
 	}
 
 	return apply_filters( 'cacap_is_commons_profile', $retval );
