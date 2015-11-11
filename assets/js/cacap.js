@@ -208,7 +208,7 @@ window.wp = window.wp || {};
 				$about_you_gloss = $( '.cacap-char-count-gloss' );
 
 				self.update_character_count_for_field( $about_you );
-				$about_you.on( 'keyup', function() { update_character_count_for_field( $about_you ); } );
+				$about_you.on( 'keyup', function() { self.update_character_count_for_field( $about_you ); } );
 			}
 		},
 
