@@ -144,7 +144,7 @@ function cacap_is_commons_profile() {
 		}
 
 		// Change Avatar, etc.
-		if ( bp_is_profile_component() && bp_current_action() && ! bp_is_current_action( 'edit' ) ) {
+		if ( bp_is_profile_component() && bp_current_action() && ! bp_is_current_action( 'edit' ) && ! bp_is_current_action( 'public' ) ) {
 			$retval = true;
 		}
 	}
