@@ -109,37 +109,39 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 
 		$html .= '<ul class="cacap-rss-items">';
 
-		foreach ( $items as $item ) {
-			$html .= '<li>';
+		if ( is_array( $items ) ) {
+			foreach ( $items as $item ) {
+				$html .= '<li>';
 
-			$html .=   '<div class="cacap-feed-item-title">';
-			$html .=     '<a href="' . esc_attr( $item['permalink'] ) . '">';
-			$html .=       esc_html( $item['title'] );
-			$html .=     '</a>';
-			$html .=   '</div>';
+				$html .=   '<div class="cacap-feed-item-title">';
+				$html .=     '<a href="' . esc_attr( $item['permalink'] ) . '">';
+				$html .=       esc_html( $item['title'] );
+				$html .=     '</a>';
+				$html .=   '</div>';
 
-			$html .=   '<div class="cacap-feed-item-content">';
-			$html .=     $item['content'];
-			$html .=   '</div>';
+				$html .=   '<div class="cacap-feed-item-content">';
+				$html .=     $item['content'];
+				$html .=   '</div>';
 
-			$html .=   '<div class="cacap-feed-item-meta">';
+				$html .=   '<div class="cacap-feed-item-meta">';
 
-			// could probably use simplepie methods to avoid some of this
-			if ( ! empty( $item['author'] ) && is_object( $item['author'] ) && ! empty( $item['author']->name ) ) {
-				$html .= '<span class="cacap-feed-item-byline">';
-				$html .=   esc_html( $item['author']->name );
-				$html .= '</span>';
+				// could probably use simplepie methods to avoid some of this
+				if ( ! empty( $item['author'] ) && is_object( $item['author'] ) && ! empty( $item['author']->name ) ) {
+					$html .= '<span class="cacap-feed-item-byline">';
+					$html .=   esc_html( $item['author']->name );
+					$html .= '</span>';
+				}
+
+				if ( ! empty( $item['date'] ) ) {
+					$html .= '<span class="cacap-feed-item-date">';
+					$html .=   esc_html( $item['date'] );
+					$html .= '</span>';
+				}
+
+				$html .=   '</div>';
+
+				$html .= '</li>';
 			}
-
-			if ( ! empty( $item['date'] ) ) {
-				$html .= '<span class="cacap-feed-item-date">';
-				$html .=   esc_html( $item['date'] );
-				$html .= '</span>';
-			}
-
-			$html .=   '</div>';
-
-			$html .= '</li>';
 		}
 
 		$html .= '</ul>';
@@ -166,11 +168,11 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 	public function format_rss_items( $feed_url, $num_items = 5 ) {
 		$feed_posts = fetch_feed( $feed_url );
 
-		if ( empty( $feed_posts ) || is_wp_error( $feed_posts ) ) {
-			return;
-		}
-
 		$items = array();
+
+		if ( empty( $feed_posts ) || is_wp_error( $feed_posts ) ) {
+			return $items;
+		}
 
 		foreach( $feed_posts->get_items( 0, $num_items ) as $key => $feed_item ) {
 			$items[] = array(
