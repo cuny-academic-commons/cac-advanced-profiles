@@ -2,6 +2,8 @@
 	<div class="cacap-row cacap-bp-profile-fields">
 
 	<?php
+	do_action( 'template_notices' );
+
 	/**
 	 * We do a hack to sort into columns. Cols are defined in an array.
 	 * We'll chop them up into two groups, sort them as defined here, then
