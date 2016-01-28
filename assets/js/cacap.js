@@ -255,7 +255,7 @@ window.wp = window.wp || {};
 		 */
 		process_okcancel_rss: function( ok_or_cancel ) {
 			// The title side is a normal editable field
-			if ( $jcw_target.closest( '.cacap-widget-section-editable' ).hasClass( 'cacap-widget-title' ) ) {
+			if ( self.$jcw_target.closest( '.cacap-widget-section-editable' ).hasClass( 'cacap-widget-title' ) ) {
 				if ( 'ok' === ok_or_cancel ) {
 					// Copy new content to hidden input
 					self.$jcw_half.find( '.editable-content-stash' ).val( self.$jcw_half.find( '.editable-content' ).html() );
@@ -582,9 +582,9 @@ window.wp = window.wp || {};
 		 * @todo Make this more easily extensible.
 		 */
 		click_target_is_whitelisted_from_bounce: function( target ) {
-			var $jcw_target = $( target );
+			var self.$jcw_target = $( target );
 
-			return $jcw_target.closest( '.ui-autocomplete' ).length || $jcw_target.closest( '.hallolink-dialog' ).length;
+			return self.$jcw_target.closest( '.ui-autocomplete' ).length || self.$jcw_target.closest( '.hallolink-dialog' ).length;
 		},
 
 		/**
