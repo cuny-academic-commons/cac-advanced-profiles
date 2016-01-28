@@ -258,10 +258,10 @@ window.wp = window.wp || {};
 			if ( $jcw_target.closest( '.cacap-widget-section-editable' ).hasClass( 'cacap-widget-title' ) ) {
 				if ( 'ok' === ok_or_cancel ) {
 					// Copy new content to hidden input
-					$jcw_half.find( '.editable-content-stash' ).val( $jcw_half.find( '.editable-content' ).html() );
+					self.$jcw_half.find( '.editable-content-stash' ).val( self.$jcw_half.find( '.editable-content' ).html() );
 				} else {
 					// Replace the edited content with the cached value
-					$jcw_half.find( '.editable-content' ).html( widget_value_cache[ self.wid ] );
+					self.$jcw_half.find( '.editable-content' ).html( self.widget_value_cache[ self.wid ] );
 				}
 
 			// The content side is an input field
@@ -269,12 +269,12 @@ window.wp = window.wp || {};
 				if ( 'ok' === ok_or_cancel ) {
 					// nothing to do?
 				} else {
-					$jcw_half.find( 'input.cacap-edit-input' ).val( widget_value_cache[ self.wid ] );
+					self.$jcw_half.find( 'input.cacap-edit-input' ).val( self.widget_value_cache[ self.wid ] );
 				}
 			}
 
 			// Remove editing class
-			$jcw_half.removeClass( 'editing' );
+			self.$jcw_half.removeClass( 'editing' );
 
 			// Remove currently_editing toggle
 			self.unmark_currently_editing();
@@ -313,10 +313,10 @@ window.wp = window.wp || {};
 		 */
 		toggle_editable_rss: function() {
 			// Cache the current value of the widget, in case of Cancel
-			widget_value_cache[ self.wid ] = $jcw_half.find( 'input.cacap-edit-input' ).val();
+			self.widget_value_cache[ self.wid ] = self.$jcw_half.find( 'input.cacap-edit-input' ).val();
 
 			// Add the 'editing' class
-			$jcw_half.addClass( 'editing' );
+			self.$jcw_half.addClass( 'editing' );
 		},
 
 		/**
