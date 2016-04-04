@@ -547,6 +547,14 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 .cacap-widget-content {
 	padding-left: $col_width_onethird;
 	min-height: 1.5em;
+
+	& > div {
+		margin-bottom: 1em;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
 }
 
 #cacap-widget-list {
