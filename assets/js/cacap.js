@@ -236,8 +236,9 @@ window.wp = window.wp || {};
 		 */
 		process_okcancel: function( ok_or_cancel ) {
 			if ( 'ok' === ok_or_cancel ) {
+				var cleaned_content = self.clean_content( self.$jcw_half.find( '.editable-content' ).html() );
 				// Copy new content to hidden input
-				self.$jcw_half.find( '.editable-content-stash' ).val( self.$jcw_half.find( '.editable-content' ).html() );
+				self.$jcw_half.find( '.editable-content-stash' ).val( cleaned_content );
 			} else {
 				// Replace the edited content with the cached value
 				self.$jcw_half.find( '.editable-content' ).html( self.widget_value_cache[ self.wid ] );
@@ -248,6 +249,26 @@ window.wp = window.wp || {};
 
 			// Remove currently_editing toggle
 			self.unmark_currently_editing();
+		},
+
+		clean_content: function( content ) {
+			var $content = $( content );
+			var clean_content = '';
+
+			// Recurse.
+			$content.children( 'div' ).each( function( k, v ) {
+				clean_content += self.clean_content( v );
+			} );
+
+			// If this is a div that's just wrapper for another div, discard the wrapper.
+			if ( 'DIV' == $content[0].tagName ) {
+				var $dcontent = $content.children( 'div' );
+				if ( 1 == $dcontent.length && 'DIV' === $dcontent[0].tagName ) {
+					clean_content += $dcontent.html();
+				}
+			}
+
+			return clean_content;
 		},
 
 		/**
