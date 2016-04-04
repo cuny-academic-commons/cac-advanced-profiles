@@ -255,17 +255,16 @@ window.wp = window.wp || {};
 			var $content = $( content );
 			var clean_content = '';
 
-			// Recurse.
-			$content.children( 'div' ).each( function( k, v ) {
-				clean_content += self.clean_content( v );
-			} );
-
 			// If this is a div that's just wrapper for another div, discard the wrapper.
 			if ( 'DIV' == $content[0].tagName ) {
 				var $dcontent = $content.children( 'div' );
 				if ( 1 == $dcontent.length && 'DIV' === $dcontent[0].tagName ) {
-					clean_content += $dcontent.html();
+					clean_content += self.clean_content( $dcontent.html() );
+				} else {
+					clean_content += content;
 				}
+			} else {
+				clean_content += content;
 			}
 
 			return clean_content;
