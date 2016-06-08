@@ -253,10 +253,11 @@ window.wp = window.wp || {};
 
 		clean_content: function( content ) {
 			var $content = $( content );
+			var $content_first = $content[0];
 			var clean_content = '';
 
 			// If this is a div that's just wrapper for another div, discard the wrapper.
-			if ( 'DIV' == $content[0].tagName ) {
+			if ( $content_first && 'DIV' == $content_first.tagName ) {
 				var $dcontent = $content.children( 'div' );
 				if ( 1 == $dcontent.length && 'DIV' === $dcontent[0].tagName ) {
 					clean_content += self.clean_content( $dcontent.html() );
