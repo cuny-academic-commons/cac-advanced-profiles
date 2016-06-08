@@ -268,6 +268,10 @@ window.wp = window.wp || {};
 				clean_content += content;
 			}
 
+			// Remove bad line breaks from MS Word paste (all line breaks should be
+			// followed immediately by an HTML tag)
+			clean_content = clean_content.replace( /\n([^<])/g, " $1" );
+
 			return clean_content;
 		},
 
