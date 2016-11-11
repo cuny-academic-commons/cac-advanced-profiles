@@ -234,6 +234,8 @@ abstract class CACAP_Widget {
 
 	public function edit_content_markup( $value, $key ) {
 		if ( $this->allow_edit ) {
+			// Remove bad line endings.
+			$value = preg_replace( '|\r?\n|', "<br />", $value );
 			$html  = '<article class="editable-content richtext">' . $value . '</article>';
 			$html .= '<input name="' . $key . '[content]" class="editable-content-stash" type="hidden" value="' . esc_html( $value ) . '" />';
 			return $html;
