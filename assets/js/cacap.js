@@ -385,9 +385,15 @@ window.wp = window.wp || {};
 
 			for ( var i = 0; i < positions.length; i++ ) {
 				this_position_static_text = '';
-				if ( positions[i].college && positions[i].department && positions[i].title ) {
+				if ( positions[i].college ) {
 					this_position_static_text += '<span class="cacap-positions-title">' + positions[i].title + '</span> ';
+				}
+
+				if ( positions[i].department ) {
 					this_position_static_text += '<span class="cacap-positions-department">' + positions[i].department + '</span>';
+				}
+
+				if ( positions[i].title ) {
 					this_position_static_text += '<span class="cacap-positions-college">' + positions[i].college + '</span>';
 				}
 
