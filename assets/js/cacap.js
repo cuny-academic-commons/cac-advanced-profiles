@@ -136,6 +136,7 @@ window.wp = window.wp || {};
 			// Delete a position
 			self.$widget_list.on( 'click', '.cacap-delete-position', function() {
 				$( this ).parent( 'li' ).remove();
+				return false;
 			} );
 		},
 
