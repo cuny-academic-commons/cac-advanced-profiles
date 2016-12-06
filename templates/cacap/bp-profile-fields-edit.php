@@ -1,4 +1,4 @@
-<?php if ( bp_has_profile( 'profile_group_id=1' ) ) : ?>
+<?php if ( bp_has_profile( 'profile_group_id=1&user_id=' . bp_displayed_user_id() ) ) : ?>
 	<div class="cacap-row cacap-bp-profile-fields">
 
 	<?php
