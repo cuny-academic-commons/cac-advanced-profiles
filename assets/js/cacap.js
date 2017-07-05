@@ -63,7 +63,7 @@ window.wp = window.wp || {};
 
 			if ( window_height < $(document).height() - 200 ) {
 				$('.cacap-hero-row').waypoint('sticky', {
-					offset: 10,
+					offset: -150,
 					wrapper: '<div class="cacap-hero-row-sticky" />'
 				} );
 			}
