@@ -102,16 +102,12 @@ body.cacap, body.bp-user {
 	margin: 0 auto;
 
 	h1 {
-		font-size: 44px;
+		font-size: 3em;
 	}
 
 	h4 {
-		font-size: 23px;
+		font-size: 1.25em;
 	}
-}
-
-#cacap-content {
-	margin-top: 30px;
 }
 
 body.cacap #cacap-header .cacap-hero-row .cacap-edit-buttons {
@@ -286,6 +282,7 @@ body.cacap #cacap-header .cacap-hero-row.stuck {
 
 			.cacap-sticky-dummy {
 				width: 940px;
+				padding-top: 20px;
 				margin: 0px auto;
 			}
 
@@ -1069,19 +1066,54 @@ body.cacap .cacap-widget-content .hallotoolbar {
 }
 
 /* Media queries */
-@media screen and (max-width:940px) {
-	.cacap-row {
-		min-width: 0;
-	}
-
-	#cacap-header .cacap-hero-row.stuck .cacap-sticky-dummy {
-		width: auto;
-		padding: 0 10px;
-	}
-}
-
 @media screen and (max-width:650px) {
 	#cacap-header .cacap-hero {
 		width: 50%;
+	}
+}
+
+@media screen and (max-width: 940px){
+	.cacap-row{
+		min-width:0;
+	}
+	#cacap-header .cacap-hero-row.stuck {
+		left: 0;
+		padding: 0;
+		margin-left: 0;
+		
+		.cacap-sticky-dummy{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width:auto;
+			padding:56px 10px 0;
+		}
+	}
+	#cacap-header .avatar {
+		box-sizing: border-box;
+	}
+	body.cacap #cacap-header .cacap-hero-row.stuck .cacap-edit-buttons {
+		width: auto;
+		padding-right: 10px;
+	}
+}
+/* Breakpoint for WP Admin Bar */
+@media screen and (max-width: 590px) {
+	body.cacap h1, body.bp-user h1 {
+		font-size: 2em;
+	}
+	#cacap-header .cacap-hero-row.stuck .cacap-sticky-dummy {
+		padding-top: 10px;
+	}
+}
+/* Another breakpoint for WP Admin Bar */
+@media screen and (max-width: 791px) {
+	#cacap-header .cacap-hero-row {
+		padding-top: 56px;
+	}
+}
+@media screen and (max-width: 650px){
+	#cacap-header .cacap-hero{
+		width:50%;
 	}
 }
