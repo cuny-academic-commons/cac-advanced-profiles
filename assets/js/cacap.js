@@ -60,10 +60,11 @@ window.wp = window.wp || {};
 			}
 
 			var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+			var hero_height = $('.cacap-hero-row').outerHeight();
 
 			if ( window_height < $(document).height() - 200 ) {
 				$('.cacap-hero-row').waypoint('sticky', {
-					offset: -150,
+					offset: 0 - hero_height + 300,
 					wrapper: '<div class="cacap-hero-row-sticky" />'
 				} );
 			}
