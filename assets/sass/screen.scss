@@ -1070,6 +1070,17 @@ body.cacap .cacap-widget-content .hallotoolbar {
 	#cacap-header .cacap-hero {
 		width: 50%;
 	}
+
+	.cacap-widget-title {
+		float: none;
+		margin: auto 10px 10px 10px;
+		width: auto;
+	}
+
+	.cacap-widget-content {
+		margin: auto 20px;
+		padding-left: 0;
+	}
 }
 
 @media screen and (max-width: 940px){
@@ -1080,7 +1091,7 @@ body.cacap .cacap-widget-content .hallotoolbar {
 		left: 0;
 		padding: 0;
 		margin-left: 0;
-		
+
 		.cacap-sticky-dummy{
 			display: flex;
 			justify-content: space-between;
