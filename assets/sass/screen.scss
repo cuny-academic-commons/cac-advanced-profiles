@@ -1081,6 +1081,28 @@ body.cacap .cacap-widget-content .hallotoolbar {
 		margin: auto 20px;
 		padding-left: 0;
 	}
+
+	#cacap-header {
+		#cacap-vitals {
+			dt {
+				border-right: none;
+				float: none;
+				margin-bottom: 8px;
+				padding-bottom: 0;
+			}
+
+			dd {
+				margin-bottom: 15px;
+			}
+
+			dd.cacap-vitals-contact {
+				line-height: 40px;
+				margin-bottom: 0;
+				margin-top: 16px;
+				overflow: hidden;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 940px){
