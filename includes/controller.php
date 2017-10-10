@@ -200,7 +200,7 @@ class CACAP_Controller {
 	}
 
 	public function body_class( $classes ) {
-		if ( bp_is_user_profile() ) {
+		if ( bp_is_user() ) {
 			$classes[] = 'cacap';
 		}
 
