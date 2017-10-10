@@ -55,18 +55,18 @@ window.wp = window.wp || {};
 		 * Set up the sticky header.
 		 */
 		init_stickyheader: function() {
-			if ( $( 'body' ).hasClass( 'short-header' ) ) {
-				return;
-			}
-
-			var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
 			var hero_height = $('.cacap-hero-row').outerHeight();
+			if ( $( 'body' ).hasClass( 'short-header' ) ) {
+				$('#cacap-header').height( hero_height - 85 );
+			} else {
+				var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
 
-			if ( window_height < $(document).height() - 200 ) {
-				$('.cacap-hero-row').waypoint('sticky', {
-					offset: 0 - hero_height + 300,
-					wrapper: '<div class="cacap-hero-row-sticky" />'
-				} );
+				if ( window_height < $(document).height() - 200 ) {
+					$('.cacap-hero-row').waypoint('sticky', {
+						offset: 0 - hero_height + 300,
+						wrapper: '<div class="cacap-hero-row-sticky" />'
+					} );
+				}
 			}
 		},
 
