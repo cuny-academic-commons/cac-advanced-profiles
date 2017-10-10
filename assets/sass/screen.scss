@@ -1145,7 +1145,7 @@ body.cacap .cacap-widget-content .hallotoolbar {
 
 /* Don't let the login bar lose its fixed positioning on user pages */
 @media screen and ( max-width:600px ) {
-	html #wpadminbar {
+	body.bp-user #wpadminbar {
 		position: fixed;
 	}
 }
