@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html <?php language_attributes(); ?>>
 <?php
 /**
  * The top-level template for CAC Advanced Profiles
