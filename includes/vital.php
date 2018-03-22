@@ -120,7 +120,7 @@ function cacap_vitals() {
 	}
 
 	// Sort by position
-	usort( $vitals, create_function( '$a, $b', '
+	usort( $vitals, function( $a, $b ) {
 		if ( $a->position > $b->position ) {
 			return 1;
 		} else if ( $a->position < $b->position ) {
@@ -128,7 +128,7 @@ function cacap_vitals() {
 		} else {
 			return 0;
 		}
-	' ) );
+	} );
 
 	return $vitals;
 }
