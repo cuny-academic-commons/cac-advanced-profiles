@@ -59,9 +59,9 @@ body.js .hide-if-js {
 	display: none;
 }
 
-body.cacap .button,
-body.cacap input[type="button"],
-body.cacap input[type="submit"] {
+body.cacap .cacap-row .button,
+body.cacap .cacap-row input[type="button"],
+body.cacap .cacap-row input[type="submit"] {
 	background: none repeat scroll 0 0 $button_blue;
 	border: 1px solid #1E728C;
 	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
