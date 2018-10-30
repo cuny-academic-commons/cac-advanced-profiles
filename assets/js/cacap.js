@@ -254,7 +254,7 @@ window.wp = window.wp || {};
 		},
 
 		clean_content: function( content ) {
-			var $content = $( content );
+			var $content = $( '<div />' ).html( content ).contents();
 			var $content_first = $content[0];
 			var clean_content = '';
 
