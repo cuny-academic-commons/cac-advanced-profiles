@@ -92,7 +92,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 
 	public function edit_content_markup( $value, $key ) {
 		$html  = '<article class="editable-content richtext">' . $value['content'] . '</article>';
-		$html .= '<textarea name="' . esc_attr( $key ) . '[content]" class="editable-content-stash">' . esc_textarea( $value['content'] ) . '</textarea>';
+		$html .= '<textarea name="' . esc_attr( $key ) . '[content]" class="editable-content-stash">' . urlencode( esc_textarea( $value['content'] ) ) . '</textarea>';
 		return $html;
 	}
 }

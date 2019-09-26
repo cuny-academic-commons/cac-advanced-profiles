@@ -237,7 +237,7 @@ abstract class CACAP_Widget {
 			// Remove bad line endings.
 			$value = preg_replace( '|\r?\n|', "<br />", $value );
 			$html  = '<article class="editable-content richtext">' . $value . '</article>';
-			$html .= '<textarea name="' . $key . '[content]" class="editable-content-stash">' . esc_textarea( $value ) . '</textarea>';
+			$html .= '<textarea name="' . esc_attr( $key ) . '[content]" class="editable-content-stash">' . urlencode( esc_textarea( $value ) ) . '</textarea>';
 			return $html;
 		} else {
 			return $this->display_content_markup( $value );
