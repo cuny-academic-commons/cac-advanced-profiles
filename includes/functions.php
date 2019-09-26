@@ -110,6 +110,16 @@ function cacap_field_is_visible_for_user( $field_id = 0, $displayed_user_id = 0,
 }
 
 function cacap_sanitize_content( $content ) {
+	// Remove illegal tags.
+	$dom = new DOMDocument;
+	$dom->loadHTML( $content );
+	$xPath = new DOMXPath( $dom );
+	foreach ( $dom->getElementsByTagName( 'style' ) as $style ) {
+		$style->parentNode->removeChild( $style );
+	}
+	$content = $dom->saveHTML();
+
+	// KSES sanitization.
 	return wp_kses( $content, array(
 		'a' => array(
 			'href' => array(),
