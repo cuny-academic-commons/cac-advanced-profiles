@@ -91,7 +91,7 @@ abstract class CACAP_Widget {
 		}
 
 		// Sanitize data
-		$r['content'] = cacap_sanitize_content( $r['content'] );
+		$r['content'] = map_deep( $r['content'], 'cacap_sanitize_content' );
 
 		if ( xprofile_set_field_data( $field_id, absint( $r['user_id'] ), $r['content'] ) ) {
 			return CACAP_Widget_Instance::format_instance( array(
