@@ -236,6 +236,14 @@ abstract class CACAP_Widget {
 		if ( $this->allow_edit ) {
 			// Remove bad line endings.
 			$value = preg_replace( '|\r?\n|', "<br />", $value );
+
+			// But don't allow duplicates.
+			$value = preg_replace( '/(<br\ ?\/?>\s*)+/', '<br />', $value );
+
+			// And we don't need <br> after paragraphs, or paragraphs with only a line break.
+			$value = str_replace( '</p><br />', '</p>', $value );
+			$value = str_replace( '<p><br /></p>', '', $value );
+
 			$html  = '<article class="editable-content richtext">' . $value . '</article>';
 			$html .= '<textarea name="' . esc_attr( $key ) . '[content]" class="editable-content-stash">' . urlencode( esc_textarea( $value ) ) . '</textarea>';
 			return $html;

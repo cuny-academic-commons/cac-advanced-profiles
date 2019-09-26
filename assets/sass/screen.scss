@@ -721,6 +721,10 @@ body.profile-edit {
 			);
 	}
 
+	.editable-content-stash {
+		display: none;
+	}
+
 	.cacap-widget-title {
 		width: 28%; /* Leave space for the dashed outlines */
 		margin-left: 20px; /* Leave space for absolutely-positioned drag handle */
