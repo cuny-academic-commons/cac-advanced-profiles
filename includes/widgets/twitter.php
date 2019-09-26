@@ -124,7 +124,7 @@ class CACAP_Widget_Twitter extends CACAP_Widget {
 
 	public function edit_title_markup( $value, $key ) {
 		$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $value['title'] ) ) . '</article>';
-		$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $value['title'] ) ) . '" />';
+		$html .= '<textarea name="' . esc_attr( $key ) . '[title]" class="editable-content-stash">' . esc_textarea( $title ) . '</textarea>';
 		return $html;
 	}
 

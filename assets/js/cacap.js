@@ -240,7 +240,7 @@ window.wp = window.wp || {};
 			if ( 'ok' === ok_or_cancel ) {
 				var cleaned_content = self.clean_content( self.$jcw_half.find( '.editable-content' ).html() );
 				// Copy new content to hidden input
-				self.$jcw_half.find( '.editable-content-stash' ).val( cleaned_content );
+				self.$jcw_half.find( '.editable-content-stash' ).html( cleaned_content );
 			} else {
 				// Replace the edited content with the cached value
 				self.$jcw_half.find( '.editable-content' ).html( self.widget_value_cache[ self.wid ] );
@@ -274,6 +274,9 @@ window.wp = window.wp || {};
 			// followed immediately by an HTML tag)
 			clean_content = clean_content.replace( /\n([^<])/g, " $1" );
 
+			// Escape HTML tags. They will be cleaned up in PHP.
+			clean_content = encodeURIComponent( clean_content );
+
 			return clean_content;
 		},
 
@@ -285,7 +288,7 @@ window.wp = window.wp || {};
 			if ( self.$jcw_target.closest( '.cacap-widget-section-editable' ).hasClass( 'cacap-widget-title' ) ) {
 				if ( 'ok' === ok_or_cancel ) {
 					// Copy new content to hidden input
-					self.$jcw_half.find( '.editable-content-stash' ).val( self.$jcw_half.find( '.editable-content' ).html() );
+					self.$jcw_half.find( '.editable-content-stash' ).html( self.$jcw_half.find( '.editable-content' ).html() );
 				} else {
 					// Replace the edited content with the cached value
 					self.$jcw_half.find( '.editable-content' ).html( self.widget_value_cache[ self.wid ] );

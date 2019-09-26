@@ -246,9 +246,11 @@ class CACAP_Controller {
 
 			// Now edit and add
 			foreach ( $widget_order as $key ) {
-				$title       = isset( $_POST[ $key ]['title'] ) ? $_POST[ $key ]['title'] : '';
-				$content     = isset( $_POST[ $key ]['content'] ) ? $_POST[ $key ]['content'] : '';
-				$widget_type = isset( $_POST[ $key ]['widget_type'] ) ? $_POST[ $key ]['widget_type'] : '';
+				$title       = isset( $_POST[ $key ]['title'] ) ? wp_unslash( $_POST[ $key ]['title'] ) : '';
+				$content     = isset( $_POST[ $key ]['content'] ) ? wp_unslash( $_POST[ $key ]['content'] ) : '';
+				$widget_type = isset( $_POST[ $key ]['widget_type'] ) ? wp_unslash( $_POST[ $key ]['widget_type'] ) : '';
+
+				$content = urldecode( $content );
 
 				// In some cases, such as College, fields may
 				// be empty because it's not intended to be

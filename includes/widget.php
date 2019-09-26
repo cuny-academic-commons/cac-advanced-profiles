@@ -225,7 +225,7 @@ abstract class CACAP_Widget {
 	public function edit_title_markup( $value, $key ) {
 		if ( $this->allow_edit && $this->allow_custom_title ) {
 			$html  = '<article class="editable-content" contenteditable="true">' . esc_html( strip_tags( $value ) ) . '</article>';
-			$html .= '<input name="' . $key . '[title]" class="editable-content-stash" type="hidden" value="' . esc_attr( strip_tags( $value ) ) . '" />';
+			$html .= '<textarea name="' . esc_attr( $key ) . '[title]" class="editable-content-stash">' . esc_textarea( strip_tags( $value ) ) . '</textarea>';
 			return $html;
 		} else {
 			return $this->display_title_markup( $value );
@@ -237,7 +237,7 @@ abstract class CACAP_Widget {
 			// Remove bad line endings.
 			$value = preg_replace( '|\r?\n|', "<br />", $value );
 			$html  = '<article class="editable-content richtext">' . $value . '</article>';
-			$html .= '<input name="' . $key . '[content]" class="editable-content-stash" type="hidden" value="' . esc_html( $value ) . '" />';
+			$html .= '<textarea name="' . $key . '[content]" class="editable-content-stash">' . esc_textarea( $value ) . '</textarea>';
 			return $html;
 		} else {
 			return $this->display_content_markup( $value );
