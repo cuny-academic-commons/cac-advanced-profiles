@@ -19,8 +19,8 @@ class CACAP_Controller {
 		// Hack - don't show College field
 		add_filter( 'bp_has_profile', array( $this, 'hide_college_field' ) );
 
-                // Hack - don't call it "Title Widget" if you can help it
-                add_filter( 'bp_get_the_profile_field_name', array( $this, 'rename_title_widget' ) );
+		// Hack - don't call it "Title Widget" if you can help it
+		add_filter( 'bp_get_the_profile_field_name', array( $this, 'rename_title_widget' ) );
 
 		// Hack - Remove BP's xprofile filters on HTML
 		remove_filter( 'xprofile_data_value_before_save', 'xprofile_sanitize_data_value_before_save', 1, 2 );
