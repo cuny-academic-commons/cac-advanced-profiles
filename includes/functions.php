@@ -169,7 +169,11 @@ function cacap_sanitize_content( $content ) {
 
 	// Remove illegal tags.
 	$dom = new DOMDocument;
+
+	$internalErrors = libxml_use_internal_errors( true );
 	$dom->loadHTML( '<?xml encoding="utf-8" ?>' . $content );
+	$internalErrors = libxml_use_internal_errors( $internalErrors );
+
 	$xPath = new DOMXPath( $dom );
 	foreach ( $dom->getElementsByTagName( 'style' ) as $style ) {
 		$style->parentNode->removeChild( $style );
