@@ -86,7 +86,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	public function edit_title_markup( $value, $key ) {
 		$title = isset( $value['title'] ) ? $value['title'] : '';
 		$html  = '<article class="editable-content" contenteditable="true">' . $title . '</article>';
-		$html .= '<textarea name="' . esc_attr( $key ) . '[title]" class="editable-content-stash">' . esc_textarea( strip_tags( $value ) ) . '</textarea>';
+		$html .= '<textarea name="' . esc_attr( $key ) . '[title]" class="editable-content-stash">' . esc_textarea( strip_tags( $value['title'] ) ) . '</textarea>';
 		return $html;
 	}
 
