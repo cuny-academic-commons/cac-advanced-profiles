@@ -28,6 +28,7 @@ class CACAP_Widget_Instance {
 	 * @param $data array
 	 */
 	public function __construct( $data = null ) {
+
 		if ( ! is_null( $data ) ) {
 			// temp
 			if ( ! empty( $data['type'] ) && ! isset( $data['widget_type'] ) ) {

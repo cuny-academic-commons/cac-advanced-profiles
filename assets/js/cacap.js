@@ -62,10 +62,10 @@ window.wp = window.wp || {};
 				var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
 
 				if ( window_height < $(document).height() - 200 ) {
-					$('.cacap-hero-row').waypoint('sticky', {
-						offset: 0,
+					var sticky = new Waypoint.Sticky({
+						element: $('.cacap-hero-row'),
 						wrapper: '<div class="cacap-hero-row-sticky" />'
-					} );
+					})
 				}
 			}
 		},

@@ -48,7 +48,7 @@
 	<?php if ( bp_is_my_profile() ) : ?>
 		<div class="cacap-edit-buttons">
 		<?php if ( bp_is_user_profile_edit() ) : ?>
-			<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" />
+			<input type="submit" value="<?php _e( 'Save Changes', 'cacap' ) ?>" class="cacap-edit-submit" name="cacap-edit-submit" />
 			<a href="<?php echo bp_displayed_user_domain() . buddypress()->profile->slug ?>/" class="cacap-edit-cancel button"><?php _e( 'Cancel', 'cacap' ) ?></a>
 		<?php else : ?>
 			<a href="<?php echo bp_displayed_user_domain() ?><?php echo buddypress()->profile->slug ?>/edit/" class="cacap-edit-button button"><?php _e( 'Edit', 'cacap' ) ?></a>

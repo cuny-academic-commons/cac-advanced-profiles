@@ -44,6 +44,7 @@ class CACAP_Controller {
 	}
 
 	public function catch_profile_edit() {
+		return;
 		if ( bp_is_user_profile_edit() && ! empty( $_POST['cacap-edit-submit'] ) ) {
 			// @todo nonce
 			$submitted = array();
