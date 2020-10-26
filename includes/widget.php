@@ -192,7 +192,7 @@ abstract class CACAP_Widget {
 	}
 
 	public function display_title_markup( $value ) {
-		return esc_html( $this->name );
+		return esc_html( urldecode( $this->name ) );
 	}
 
 	// @todo use bp xprofile functions for formatting potential arrays, etc

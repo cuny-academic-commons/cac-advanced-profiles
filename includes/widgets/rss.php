@@ -76,7 +76,7 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 	 * @return string
 	 */
 	public function display_title_markup( $value ) {
-		return esc_html( $value['title'] );
+		return esc_html( urldecode( $value['title'] ) );
 	}
 
 	/**

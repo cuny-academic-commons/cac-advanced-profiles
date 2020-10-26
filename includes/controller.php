@@ -251,6 +251,7 @@ class CACAP_Controller {
 				$content     = isset( $_POST[ $key ]['content'] ) ? wp_unslash( $_POST[ $key ]['content'] ) : '';
 				$widget_type = isset( $_POST[ $key ]['widget_type'] ) ? wp_unslash( $_POST[ $key ]['widget_type'] ) : '';
 
+				$title   = urldecode( $title );
 				$content = map_deep( $content, 'urldecode' );
 
 				// In some cases, such as College, fields may

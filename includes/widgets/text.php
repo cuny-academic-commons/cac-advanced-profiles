@@ -80,7 +80,7 @@ class CACAP_Widget_Text extends CACAP_Widget {
 	 * @return string
 	 */
 	public function display_title_markup( $value ) {
-		return esc_html( $value['title'] );
+		return esc_html( urldecode( $value['title'] ) );
 	}
 
 	public function edit_title_markup( $value, $key ) {
