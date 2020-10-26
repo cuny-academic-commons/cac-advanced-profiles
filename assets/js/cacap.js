@@ -60,10 +60,13 @@ window.wp = window.wp || {};
 				$('#cacap-header').height( hero_height - 85 );
 			} else {
 				var window_height = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+				var window_width = "innerWidth" in window ? window.innerWidth : document.documentElement.offsetWidth;
+
+				var stickyOffset = window_width > 600 ? 0 : -5;
 
 				if ( window_height < $(document).height() - 200 ) {
 					$('.cacap-hero-row').waypoint('sticky', {
-						offset: 0,
+						offset: stickyOffset,
 						wrapper: '<div class="cacap-hero-row-sticky" />'
 					} );
 				}
