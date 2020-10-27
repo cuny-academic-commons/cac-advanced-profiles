@@ -11,8 +11,8 @@
 				<a href="<?php echo bp_displayed_user_domain() ?>"><?php echo xprofile_get_field_data( 1, bp_displayed_user_id() ) ?></a>
 			</h1>
 
-			<?php if ( cacap_field_is_visible_for_user( 'Brief Descriptor' ) ) : ?>
-				<h4 class="cacap-short-aboutme"><?php echo xprofile_get_field_data( 'Brief Descriptor', bp_displayed_user_id() ) ?></h4>
+			<?php if ( cacap_field_is_visible_for_user( 'One-Line Bio' ) ) : ?>
+				<h4 class="cacap-short-aboutme"><?php echo xprofile_get_field_data( 'One-Line Bio', bp_displayed_user_id() ) ?></h4>
 			<?php endif ?>
 
 			<?php if ( cacap_field_is_visible_for_user( 'About You' ) ) : ?>
