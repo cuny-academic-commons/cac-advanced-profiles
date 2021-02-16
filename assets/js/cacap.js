@@ -55,7 +55,13 @@ window.wp = window.wp || {};
 		 * Set up the sticky header.
 		 */
 		init_stickyheader: function() {
-			var hero_height = $('.cacap-hero-row').outerHeight();
+			// Bail if there's no hero element.
+			var $heroRow = $('.cacap-hero-row');
+			if ( 0 === $heroRow.length ) {
+				return;
+			}
+
+			var hero_height = $heroRow.outerHeight();
 			if ( $( 'body' ).hasClass( 'short-header' ) ) {
 				$('#cacap-header').height( hero_height - 85 );
 			} else {
@@ -63,7 +69,7 @@ window.wp = window.wp || {};
 
 				if ( window_height < $(document).height() - 200 ) {
 					var sticky = new Waypoint.Sticky({
-						element: $('.cacap-hero-row'),
+						element: $heroRow,
 						wrapper: '<div class="cacap-hero-row-sticky" />'
 					})
 				}
