@@ -41,16 +41,14 @@ class CACAP_Widget_RSS extends CACAP_Widget {
 		// @todo - uniqueness? what about updating existing?
 		$meta_key = empty( $r['key'] ) ? 'cacap_widget_instance_' . sanitize_title_with_dashes( $r['title'] ) : $r['key'];
 
-		if ( update_user_meta( $r['user_id'], $meta_key, $meta_value ) ) {
-			return CACAP_Widget_Instance::format_instance( array(
-				'user_id' => $r['user_id'],
-				'key' => $meta_key,
-				'value' => $meta_value,
-				'widget_type' => $this->slug,
-			) );
-		} else {
-			// do something bad
-		}
+		update_user_meta( $r['user_id'], $meta_key, $meta_value );
+
+		return CACAP_Widget_Instance::format_instance( array(
+			'user_id' => $r['user_id'],
+			'key' => $meta_key,
+			'value' => $meta_value,
+			'widget_type' => $this->slug,
+		) );
 	}
 
 	public function get_instance_for_user( $args = array() ) {
