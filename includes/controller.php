@@ -183,14 +183,15 @@ class CACAP_Controller {
 			$deps[] = 'cacap-scrollto';
 			wp_enqueue_script( 'cacap-rangy' );
 			wp_enqueue_script( 'cacap-hallo' );
-		}
 
-		wp_enqueue_script(
-			'cacap',
-			CACAP_PLUGIN_URL . '/assets/js/cacap.js',
-			$deps,
-			$v
-		);
+
+			wp_enqueue_script(
+				'cacap',
+				CACAP_PLUGIN_URL . '/assets/js/cacap.js',
+				$deps,
+				$v
+			);
+		}
 
 		wp_localize_script( 'cacap', 'CACAP_Strings', array(
 			'clear_formatting_confirm' => __( 'Are you sure you want to remove all formatting from this field?', 'cacap' ),
