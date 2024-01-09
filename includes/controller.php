@@ -288,9 +288,9 @@ class CACAP_Controller {
 		}
 		// Redirect to user profile after save.
 		// Stolen from http://buddypress.org/support/topic/how-to-redirect-users-to-their-profile-after-they-edit-their-profile/
-		global $bp;
-		bp_core_redirect( bp_displayed_user_domain() );
-		exit;
+		if ( isset( $_POST['cacap-widget-order'] ) ) {
+			bp_core_redirect( bp_displayed_user_domain() );
+		}
 	}
 
 	public function filter_add_friend_button( $button ) {
